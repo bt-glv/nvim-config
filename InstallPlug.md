@@ -3,7 +3,7 @@ Install declared plugins
  :so %		
  :PlugInstall
 
- Uninstalling plugins
+ Uninstall plugins
  -- Remove the plugin(s) from your Plug call
  :PlugClean
 
