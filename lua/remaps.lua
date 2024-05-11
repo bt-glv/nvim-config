@@ -26,19 +26,22 @@ function Remap_QualityOfLife_base()
 	-- Tab from normal mode enters command mode
 	kmn("<tab>", ":")
 
-		
 	-- Indent text right after cursor in normal mode
 	-- Creates new lines in normal mode
-	kmn("<leader><tab>", "i<tab><esc>l")
+	kmn( "<leader><tab>", "i<tab><esc>l")
 	kmn( "<leader><cr>", "o<Esc>k")
-		-- Attention! <cr> (enter) remaps can mess up some terminal mode utilities, like q: command mode buffer editor.
+	-- Those two only work if your terminal emulator send the signal 
+	-- vim expects for that character combination.
+	-- https://stackoverflow.com/questions/16359878/how-to-map-shift-enter
+	kmn( "<c-cr>", "o<Esc>k")
+	kmn( "<s-cr>", "i<tab><esc>l")
 
 	-- Opens Explorer (newtr)
 	kmn( "<leader>vp", vim.cmd.Ex)
 
 	-- :noh (no highlight) remap
 	kmn( "<leader><space>", ":noh<CR>")
-			
+
 	-- Normal mode Backspace is now @
 	kmn("<BS>", "@")
 
@@ -50,16 +53,6 @@ function Remap_QualityOfLife_base()
 	-- This is somewhat important to my workflow.
 	kmn("<leader>todo", "o# To-Start<cr># In-progress<cr># Done<esc>2k")
 
-
-
-	-- Relative line number in netrw
-	-- This is extremely exoteric and I have no idea how it works..
-	-- This would make an awsome spell cast lmao
-	-- noma nomod nu nobl nowrap ro: TESTICULAR TORSION!
-	-- noma nomod, nu nobl nowrap ro! THOU NOW HAST A PROLAPSED ANUS!
-	
-	
-	
 		-- COMMAND MODE EDIT UTILITIES --
 	-- From command mode, enters command mode buffer
 	kmc("<c- >", "<c-c>q:kf/0")
@@ -68,9 +61,6 @@ function Remap_QualityOfLife_base()
 	kmn("<leader>c", "<c-c><c-c>")
 	-- leader ; enters command mode edit
 	kmn("<leader>;", "q:k")
-
-
-			
 end
 
 function Remap_split_window_controls() 
@@ -138,17 +128,6 @@ function Remap_default_buffer_manipulation()
 end
 
 
-function Remap_fzf_vim()
-	-- fzf.vim remaps
-	kmn( "<leader>ff", 	":Files<CR>") 		-- Fuzzy finds and open file 
-	kmn( "<leader>fb", 	":Buffers<CR>") 	-- Fuzzy finds and open buffer
-	kmn( "<leader>fl", 	":BLines<CR>") 		-- Fuzzy finds a line in your current text buffer
-	kmn( "<leader>fm", 	":Marks<CR>") 		-- Fuzzy finds marks 
-	kmn( "<leader>fr", 	":Rg<CR>") 		-- Finds files that contain a ripgrep match
-	kmn( "<leader>fg", 	":Ag<CR>")
-end
-
-
 -- [[[ LUA and Python scripting utilities ]] --
 function Remap_run_scirpt()
 	km('n', "<leader><F5>", ":!%:p<cr>")
@@ -182,17 +161,6 @@ function Remap_spell_check()
 	kmn("z<leader>","z=")
 end
 
--- TODO: Find a lua way of doing this
-function Remap_vimSneak()
-	cmd([[
-	map f <Plug>Sneak_f
-	map F <Plug>Sneak_F
-	map t <Plug>Sneak_t
-	map T <Plug>Sneak_T
-	]])
-end
-
-
 
 -->>> Default remaps
 Remap_QualityOfLife_base()
@@ -203,11 +171,5 @@ Remap_default_buffer_manipulation()
 Remap_clipboard_utilities()
 Remap_spell_check()
 Remap_split_window_controls()
-
--- # External program or Plugin dependent
-Remap_fzf_vim() -- Requires ripgrep and "ag" to be installed outside neovim
--- Remap_vimSneak()
-
--- # Enable to use "gambiarras" to emulate/mitigate the lack of certain extentions
 --Remap_if_plugins_are_not_viable()
 

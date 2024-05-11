@@ -6,6 +6,7 @@
     - nvim tree
 
 # In-progress
+
 # Done
 - Get lsp working
 

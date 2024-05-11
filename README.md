@@ -1,7 +1,11 @@
+# About
+TBA
+
 
 # Required packages for this nvim config
+
 Node.js
 FZF
 ripgrep
 go
-gcc | clang | any other c compiler 
+gcc | clang | other C compiler 

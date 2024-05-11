@@ -1,5 +1,5 @@
 
-local function main() 
+local function main()
 kmn( "<leader>ff", 	":Files<CR>") 		-- Fuzzy finds and open file 
 kmn( "<leader>fb", 	":Buffers<CR>") 	-- Fuzzy finds and open buffer
 kmn( "<leader>fl", 	":BLines<CR>") 		-- Fuzzy finds a line in your current text buffer
