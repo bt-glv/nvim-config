@@ -1,5 +1,3 @@
--- local function main()
--- end
 
 local function main()
 

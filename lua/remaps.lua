@@ -30,11 +30,11 @@ function Remap_QualityOfLife_base()
 	-- Creates new lines in normal mode
 	kmn( "<leader><tab>", "i<tab><esc>l")
 	kmn( "<leader><cr>", "o<Esc>k")
-	-- Those two only work if your terminal emulator send the signal 
+	kmn( "<A-'>", "i<tab><esc>l")
+	kmn( "<A-cr>", "o<Esc>k")
+	-- <c-cr> and <s-cr> only work if your terminal emulator send the signal 
 	-- vim expects for that character combination.
 	-- https://stackoverflow.com/questions/16359878/how-to-map-shift-enter
-	kmn( "<c-cr>", "o<Esc>k")
-	kmn( "<s-cr>", "i<tab><esc>l")
 
 	-- Opens Explorer (newtr)
 	kmn( "<leader>vp", vim.cmd.Ex)
