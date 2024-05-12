@@ -64,6 +64,7 @@ local function quality_of_life()
 end
 
 local function split_window_controls() 
+	kmn("<A- >", "<c-w>")
 	kmn("<c-w>,", "<c-w>7<")
 	kmn("<c-w>.", "<c-w>7>")
 	kmn("<c-w>=", "<c-w>7+")

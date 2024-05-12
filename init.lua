@@ -12,5 +12,5 @@ require('plugin.others')
 require('plugin.treesitter')
 require('plugin.lsp0')
 require('plugin.fzf')
-require('plugin.oil')
+require('plugin.oil') -- replaces netrw
 Plugin_init()
