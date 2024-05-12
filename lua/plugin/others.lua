@@ -1,7 +1,5 @@
 
 local function main()
-
-	-- Remaps
 	cmd([[
 	map f <Plug>Sneak_f
 	map F <Plug>Sneak_F
@@ -12,10 +10,8 @@ local function main()
 end
 
 local function error_handler(err)
-	print("\n\n<<  ERROR  >>\nOther functions -> error processing main function/config\n\n" .. err)
-end
-
-
+	if not Show_errors then err = "" end
+	print("\n\n<<  ERROR  >>\nOther functions -> error processing main function/config\n\n" .. err) end
 
 -- Exec
 plugin_add([[

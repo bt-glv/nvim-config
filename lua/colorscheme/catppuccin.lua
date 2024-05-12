@@ -1,6 +1,4 @@
 
-local function error_handler(err) print("\n\n<<  ERROR  >>\nPlugin: Catppuccin -> error processing config\nMaybe its not installed?\n\n" .. err) end
-
 local function main()
 	require("catppuccin").setup({
 	    flavour = "mocha", -- latte, frappe, macchiato, mocha, auto
@@ -61,11 +59,9 @@ local function main()
 	cmd([[highlight LineNr term=bold cterm=NONE ctermfg=NONE ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE]])
 end
 
-
-
+local function error_handler(err) print("\n\n<<  ERROR  >>\nPlugin: Catppuccin -> error processing config\nMaybe its not installed?\n\n" .. err) end
 
 -- Exec
 plugin_add([[ Plug 'catppuccin/nvim', { 'as': 'catppuccin' } ]])
 plugin_add_config(function() xpcall(main, error_handler) end)
-
 

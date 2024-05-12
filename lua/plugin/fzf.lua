@@ -9,12 +9,10 @@ kmn( "<leader>fg", 	":Ag<CR>")
 end
 
 local function error_handler(err)
-	print("\n\n<<  ERROR  >>\nfzf -> error processing main function/config\nfzf vim might not be installed or plug statement didn't execute yet\n\n" .. err)
+	if not Show_errors then err = "" end
+	print("\n\n<<  ERROR  >>\nfzf -> error processing main function/config\nMaybe its not installed?\n\n" .. err)
 	return "fzf -> error processing main function/config"
 end
-
-
-
 
 -- Exec
 plugin_add([[

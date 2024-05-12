@@ -31,16 +31,11 @@ local function main()
 
 end
 
-
 local function error_handler(err)
-	print("\n\n<<  ERROR  >>\nlsp0 -> error processing main function/config\nlsp0 might not be installed or plug statement didn't execute yet\n\n" .. err)
-	return "lsp0 -> error processing main function/config"
-end
-
-
+	if not Show_errors then err = "" end
+	print("\n\n<<  ERROR  >>\nlsp0 -> error processing main function/config\nMaybe its not installed?\n\n" .. err) end
 
 -- Exec
-
 plugin_add([[
 Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
@@ -52,6 +47,4 @@ Plug 'VonHeikemen/lsp-zero.nvim', {'branch': 'v3.x'}
 ]])
 
 plugin_add_config(function() xpcall(main, error_handler) end)
-
-
 

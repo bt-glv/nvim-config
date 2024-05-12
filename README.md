@@ -4,8 +4,10 @@ TBA
 
 # Required packages for this nvim config
 
-Node.js
-FZF
-ripgrep
-go
-gcc | clang | other C compiler 
+<ul>
+    <li>Node.js</li>
+    <li>FZF</li>
+    <li>ripgrep</li>
+    <li>go</li>
+    <li>gcc | clang | other C compiler </li>
+</ul>

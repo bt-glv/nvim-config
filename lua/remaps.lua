@@ -2,7 +2,7 @@
 vim.g.mapleader = " "
 
 -- << Remaps by topic >> --
-function Remap_QualityOfLife_base()
+local function quality_of_life()
 
 	-- control space to switch from insert to replace mode
 	kmi("<c- >", "<Insert>")
@@ -63,7 +63,7 @@ function Remap_QualityOfLife_base()
 	kmn("<leader>;", "q:k")
 end
 
-function Remap_split_window_controls() 
+local function split_window_controls() 
 	kmn("<c-w>,", "<c-w>7<")
 	kmn("<c-w>.", "<c-w>7>")
 	kmn("<c-w>=", "<c-w>7+")
@@ -71,7 +71,7 @@ function Remap_split_window_controls()
 end
 
 -- [[[ Search and replace ]]] --
-function Remap_search_and_replace()
+local function search_and_replace()
 
 	-- NORMAL: serach and replace word under cursor
 	kmn("<leader>8", '*:%s//')
@@ -102,7 +102,7 @@ end
 
 
 -- [[[ Clipboard Utilities ]]] --
-function Remap_clipboard_utilities()
+local function clipboard_utilities()
 	-- Facilitates the use of the system clipboard
 	kmn("<leader>yy", '"+yy') 
 	kmv("<leader>y", '"+y') 
@@ -118,7 +118,7 @@ end
 
 
 -- [[[ Buffer-related ]]] --
-function Remap_default_buffer_manipulation()
+local function default_buffer_manipulation()
 	-- Default buffer commands remapings
 	kmn( "<leader>n", ":bn<CR>")
 	kmn( "<leader>N", ":bN<CR>")
@@ -129,7 +129,7 @@ end
 
 
 -- [[[ LUA and Python scripting utilities ]] --
-function Remap_run_scirpt()
+local function run_scirpt()
 	km('n', "<leader><F5>", ":!%:p<cr>")
 		-- pr -> Project.Run
 end
@@ -137,7 +137,7 @@ end
 
 
 -- [[[ Remaps for when plugins like sneak.vim are not available ]] --
-function Remap_if_plugins_are_not_viable()
+local function if_plugins_are_not_viable()
 	kmn('s','/')
 	kmn('S','?')
 end
@@ -145,7 +145,7 @@ end
 
 
 -- [[[ Set Spell Checker ]]] --
-function Remap_set_spell() 
+local function set_spell() 
 	kmn( "<leader>ss", ":set spell!<cr>")
 		-- "set  spell" --
 	kmn( "<leader>sl", ":set spelllang=")
@@ -155,21 +155,29 @@ end
 
 
 -- [[[ spell checke keys remaps ]]] --
-function Remap_spell_check()
+local function spell_check()
 	kmn("z;","]s")
 	kmn("z,","[s")
 	kmn("z<leader>","z=")
 end
 
+local function replace_across_project_files()
+	kmn("<leader>r1", ':vimgrep /<c-r>"/gj **/*')
+	kmn("<leader>r2", ':copen<cr>')
+	kmn("<leader>r3", 'q:icfdo %s/<c-r>"/,/g | update<Esc>F,xi')
+	-- Be careful where you use this
+end
+
 
 -->>> Default remaps
-Remap_QualityOfLife_base()
-Remap_search_and_replace()
-Remap_set_spell()
-Remap_run_scirpt()
-Remap_default_buffer_manipulation()
-Remap_clipboard_utilities()
-Remap_spell_check()
-Remap_split_window_controls()
---Remap_if_plugins_are_not_viable()
+quality_of_life()
+search_and_replace()
+set_spell()
+run_scirpt()
+clipboard_utilities()
+spell_check()
+split_window_controls()
+replace_across_project_files()
+--default_buffer_manipulation()
+--if_plugins_are_not_viable()
 

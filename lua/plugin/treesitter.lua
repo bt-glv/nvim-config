@@ -13,9 +13,7 @@ local function main()
 end
 
 local function error_handler(err)
-	print("\n\n<<  ERROR  >>\nTreesitter Config -> error processing main function/config\nTreesitter may not be installed\n\n" .. err)
-	return "Treesitter Config -> error processing main function/config"
-end
+	print("\n\n<<  ERROR  >>\nTreesitter Config -> error processing main function/config\nMaybe its not installed?\n\n" .. err) end
 
 -- Exec
 plugin_add([[Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}]])
