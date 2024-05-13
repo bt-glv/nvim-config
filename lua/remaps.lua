@@ -37,7 +37,7 @@ local function quality_of_life()
 	-- https://stackoverflow.com/questions/16359878/how-to-map-shift-enter
 
 	-- Opens Explorer (newtr)
-	kmn( "<leader>vp", vim.cmd.Ex)
+	kmn( "<leader>pv", vim.cmd.Ex)
 
 	-- :noh (no highlight) remap
 	kmn( "<leader><space>", ":noh<CR>")
@@ -64,11 +64,16 @@ local function quality_of_life()
 end
 
 local function split_window_controls() 
-	kmn("<A- >", "<c-w>")
 	kmn("<c-w>,", "<c-w>7<")
 	kmn("<c-w>.", "<c-w>7>")
 	kmn("<c-w>=", "<c-w>7+")
 	kmn("<c-w>-", "<c-w>7-")
+
+	kmn("<A- >", "<c-w>")
+	kmn("<A- >,", "<c-w>7<")
+	kmn("<A- >.", "<c-w>7>")
+	kmn("<A- >=", "<c-w>7+")
+	kmn("<A- >-", "<c-w>7-")
 end
 
 -- [[[ Search and replace ]]] --

@@ -8,6 +8,9 @@ local function main()
 	  -- to learn the available actions
 	  lsp_zero.default_keymaps({buffer = bufnr})
 	end)
+	-- you can always install the language server on your system.
+	-- in that case, once they are installed, just run lsp config with the name of the installed server
+	-- require('lspconfig').server_name.setup({})
 
 	--- if you want to know more about lsp-zero and mason.nvim
 	--- read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guide/integrate-with-mason-nvim.md
