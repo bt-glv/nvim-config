@@ -4,6 +4,9 @@ vim.g.mapleader = " "
 -- << Remaps by topic >> --
 local function quality_of_life()
 
+	-- Alt+space in all modes is equal to control+c
+	km_all("<A- >", "<c-c>")
+
 	-- control space to switch from insert to replace mode
 	kmi("<c- >", "<Insert>")
 
@@ -57,6 +60,7 @@ local function quality_of_life()
 	-- From command mode, enters command mode buffer
 	kmc("<c- >", "<c-c>q:kf/0")
 	kmn("<c- >", "<c-c><c-c>:<up>")
+	kmv("<c- >", ":")
 	-- Quick exit command mode buffer
 	kmn("<leader>c", "<c-c><c-c>")
 	-- leader ; enters command mode edit
@@ -69,11 +73,21 @@ local function split_window_controls()
 	kmn("<c-w>=", "<c-w>7+")
 	kmn("<c-w>-", "<c-w>7-")
 
-	kmn("<A- >", "<c-w>")
-	kmn("<A- >,", "<c-w>7<")
-	kmn("<A- >.", "<c-w>7>")
-	kmn("<A- >=", "<c-w>7+")
-	kmn("<A- >-", "<c-w>7-")
+	kmn("<A-w>", "<c-w>")
+	kmn("<A-,>", "<c-w>7<")
+	kmn("<A-.>", "<c-w>7>")
+	kmn("<A-=>", "<c-w>7+")
+	kmn("<A-->", "<c-w>7-")
+	kmn("<A-h>", "<c-w>h")
+	kmn("<A-j>", "<c-w>j")
+	kmn("<A-k>", "<c-w>k")
+	kmn("<A-l>", "<c-w>l")
+
+	-- kmn("<A- >", "<c-w>")
+	-- kmn("<A- >,", "<c-w>7<")
+	-- kmn("<A- >.", "<c-w>7>")
+	-- kmn("<A- >=", "<c-w>7+")
+	-- kmn("<A- >-", "<c-w>7-")
 end
 
 -- [[[ Search and replace ]]] --
