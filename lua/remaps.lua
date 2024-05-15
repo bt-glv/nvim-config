@@ -61,8 +61,7 @@ local function quality_of_life()
 	kmc("<c- >", "<c-c>q:kf/0")
 	kmn("<c- >", "<c-c><c-c>:<up>")
 	kmv("<c- >", ":")
-	-- Quick exit command mode buffer
-	kmn("<leader>c", "<c-c><c-c>")
+
 	-- leader ; enters command mode edit
 	kmn("<leader>;", "q:k")
 end
@@ -82,12 +81,6 @@ local function split_window_controls()
 	kmn("<A-j>", "<c-w>j")
 	kmn("<A-k>", "<c-w>k")
 	kmn("<A-l>", "<c-w>l")
-
-	-- kmn("<A- >", "<c-w>")
-	-- kmn("<A- >,", "<c-w>7<")
-	-- kmn("<A- >.", "<c-w>7>")
-	-- kmn("<A- >=", "<c-w>7+")
-	-- kmn("<A- >-", "<c-w>7-")
 end
 
 -- [[[ Search and replace ]]] --
@@ -124,11 +117,10 @@ end
 -- [[[ Clipboard Utilities ]]] --
 local function clipboard_utilities()
 	-- Facilitates the use of the system clipboard
-	kmn("<leader>yy", '"+yy') 
-	kmv("<leader>y", '"+y') 
-	kmnv( "<leader>p", '"+p') 
-	kmnv( "P", '"+p') 
-	
+	kmn("<leader>yy", '"+yy')
+	kmv("<leader>y", '"+y')
+	kmnv( "<leader>p", '"+p')
+	kmnv( "P", '"+p')
 	-- Facilitates the usage of 'a' as an alternative copy-paste register
 	kmn("<leader>ayy", '"ayy')
 	kmv("<leader>ay", '"ay')
@@ -183,6 +175,7 @@ end
 
 local function replace_across_project_files()
 	kmn("<leader>r1", ':vimgrep /<c-r>"/gj **/*')
+	kmv("<leader>r1", 'y:vimgrep /<c-r>"/gj **/*')
 	kmn("<leader>r2", ':copen<cr>')
 	kmn("<leader>r3", 'q:icfdo %s/<c-r>"/,/g | update<Esc>F,xi')
 	-- Be careful where you use this

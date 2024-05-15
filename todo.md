@@ -5,8 +5,10 @@
     - more about it (3rd answer): https://stackoverflow.com/questions/75880481/cant-use-lua-lsp-in-neovim
     - perhaps find a way to use system-installed lsp servers together with mason?
     - perhaps switching to the nixos unstable branch might fix it?
+- Experiment using VimWiki instead of notion
 
 # In-progress
+- Try FireNvim 
 - Get github copilot working
 
 # Done

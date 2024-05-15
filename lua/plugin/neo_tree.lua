@@ -3,7 +3,7 @@ local function main()
 end
 
 local function error_handler(err)
-	if not Show_errors then err = "" end
+	if not Show_full_errors then err = "" end
 	print("\n\n<<  ERROR  >>\nneo-tree -> error processing main function/config\nMaybe its not installed?\n\n" .. err) end
 
 -- Exec

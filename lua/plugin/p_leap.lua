@@ -4,7 +4,7 @@ local function leap()
 end
 
 local function error_handler(err)
-	if not Show_errors then err = "" end
+	if not Show_full_errors then err = "" end
 	print("\n\n<<  ERROR  >>\nLeap-> error processing function/config\nMaybe its not installed?\n\n" .. err) end
 
 
