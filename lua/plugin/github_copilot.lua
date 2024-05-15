@@ -5,10 +5,15 @@ function Copilot_disable() 	if outside_usage then cmd("Copilot disable") end 	en
 function Copilot_setup()	if outside_usage then cmd("Copilot setup") end		end
 
 local function main()
-	Copilot_disable()
+	-- kmn("<leader>ce", ":Copilot enable<cr>")
+	-- kmn("<leader>cd", ":Copilot disable<cr>")
 	kmn("<leader>cs", ":Copilot setup<cr>")
-	kmn("<leader>ce", ":Copilot enable<cr>")
-	kmn("<leader>cd", ":Copilot disable<cr>")
+	kmn("<leader>ce", ":let b:copilot_enabled = 1")
+	kmn("<leader>cd", ":let b:copilot_enabled = 0")
+	cmd("au BufNewFile,BufRead * let b:copilot_enabled = 0")
+	-- Autocmd that disables copilot on every buffer 
+	-- In this config file, the opposite can also be done: setting b:copilot_enabled=0 in buffer_settings and using b:copilot_enabled=1 to enable it via a shortcut.
+	-- Source: https://github.com/orgs/community/discussions/57887#discussioncomment-7768432
 end
 
 

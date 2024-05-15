@@ -4,6 +4,8 @@ vim.g.mapleader = " "
 -- << Remaps by topic >> --
 local function quality_of_life()
 
+	kmn("<leader>bash", ":w !bash")
+
 	-- Alt+space in all modes is equal to control+c
 	km_all("<A- >", "<c-c>")
 
