@@ -1,16 +1,13 @@
 
 local function main()
 	-- Autocmd that disables copilot on every buffer 
-
 	 -- vim.api.nvim_create_autocmd('LspAttach' ,{
 	 -- 	callback = function ()
 	 -- 		cmd("let b:copilot_enabled = 1")
 	 -- 	end
 	 -- })
-	
 	-- In this config file, the opposite can also be done: setting b:copilot_enabled=0 in buffer_settings and using b:copilot_enabled=1 to enable it via a shortcut.
 	-- Source: https://github.com/orgs/community/discussions/57887#discussioncomment-7768432
-	
 	-- lua print(vim.inspect(vim.lsp.buf_get_clients()))
 
 	local function enable_if_other_lsp_present()
@@ -24,12 +21,12 @@ local function main()
 
 			local to_print = ""
 			for _, client in ipairs(active_buffers) do
-				to_print = to_print .. client.name .. " "
+				-- to_print = to_print .. client.name .. " "
 				if client.name ~= "GitHub Copilot" then
 					cmd("execute 'buffer ' . ".._bufnr.."| let b:copilot_enabled = 1")
 				end
 			end
-			print(to_print)
+			-- print(to_print)
 
 		end
 
@@ -57,9 +54,6 @@ local function main()
 	kmn("<leader>cd", ":let b:copilot_enabled = 0")
 	cmd("au BufNewFile,BufRead * let b:copilot_enabled = 0")
 	enable_if_other_lsp_present()
-	
-
-
 end	-- END main
 
 
