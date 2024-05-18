@@ -1,11 +1,23 @@
 
-local function main() 
+-- LSP0_on_attach_functions = {}
+-- 	table.insert(LSP0_on_attach_functions, config_function) end
+-- 
+-- local function LSP0_on_attach_functions_exec()
+-- 	if not next(LSP0_on_attach_functions) then return end
+-- 	for i, func in ipairs(LSP0_on_attach_functions) do
+-- 		func()
+-- 	end
+-- end
+	  -- pcall(LSP0_on_attach_functions_exec)
+	  
+local function main()
 
 	local lsp_zero = require('lsp-zero')
 
 	lsp_zero.on_attach(function(client, bufnr)
 	  -- see :help lsp-zero-keybindings
 	  -- to learn the available actions
+	  -- cmd("execute 'buffer ' . "..bufnr.." | let b:copilot_enabled = 1")
 	  lsp_zero.default_keymaps({buffer = bufnr})
 	end)
 	-- you can always install the language server on your system.

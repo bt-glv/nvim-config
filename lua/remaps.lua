@@ -4,6 +4,12 @@ vim.g.mapleader = " "
 -- << Remaps by topic >> --
 local function quality_of_life()
 
+-- redir @a | echo "that" | redir END
+
+
+	kmc("<c-t>", "<c-c>q:kIredir @a | <Esc>A | redir END<Esc><c-c><c-c>:<up>")
+	-- <c-t> in command mode will redirect the output of the command to register a
+	
 	kmn("<leader>bash", ":w !bash")
 
 	-- Alt+space in all modes is equal to control+c
@@ -60,7 +66,7 @@ local function quality_of_life()
 
 		-- COMMAND MODE EDIT UTILITIES --
 	-- From command mode, enters command mode buffer
-	kmc("<c- >", "<c-c>q:kf/0")
+	kmc("<c- >", "<c-c>q:k0")
 	kmn("<c- >", "<c-c><c-c>:<up>")
 	kmv("<c- >", ":")
 

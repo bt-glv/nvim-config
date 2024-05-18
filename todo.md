@@ -8,10 +8,11 @@
 - Experiment using VimWiki instead of notion
 
 # In-progress
-- Try FireNvim 
-- Get github copilot working
+- Enable copilot automatically if a lsp is active for the current buffer. Do this by either creating a autocmd or hooking a function to a lsp-config event.
 
 # Done
+- Try FireNvim 
+- Get github copilot working
 - Install flash
 - Install leap
 - Try and configure surround.vim

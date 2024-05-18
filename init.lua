@@ -12,8 +12,8 @@ require('plugin.p_leap')
 require('plugin.p_flash')
 require('plugin.surround')
 require('plugin.treesitter')
-require('plugin.github_copilot') -- "AI Autocomplete"
 require('plugin.lsp0') -- Autocomplete and compile-time errors
+require('plugin.github_copilot') -- "AI Autocomplete"
 require('plugin.fzf')
 require('plugin.oil') -- replaces netrw
 require('plugin.neo_tree')
