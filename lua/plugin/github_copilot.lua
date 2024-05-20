@@ -17,7 +17,6 @@ local function main()
 			-- vim.lsp.get_active_clients({bufnr = _bufnr}) might be deprecated in a near future
 			-- if this stops working out of nowhere, check if this is the cause.
 			if type(active_buffers) ~= "table" or #active_buffers == 0 then return end
-			print("this works")
 
 			local to_print = ""
 			for _, client in ipairs(active_buffers) do

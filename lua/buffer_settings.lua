@@ -11,6 +11,8 @@ set linebreak
 set breakindent
 set signcolumn=no
 set ts=4 sw=4 		"sets 4 spaces indent
+set scrolloff=4
+set updatetime=50
 ]])
 
 

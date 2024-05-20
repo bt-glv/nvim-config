@@ -3,8 +3,7 @@ local plugins = "call plug#begin('~/.local/share/nvim/site/plug')"
 local plugin_config_methods = {}
 
 
-function plugin_add_config(config_function)
-	table.insert(plugin_config_methods, config_function) end
+function plugin_add_config(config_function) table.insert(plugin_config_methods, config_function) end
 
 
 function plugin_add(new_plugin)

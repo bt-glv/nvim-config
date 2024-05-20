@@ -6,8 +6,12 @@
     - perhaps find a way to use system-installed lsp servers together with mason?
     - perhaps switching to the nixos unstable branch might fix it?
 - Experiment using VimWiki instead of Obsidian
+- Find a way of adding a github copilot chat window
 
 # In-progress
+- Install and try Harpoon
+- Install and experiment with undo-tree
+- Install and experiment with vim-fugitive and gitsigns.nvim
 
 # Done
 - Enable copilot automatically if a lsp is active for the current buffer. Do this by either creating a autocmd or hooking a function to a lsp-config event.

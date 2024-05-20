@@ -2,10 +2,18 @@
 vim.g.mapleader = " "
 
 -- << Remaps by topic >> --
+local function movement()
+	vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+	vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+
+	kmn("J", "mzJ`z")
+	kmn("<C-d>", "<C-d>zz")
+	kmn("<C-u>", "<C-u>zz")
+end
+
+
+
 local function quality_of_life()
-
--- redir @a | echo "that" | redir END
-
 
 	kmc("<c-t>", "<c-c>q:kIredir @a | <Esc>A | redir END<Esc><c-c><c-c>:<up>")
 	-- <c-t> in command mode will redirect the output of the command to register a
@@ -199,6 +207,7 @@ clipboard_utilities()
 spell_check()
 split_window_controls()
 replace_across_project_files()
+movement()
 --default_buffer_manipulation()
 --if_plugins_are_not_viable()
 
