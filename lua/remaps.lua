@@ -9,14 +9,11 @@ local function movement()
 	kmn("J", "mzJ`z")
 	kmn("<C-d>", "<C-d>zz")
 	kmn("<C-u>", "<C-u>zz")
+	kmn("<C-o>", "<C-o>zz")
 end
-
-
 
 local function quality_of_life()
 
-	kmc("<c-t>", "<c-c>q:kIredir @a | <Esc>A | redir END<Esc><c-c><c-c>:<up>")
-	-- <c-t> in command mode will redirect the output of the command to register a
 	
 	kmn("<leader>bash", ":w !bash")
 
@@ -41,19 +38,6 @@ local function quality_of_life()
 	kmn("<leader>ww", ":w<cr>")
 	kmn("<leader>wa", ":wa<cr>")
 	kmn("<leader>q", ":q<cr>")
-								
-	-- Tab from normal mode enters command mode
-	kmn("<tab>", ":")
-
-	-- Indent text right after cursor in normal mode
-	-- Creates new lines in normal mode
-	kmn( "<leader><tab>", "i<tab><esc>l")
-	kmn( "<leader><cr>", "o<Esc>k")
-	kmn( "<A-'>", "i<tab><esc>l")
-	kmn( "<A-cr>", "o<Esc>k")
-	-- <c-cr> and <s-cr> only work if your terminal emulator send the signal 
-	-- vim expects for that character combination.
-	-- https://stackoverflow.com/questions/16359878/how-to-map-shift-enter
 
 	-- Opens Explorer (newtr)
 	kmn( "<leader>pv", vim.cmd.Ex)
@@ -104,16 +88,21 @@ local function search_and_replace()
 
 	-- NORMAL: serach and replace word under cursor
 	kmn("<leader>8", '*:%s//')
-
 	-- VISUAL: search selected text in visual mode
 	kmv("<leader>*", 'y<Esc>/<C-r>"<cr>N')
-
 	-- VISUAL: search and replace selected text
 	kmv("<leader>8", 'y<Esc>q:i%s/<C-r>"//g<Esc>F/;li')
-
 	-- NORMAL: Counts how many matches for last search
 	km('n', "<leader>tc", ":%s///gn<cr>")
 
+
+end
+
+-- I seldom use those shortcuts anymore
+local function outdated_stuff()
+	-- Careful with this one. Every time this is activated, it will search everything over again.
+	kmn("<A-n>", "//e<cr>")
+	kmn("<A-N>", "??e<cr>")
 	--   VISUAL: Select portion of word under cursor the be kept in the next search and replace
 	kmv("<leader>tt", '"tyviwyq:i%s/<c-r>"/<c-r>t/g<Esc>F/;hf/l')
 
@@ -126,9 +115,7 @@ local function search_and_replace()
 	-- Shortcut for search and replace within range
 	-- Go to normal mode and press ; to go to the "pattern" and "replace"
 	km('n',"<leader>,", "q:i.,.+s///g<esc>0f/hhi")
-
 end
-
 
 -- [[[ Clipboard Utilities ]]] --
 local function clipboard_utilities()
@@ -143,8 +130,6 @@ local function clipboard_utilities()
 	kmnv("<leader>ap", '"ap')
 end
 
-
-
 -- [[[ Buffer-related ]]] --
 local function default_buffer_manipulation()
 	-- Default buffer commands remapings
@@ -155,22 +140,11 @@ local function default_buffer_manipulation()
 	kmn( "<leader>e", ":edit ")
 end
 
-
 -- [[[ LUA and Python scripting utilities ]] --
 local function run_scirpt()
 	km('n', "<leader><F5>", ":!%:p<cr>")
 		-- pr -> Project.Run
 end
-
-
-
--- [[[ Remaps for when plugins like sneak.vim are not available ]] --
-local function if_plugins_are_not_viable()
-	kmn('s','/')
-	kmn('S','?')
-end
-
-
 
 -- [[[ Set Spell Checker ]]] --
 local function set_spell() 
@@ -179,8 +153,6 @@ local function set_spell()
 	kmn( "<leader>sl", ":set spelllang=")
 		-- "set language" --
 end
-
-
 
 -- [[[ spell checke keys remaps ]]] --
 local function spell_check()
@@ -197,6 +169,14 @@ local function replace_across_project_files()
 	-- Be careful where you use this
 end
 
+local function indentation_bs()
+	kmn( '<A-;>', "mzi<cr><cr><cr><cr><cr><Esc>'z")
+	kmn( "<A-'>", "mzi<cr><cr><Esc>'z")
+	kmn( "<A-\\>", "i<tab><esc>l")
+	kmn( "<A-cr>", "o<Esc>k")
+	kmn( "<leader><tab>", "i<tab><esc>l")
+	kmn( "<leader><cr>", "o<Esc>k")
+end
 
 -->>> Default remaps
 quality_of_life()
@@ -208,6 +188,7 @@ spell_check()
 split_window_controls()
 replace_across_project_files()
 movement()
+indentation_bs()
+outdated_stuff()
 --default_buffer_manipulation()
---if_plugins_are_not_viable()
 

@@ -8,6 +8,7 @@ require('plugin_management') 		-- Must load before all plugins
 Show_full_errors = false
 
 require('colorscheme.catppuccin')
+-- require('plugin.firenvim') 		-- Nvim on browsers. Ironically, works best on chromium. Doesnt work with discord or whatsapp on chromium
 require('plugin.p_leap')
 require('plugin.p_flash')
 require('plugin.surround')
@@ -18,5 +19,4 @@ require('plugin.fzf')
 require('plugin.oil') 				-- replaces netrw
 require('plugin.neo_tree')
 require('plugin.harpoon2')
--- require('plugin.firenvim') 		-- Nvim on browsers
 Plugin_init()

@@ -1,6 +1,12 @@
 
 local function main()
 	cmd('command! FirenvimInstall call firenvim#install(0) ')
+	vim.g.firenvim_config = {
+		globalSettings = {
+		  ['<C-w>'] = 'noop',
+		  ['<C-n>'] = 'default'
+		}
+	}
 end
 
 local function error_handler(err)
