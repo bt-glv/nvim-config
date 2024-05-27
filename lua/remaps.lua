@@ -121,12 +121,16 @@ end
 local function clipboard_utilities()
 	-- Facilitates the use of the system clipboard
 	kmn("<leader>yy", '"+yy')
+	kmn("<leader>dd", '"+dd')
 	kmv("<leader>y", '"+y')
+	kmv("<leader>d", '"+d')
 	kmnv( "<leader>p", '"+p')
 	kmnv( "P", '"+p')
 	-- Facilitates the usage of 'a' as an alternative copy-paste register
 	kmn("<leader>ayy", '"ayy')
+	kmn("<leader>add", '"add')
 	kmv("<leader>ay", '"ay')
+	kmv("<leader>ad", '"ad')
 	kmnv("<leader>ap", '"ap')
 end
 
@@ -170,8 +174,8 @@ local function replace_across_project_files()
 end
 
 local function indentation_bs()
-	kmn( '<A-;>', "mzi<cr><cr><cr><cr><cr><Esc>'z")
-	kmn( "<A-'>", "mzi<cr><cr><Esc>'z")
+	kmn( '<A-;>', "mzo<cr><cr><cr><Esc>'z")
+	kmn( "<A-'>", "mzo<cr><Esc>'z")
 	kmn( "<A-\\>", "i<tab><esc>l")
 	kmn( "<A-cr>", "o<Esc>k")
 	kmn( "<leader><tab>", "i<tab><esc>l")

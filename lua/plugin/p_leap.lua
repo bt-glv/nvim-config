@@ -1,6 +1,9 @@
 
 local function leap()
 	require('leap').create_default_mappings()
+	kmv("s", "<Plug>(leap-forward)")
+	kmv("S", "<Plug>(leap-backward)")
+	-- Surround is using z
 end
 
 local function error_handler(err)

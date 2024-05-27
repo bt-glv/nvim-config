@@ -1,5 +1,7 @@
 
 local function main()
+	kmv("z", "<Plug>VSurround")
+	-- I'm using s for leap, so I'm using z for surround
 end
 
 local function error_handler(err)
