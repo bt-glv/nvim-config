@@ -261,8 +261,7 @@ end
 -- MAIN
 --
 local function personal_config()
-	require("flash").toggle()
-	kmc("<c-s>", '<cmd>lua require("flash").toggle()<cr>')
+	kmnc("<c-s>", '<cmd>lua require("flash").toggle()<cr>')
 end
 
 local function error_handler(err)

@@ -1,15 +1,16 @@
 # To-Start
-- Switch to Packer.vim? Maybe? What I did with this config basically transformed Plug into Packer..
+- Switch to packer or lazy
 - Fix that LUA lsp problem on my nixos installation
     - more about it (3rd answer): https://stackoverflow.com/questions/75880481/cant-use-lua-lsp-in-neovim
     - perhaps find a way to use system-installed lsp servers together with mason?
     - perhaps switching to the nixos unstable branch might fix it?
 - Experiment using VimWiki instead of Obsidian
-- Find a way of adding a github copilot chat window
+- Install a patched font (nedfonts hack) and that icons plugin
 
 # In-progress
+- Install and try Codium as a copilot alternative
+- Install Copilot chat
 - Install and experiment with undo-tree
-- Install a patched font (nedfonts hack) and that icons plugin
 - Install and experiment with vim-fugitive and gitsigns.nvim
 
 # Done

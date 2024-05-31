@@ -1,5 +1,18 @@
 --  << Code Utilities >> --
 vim.g.mapleader = " "
+function Execute_if_command_line_buff(_if,_else,mode)
+	local buf_name = vim.api.nvim_buf_get_name(0) 
+	-- This command always get the current active buffer name
+	if buf_name:match("Command Line") then
+		vim.api.nvim_feedkeys(_if, mode, false)
+		-- This send keys to be executed in the active buffer. 
+		-- Just like if it where a remap.
+		return
+	end
+		vim.api.nvim_feedkeys(_else, mode, false)
+		return
+end
+
 
 -- << Remaps by topic >> --
 local function movement()
@@ -11,17 +24,23 @@ local function movement()
 	kmn("<C-u>", "<C-u>zz")
 	kmn("<C-o>", "<C-o>zz")
 end
+local function ctrl_space_commands()
 
+	kmi('<c- >', '<cmd>lua Execute_if_command_line_buff("<c-c><c-c>:<Up>","<c-c>", "n")<cr>')
+	-- kmc('<c- >', '<cmd>lua Execute_if_command_line_buff("<c-c>q:k0","<c-c>q:k0", "n")<cr>')
+	kmc("<c- >", "<c-c>q:k0")
+
+	-- From command mode, enters command mode buffer
+	kmn("<c- >", "<c-c><c-c>:<up>")
+	kmv("<c- >", ":")
+	--kmi("<c- >", "<c-c><BS>")
+	--kmi("<c- >", "<Insert>")
+end
 local function quality_of_life()
-
-	
 	kmn("<leader>bash", ":w !bash")
 
 	-- Alt+space in all modes is equal to control+c
 	km_all("<A- >", "<c-c>")
-
-	-- control space to switch from insert to replace mode
-	kmi("<c- >", "<Insert>")
 
 	-- control+hjkl as arrow keys in command mode 
 	kmc("<c-h>", "<Left>")
@@ -56,16 +75,7 @@ local function quality_of_life()
 	-- This is somewhat important to my workflow.
 	kmn("<leader>todo", "o# To-Start<cr># In-progress<cr># Done<esc>2k")
 
-		-- COMMAND MODE EDIT UTILITIES --
-	-- From command mode, enters command mode buffer
-	kmc("<c- >", "<c-c>q:k0")
-	kmn("<c- >", "<c-c><c-c>:<up>")
-	kmv("<c- >", ":")
-
-	-- leader ; enters command mode edit
-	kmn("<leader>;", "q:k")
 end
-
 local function split_window_controls() 
 	kmn("<c-w>,", "<c-w>7<")
 	kmn("<c-w>.", "<c-w>7>")
@@ -82,27 +92,22 @@ local function split_window_controls()
 	kmn("<A-k>", "<c-w>k")
 	kmn("<A-l>", "<c-w>l")
 end
-
--- [[[ Search and replace ]]] --
 local function search_and_replace()
 
 	-- NORMAL: serach and replace word under cursor
-	kmn("<leader>8", '*:%s//')
+	kmn("<leader>8", 'yiw:%s/\\(<C-r><cr>"\\)/') -- TODO: Fix this
 	-- VISUAL: search selected text in visual mode
 	kmv("<leader>*", 'y<Esc>/<C-r>"<cr>N')
 	-- VISUAL: search and replace selected text
-	kmv("<leader>8", 'y<Esc>q:i%s/<C-r>"//g<Esc>F/;li')
+	kmv("<leader>8", 'y<Esc>q:i%s/\\(<C-r>"\\)//g<Esc>F/;li')
 	-- NORMAL: Counts how many matches for last search
 	km('n', "<leader>tc", ":%s///gn<cr>")
 
 
 end
-
--- I seldom use those shortcuts anymore
 local function outdated_stuff()
+		-- I seldom use those shortcuts anymore
 	-- Careful with this one. Every time this is activated, it will search everything over again.
-	kmn("<A-n>", "//e<cr>")
-	kmn("<A-N>", "??e<cr>")
 	--   VISUAL: Select portion of word under cursor the be kept in the next search and replace
 	kmv("<leader>tt", '"tyviwyq:i%s/<c-r>"/<c-r>t/g<Esc>F/;hf/l')
 
@@ -116,8 +121,6 @@ local function outdated_stuff()
 	-- Go to normal mode and press ; to go to the "pattern" and "replace"
 	km('n',"<leader>,", "q:i.,.+s///g<esc>0f/hhi")
 end
-
--- [[[ Clipboard Utilities ]]] --
 local function clipboard_utilities()
 	-- Facilitates the use of the system clipboard
 	kmn("<leader>yy", '"+yy')
@@ -133,38 +136,29 @@ local function clipboard_utilities()
 	kmv("<leader>ad", '"ad')
 	kmnv("<leader>ap", '"ap')
 end
-
--- [[[ Buffer-related ]]] --
 local function default_buffer_manipulation()
 	-- Default buffer commands remapings
-	kmn( "<leader>n", ":bn<CR>")
-	kmn( "<leader>N", ":bN<CR>")
-	kmn( "<leader>b", ":buffer ")
-	kmn( "<leader>bd", ":bd<CR> ")
-	kmn( "<leader>e", ":edit ")
+	kmn( "<A-n>", ":bn<CR>")
+	kmn( "<A-N>", ":bN<CR>")
 end
-
--- [[[ LUA and Python scripting utilities ]] --
 local function run_scirpt()
+		--  LUA and Python scripting utilities  --
 	km('n', "<leader><F5>", ":!%:p<cr>")
 		-- pr -> Project.Run
 end
-
--- [[[ Set Spell Checker ]]] --
 local function set_spell() 
+--  Set Spell Checker  --
 	kmn( "<leader>ss", ":set spell!<cr>")
 		-- "set  spell" --
 	kmn( "<leader>sl", ":set spelllang=")
 		-- "set language" --
 end
-
--- [[[ spell checke keys remaps ]]] --
 local function spell_check()
+--  spell checke keys remaps  --
 	kmn("z;","]s")
 	kmn("z,","[s")
 	kmn("z<leader>","z=")
 end
-
 local function replace_across_project_files()
 	kmn("<leader>r1", ':vimgrep /<c-r>"/gj **/*')
 	kmv("<leader>r1", 'y:vimgrep /<c-r>"/gj **/*')
@@ -172,7 +166,6 @@ local function replace_across_project_files()
 	kmn("<leader>r3", 'q:icfdo %s/<c-r>"/,/g | update<Esc>F,xi')
 	-- Be careful where you use this
 end
-
 local function indentation_bs()
 	kmn( '<A-;>', "mzo<cr><cr><cr><Esc>'z")
 	kmn( "<A-'>", "mzo<cr><Esc>'z")
@@ -180,7 +173,13 @@ local function indentation_bs()
 	kmn( "<A-cr>", "o<Esc>k")
 	kmn( "<leader><tab>", "i<tab><esc>l")
 	kmn( "<leader><cr>", "o<Esc>k")
+	kmn( "<leader>\\>", "i<tab><esc>l")
+	kmn( '<leader>;>', "mzo<cr><cr><cr><Esc>'z")
+	kmn( "<leader>'>", "mzo<cr><Esc>'z")
+	
 end
+
+
 
 -->>> Default remaps
 quality_of_life()
@@ -194,5 +193,5 @@ replace_across_project_files()
 movement()
 indentation_bs()
 outdated_stuff()
---default_buffer_manipulation()
-
+default_buffer_manipulation()
+ctrl_space_commands()

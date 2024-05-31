@@ -18,28 +18,24 @@ local function main()
 			-- if this stops working out of nowhere, check if this is the cause.
 			if type(active_buffers) ~= "table" or #active_buffers == 0 then return end
 
-			local to_print = ""
 			for _, client in ipairs(active_buffers) do
-				-- to_print = to_print .. client.name .. " "
 				if client.name ~= "GitHub Copilot" then
 					cmd("execute 'buffer ' . ".._bufnr.."| let b:copilot_enabled = 1")
 				end
 			end
-			-- print(to_print)
 
 		end
 
 		  local _start_client = vim.lsp.start_client
-		  vim.lsp.start_client = 
-		  function(config)
+		  vim.lsp.start_client = function(config)
 			    if config.on_attach == nil then
 					    config.on_attach = on_attach
 						  else
 							      local old_on_attach = config.on_attach
 								      config.on_attach = 
 									  function(client, bufnr)
-												on_attach		(client, bufnr)
 												old_on_attach	(client, bufnr)
+												on_attach		(client, bufnr)
 									  end
 							end
 			  return _start_client(config)

@@ -7,3 +7,4 @@ function kmnv(trigger,command) 		km({'n','v'},trigger,command) 		end
 function km_all(trigger,command) 	km({'n','v','c','i'},trigger,command) 	end
 function kmi(trigger,command) 		km("i",trigger,command) 		end
 function kmc(trigger,command) 		km("c",trigger,command) 		end
+function kmnc(trigger,command) 		km({'n','c'},trigger,command) 		end
