@@ -1,3 +1,10 @@
+
+--[[
+Attention
+All remaps with Alt "<A-...>" do not work as intended on windows terminal
+and MacOs terminal. Not use if this is a thing only on their respective 
+operating system of if it is just the terminal emulators.
+]]--
 --  << Code Utilities >> --
 vim.g.mapleader = " "
 function Execute_if_command_line_buff(_if,_else,mode)
@@ -26,21 +33,25 @@ local function movement()
 end
 local function ctrl_space_commands()
 
-	kmi('<c- >', '<cmd>lua Execute_if_command_line_buff("<c-c><c-c>:<Up>","<c-c>", "n")<cr>')
-	-- kmc('<c- >', '<cmd>lua Execute_if_command_line_buff("<c-c>q:k0","<c-c>q:k0", "n")<cr>')
+	kmi('<c- >', '<cmd>lua Execute_if_command_line_buff("<c-c><c-c>:<Up>","<c-r>", "i")<cr>')
 	kmc("<c- >", "<c-c>q:k0")
 
 	-- From command mode, enters command mode buffer
 	kmn("<c- >", "<c-c><c-c>:<up>")
 	kmv("<c- >", ":")
-	--kmi("<c- >", "<c-c><BS>")
-	--kmi("<c- >", "<Insert>")
 end
 local function quality_of_life()
+
+	-- zz zt zb in visual selection mode
+	kmv("zt", "<Esc>ztgv")
+	kmv("zz", "<Esc>zzgv")
+	kmv("zb", "<Esc>zbgv")
+
+	kmn("<leader>mk", ":mksession!<cr>")
 	kmn("<leader>bash", ":w !bash")
 
 	-- Alt+space in all modes is equal to control+c
-	km_all("<A- >", "<c-c>")
+	km_all("<A- >", "<Esc>")
 
 	-- control+hjkl as arrow keys in command mode 
 	kmc("<c-h>", "<Left>")
@@ -93,21 +104,22 @@ local function split_window_controls()
 	kmn("<A-l>", "<c-w>l")
 end
 local function search_and_replace()
-
 	-- NORMAL: serach and replace word under cursor
 	kmn("<leader>8", 'yiw:%s/\\(<C-r><cr>"\\)/') -- TODO: Fix this
 	-- VISUAL: search selected text in visual mode
-	kmv("<leader>*", 'y<Esc>/<C-r>"<cr>N')
+	kmv("<leader>*", 'y<Esc>/<C-r>"/e<cr>')
 	-- VISUAL: search and replace selected text
 	kmv("<leader>8", 'y<Esc>q:i%s/\\(<C-r>"\\)//g<Esc>F/;li')
 	-- NORMAL: Counts how many matches for last search
 	km('n', "<leader>tc", ":%s///gn<cr>")
 
-
+	kmn("<leader>/", "//e<Left><Left>")
+	kmn("<leader>?", "??e<Left><Left>")
 end
 local function outdated_stuff()
-		-- I seldom use those shortcuts anymore
-	-- Careful with this one. Every time this is activated, it will search everything over again.
+	-- I seldom use those shortcuts anymore
+	-- After I discovered that i can do a serach and replace only in the visual mode selected text, this became obsolete
+	--
 	--   VISUAL: Select portion of word under cursor the be kept in the next search and replace
 	kmv("<leader>tt", '"tyviwyq:i%s/<c-r>"/<c-r>t/g<Esc>F/;hf/l')
 
@@ -123,6 +135,8 @@ local function outdated_stuff()
 end
 local function clipboard_utilities()
 	-- Facilitates the use of the system clipboard
+	kmi("<A-p>", '<C-r>"')
+	kmi("<A-P>", "<C-r>+")
 	kmn("<leader>yy", '"+yy')
 	kmn("<leader>dd", '"+dd')
 	kmv("<leader>y", '"+y')
@@ -176,12 +190,11 @@ local function indentation_bs()
 	kmn( "<leader>\\>", "i<tab><esc>l")
 	kmn( '<leader>;>', "mzo<cr><cr><cr><Esc>'z")
 	kmn( "<leader>'>", "mzo<cr><Esc>'z")
-	
 end
 
 
 
--->>> Default remaps
+-->>> Declare remaps to use here <<<--
 quality_of_life()
 search_and_replace()
 set_spell()
@@ -192,6 +205,6 @@ split_window_controls()
 replace_across_project_files()
 movement()
 indentation_bs()
-outdated_stuff()
+-- outdated_stuff()
 default_buffer_manipulation()
 ctrl_space_commands()
