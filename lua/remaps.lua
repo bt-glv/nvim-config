@@ -7,19 +7,27 @@ operating system of if it is just the terminal emulators.
 ]]--
 --  << Code Utilities >> --
 vim.g.mapleader = " "
-function Execute_if_command_line_buff(_if,_else,mode)
+function Execute_if_command_line_buff(if_exec,else_exec,mode)
 	local buf_name = vim.api.nvim_buf_get_name(0) 
 	-- This command always get the current active buffer name
 	if buf_name:match("Command Line") then
-		vim.api.nvim_feedkeys(_if, mode, false)
+		vim.api.nvim_feedkeys(if_exec, mode, false)
 		-- This send keys to be executed in the active buffer. 
-		-- Just like if it where a remap.
+		-- Just like a remap.
 		return
 	end
-		vim.api.nvim_feedkeys(_else, mode, false)
-		return
+		if else_exec == nil or else_exec == "" then return end 
+		vim.api.nvim_feedkeys(else_exec, mode, false)
 end
-
+function Execute_if_buff(buffer_name,if_exec,else_exec,mode)
+	local buf_name = vim.api.nvim_buf_get_name(0) 
+	if buf_name:match(buffer_name) then
+		vim.api.nvim_feedkeys(if_exec, mode, false)
+		return
+	end
+		if else_exec == nil or else_exec == "" then return end 
+		vim.api.nvim_feedkeys(else_exec, mode, false)
+end
 
 -- << Remaps by topic >> --
 local function movement()
@@ -41,6 +49,8 @@ local function ctrl_space_commands()
 	kmv("<c- >", ":")
 end
 local function quality_of_life()
+
+	kmv(":", ":<C-u>")
 
 	-- zz zt zb in visual selection mode
 	kmv("zt", "<Esc>ztgv")

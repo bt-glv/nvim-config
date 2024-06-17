@@ -52,11 +52,11 @@ end	-- END main
 local function copilot_chat_config()
 require("CopilotChat").setup{
 window = {
-    layout = 'replace', -- 'vertical', 'horizontal', 'float', 'replace'
+    layout = 'float', -- 'vertical', 'horizontal', 'float', 'replace'
     width = 0.5, -- fractional width of parent, or absolute width in columns when > 1
     height = 0.3, -- fractional height of parent, or absolute height in rows when > 1
     -- Options below only apply to floating windows
-    relative = 'win', -- 'editor', 'win', 'cursor', 'mouse'
+    relative = 'editor', -- 'editor', 'win', 'cursor', 'mouse'
     border = 'single', -- 'none', single', 'double', 'rounded', 'solid', 'shadow'
     row = nil, -- row position of the window, default is centered
     col = nil, -- column position of the window, default is centered
@@ -101,7 +101,13 @@ window = {
 
 } -- copilot_chat_config END
 	-- remaps here
-	kmn("<leader>cc", "<c-w>s<c-w>j:CopilotChat<cr>:resize 10<cr>")
+	local function execute_if_copilot_buff(_if,_else,mode)
+		Execute_if_buff("copilot-chat",_if,_else,mode) end
+
+	-- kmn("<leader>cc", "<c-w>s<c-w>j:CopilotChat<cr>:resize 10<cr>")
+	kmn("<leader>cc", ":CopilotChatToggle<cr>")
+	kmv("<leader>cc", "<Esc>:CopilotChatToggle<cr>")
+	kmv("<leader>cst", "<Esc>:CopilotStop<cr>")
 	--[[
 		TODO: Implement the following
 		Commands

@@ -15,7 +15,7 @@
     - Install Copilot chat
 - Install and try Codium as a copilot alternative
 - Install and experiment with undo-tree
-- Install and experiment with vim-fugitive and gitsigns.nvim
+- Install and experiment with vim-fugitive and gitsigns.nvim and that other git plugin for managing worktrees
 
 # Done
 - Fix that issue with surround.vim on visual line mode

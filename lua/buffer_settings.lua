@@ -1,6 +1,6 @@
  
 vim.g.netrw_bufsettings='noma nomod nu nobl nowrap ro'
--- Relative line number in netrw
+-- Relative line numbers in netrw
 -- This is extremely exoteric and I have no idea how it works..
 
 vim.opt.termguicolors=true

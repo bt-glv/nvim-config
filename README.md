@@ -2,9 +2,15 @@
 This config works best on a Linux system.</br>
 Mason Lsp Servers might not work as expected on Windows, MacOS or Android. </br>
 
-NixOS: Some Mason LSP servers wont start. (lua-language-server, others..)
+NixOS: 
+- Some Mason LSP servers wont start. (lua-language-server, others..)
 </br>
 
+Termux (Android): </br>
+- Copilot chat does not work
+- Mason does not work
+
+</br>
 -> This file is a work in progress 
 </br>
 
