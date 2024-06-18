@@ -13,7 +13,6 @@ local function main()
 		nmap ySs <Plug>YSsurround
 		nmap ySS <Plug>YSsurround
 	]])
-	-- I'm using 's' and 'S' for leap, so I'm using z for surround
 	kmv("<leader>s", "<Plug>VSurround")
 end
 

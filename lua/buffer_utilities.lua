@@ -1,11 +1,11 @@
 
 local commands_per_buffer = {}
 
--- command_function must contain these parameters
+-- command_function -> needs to take a buffer number as a parameter
 function Commands_add(buffer_name, command_function)
-	local for_check = commands_per_buffer[buffer_name] 
+	local for_check = commands_per_buffer[buffer_name]
 
-	if for_check == nil then  
+	if for_check == nil then
 		commands_per_buffer[buffer_name] = command_function
 		return
 	end
@@ -27,11 +27,11 @@ local function check_and_execute(buffer_number)
 	local buffer_name = vim.api.nvim_buf_get_name(buffer_number)
 	if commands_per_buffer[buffer_name] == nil then return end
 
-	if type(commands_per_buffer[buffer_name]) == "table" then 
+	if type(commands_per_buffer[buffer_name]) == "table" then
 		for index, value in ipairs(commands_per_buffer[buffer_name]) do
 			value(buffer_number)
 		end
-		return 
+		return
 	end
 
 	commands_per_buffer[buffer_name](buffer_number)
