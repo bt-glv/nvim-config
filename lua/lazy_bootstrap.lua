@@ -40,10 +40,3 @@ local config = {
 }
 Lazy_plugin_add(config)
 ]]--
-
-
-
-!alacritty --working-directory %:p:h &
-
-
-

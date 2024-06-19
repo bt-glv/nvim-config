@@ -1,4 +1,5 @@
 # To-Start
+> Priority (Bottom: highest; Top: lowest)
 - Fix that LUA lsp problem on my nixos installation
     - more about it (3rd answer): https://stackoverflow.com/questions/75880481/cant-use-lua-lsp-in-neovim
     - perhaps find a way to use system-installed lsp servers together with mason?
@@ -8,7 +9,10 @@
 - CopilotChat:
     - Execute remaps just on copilot chat buffer
 - Install and try Codium as a copilot alternative
-- Install and experiment with vim-fugitive and gitsigns.nvim and that other git plugin for managing worktrees
+- Git
+    - Install and test gitsigns
+    - Install and test vim-fugitive
+    - Install and test diffview.nvim
 - Install and experiment with undo-tree
 
 # In-progress

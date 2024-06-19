@@ -1,10 +1,10 @@
 
-local plugin = {
+local config = {
 	'echasnovski/mini.surround',
 	name = "catppuccin",
 	lazy = false,
 	priority = 1000,
-	dependencies = {}
+	dependencies = {},
 	config = function()
 		require("catppuccin").setup({
 			flavour = "mocha", -- latte, frappe, macchiato, mocha, auto

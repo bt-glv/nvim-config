@@ -39,8 +39,7 @@ local function check_and_execute(buffer_number)
 end
 
 function Buffers_create_autocmds()
-	-- TODO:
-	-- Create an autocmd that executes check_and_execute on every buffer and gives the required parameters for it
+	-- TODO: check if BufAdd or BufNewFile is better
 	vim.api.nvim_create_autocmd("BufAdd", {
 		  callback =	function(args)
 			      			check_and_execute(args.buf)
