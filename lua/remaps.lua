@@ -41,7 +41,7 @@ local function movement()
 end
 local function ctrl_space_commands()
 
-	kmi('<c- >', '<cmd>lua Execute_if_command_line_buff("<c-c><c-c>:<Up>","<c-r>", "i")<cr>')
+	kmi('<c- >', '<cmd>lua Execute_if_command_line_buff("<c-c><c-c>:<Up>","<Esc>:", "i")<cr>')
 	kmc("<c- >", "<c-c>q:k0")
 
 	-- From command mode, enters command mode buffer
@@ -49,6 +49,9 @@ local function ctrl_space_commands()
 	kmv("<c- >", ":")
 end
 local function quality_of_life()
+
+	-- Opens alacritty terminal emulator and opens vim at the current directory
+	kmn("<leader>new", ':!alacritty --working-directory %:p:h -e bash -c "nvim ." &<cr><cr>')
 
 	kmv(":", ":<C-u>")
 

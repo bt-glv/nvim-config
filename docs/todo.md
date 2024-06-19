@@ -8,8 +8,8 @@
 - CopilotChat:
     - Execute remaps just on copilot chat buffer
 - Install and try Codium as a copilot alternative
-- Install and experiment with undo-tree
 - Install and experiment with vim-fugitive and gitsigns.nvim and that other git plugin for managing worktrees
+- Install and experiment with undo-tree
 
 # In-progress
 - Switch to lazy.nvim
