@@ -9,8 +9,9 @@
 -- 	end
 -- end
 	  -- pcall(LSP0_on_attach_functions_exec)
+	  --https://github.com/VonHeikemen/lsp-zero.nvim.git
 return {
-	'lsp-zero.nvim',
+	'VonHeikemen/lsp-zero.nvim',
 	branch = 'v3.x',
 	lazy = false,
 	dependencies = {'williamboman/mason.nvim', 'williamboman/mason-lspconfig.nvim', 'neovim/nvim-lspconfig', 'hrsh7th/nvim-cmp', 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip'},
