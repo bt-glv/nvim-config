@@ -1,5 +1,5 @@
 
-local config = {
+return {
 	'echasnovski/mini.surround',
 	name = "catppuccin",
 	lazy = false,
@@ -65,4 +65,3 @@ local config = {
 		cmd([[highlight LineNr term=bold cterm=NONE ctermfg=NONE ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE]])
 	end -- config function END
 }
-Lazy_plugin_add(config)
