@@ -1,5 +1,5 @@
 
-local config = {
+return {
 	'junegunn/fzf.vim',
 	lazy = false,
 	run = function() vim.fn['fzf#install']() end,
@@ -15,4 +15,3 @@ local config = {
 		kmn( "<leader>fg", 	":Ag<CR>")
 	end
 }
-Lazy_plugin_add(config)

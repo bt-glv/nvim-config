@@ -1,5 +1,5 @@
 
-local config = {
+return {
 	'stevearc/oil.nvim',
 	lazy = false,
 	dependencies = {},
@@ -128,5 +128,3 @@ local config = {
 		vim.keymap.set("n", "<leader>vp", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 	end -- END Config function 
 }
-Lazy_plugin_add(config)
-

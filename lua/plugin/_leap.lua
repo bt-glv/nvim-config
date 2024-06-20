@@ -1,6 +1,6 @@
 
 -- TODO: this can be lazy loaded
-local config = {
+return {
   'ggandor/leap.nvim',
   lazy = false,
   dependencies = {"tpope/vim-repeat"},
@@ -11,5 +11,3 @@ local config = {
 	-- Surround is using <leader>s 
   end
 }
-Lazy_plugin_add(config)
-

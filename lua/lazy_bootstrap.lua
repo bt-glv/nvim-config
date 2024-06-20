@@ -1,6 +1,4 @@
 
-local plugins = {}
-
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   vim.fn.system({
@@ -14,12 +12,6 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-function Lazy_plugin_add(new_plugin)
-	table.insert(plugins, new_plugin)
-end
-function Lazy_plugin_init()
-	require("lazy").setup(Plugins)
-end
 
 
 --[[
@@ -31,12 +23,11 @@ run = function() end,
 dependencies = {}
 
 MAIN
-local config = {
+return {
 	'echasnovski/mini.surround',
 	lazy = false,
 	dependencies = {},
 	config = function()
 	end -- END Config function 
 }
-Lazy_plugin_add(config)
 ]]--

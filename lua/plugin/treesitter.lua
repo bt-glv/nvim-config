@@ -1,5 +1,5 @@
 
-local config = {
+return {
 	'nvim-treesitter/nvim-treesitter',
 	run = ":TSUpdate",
 	lazy = false,
@@ -18,4 +18,3 @@ local config = {
 		}
 	end -- END Config function 
 }
-Lazy_plugin_add(config)

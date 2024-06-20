@@ -9,7 +9,7 @@
 -- 	end
 -- end
 	  -- pcall(LSP0_on_attach_functions_exec)
-local config = {
+return {
 	'lsp-zero.nvim',
 	branch = 'v3.x',
 	lazy = false,
@@ -49,5 +49,3 @@ local config = {
 
 		end -- END Config function 
 }
-Lazy_plugin_add(config)
-

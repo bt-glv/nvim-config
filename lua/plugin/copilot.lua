@@ -1,5 +1,5 @@
 
-local config = {
+return {
 	'github/copilot.vim',
 	lazy = false,
 	config = function()
@@ -53,5 +53,3 @@ local config = {
 
 	end -- END Config function
 }
-Lazy_plugin_add(config)
-

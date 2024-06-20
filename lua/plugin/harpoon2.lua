@@ -1,5 +1,5 @@
 
-local config = {
+return {
 	'ThePrimeagen/harpoon',
 	branch = 'harpoon2',
 	lazy = false,
@@ -35,4 +35,3 @@ local config = {
 		kmn("<leader>n", function() harpoon:list():next() end)
 	end -- END Config function 
 }
-Lazy_plugin_add(config)

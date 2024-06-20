@@ -1,5 +1,5 @@
 
-local config = {
+return {
   'folke/flash.nvim',
   lazy = false,
   config = function()
@@ -147,4 +147,3 @@ local config = {
 	kmnc("<c-s>", '<cmd>lua require("flash").toggle()<cr>')
 end
 } -- Config table end
-Lazy_plugin_add(config)

@@ -1,5 +1,5 @@
 
-local config = {
+return {
 	'CopilotC-Nvim/CopilotChat.nvim',
 	branch = 'canary',
 	lazy = false,
@@ -61,6 +61,3 @@ local config = {
 		kmv("<leader>cst", "<Esc>:CopilotStop<cr>")
 	end -- END Config function 
 }
-Lazy_plugin_add(config)
-
-
