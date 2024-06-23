@@ -3,10 +3,10 @@ return {
 	'tpope/vim-surround',
 	lazy = false,
 	dependencies = {'tpope/vim-repeat'},
+	init = function() vim.g.surround_no_mappings = true end,
 	config = function()
 		-- Disable all default mappings
 		-- This is the only reliable way I find to disable 'S' in visual line mode 
-		vim.g.surround_no_mappings = true
 		cmd([[
 			nmap ds  <Plug>Dsurround
 			nmap cs  <Plug>Csurround
@@ -18,5 +18,5 @@ return {
 			nmap ySS <Plug>YSsurround
 		]])
 		kmv("<leader>s", "<Plug>VSurround")
-	end -- END Config function 
+	end, -- END Config function 
 }
