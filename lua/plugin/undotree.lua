@@ -5,7 +5,7 @@ return {
 	cmd = 'UndotreeToggle',
 	keys = {
 		{'<leader>u', ':UndotreeToggle<CR>'},
-		{'<leader>U', ':UndotreeShow<CR>'},
+		
 	},
 	config = function() end -- END Config function 
 }

@@ -2,9 +2,9 @@
 return {
 	'junegunn/fzf.vim',
 	lazy = false,
-	build = function() vim.fn['fzf#install']() end,
+	-- build = function() vim.fn['fzf#install']() end,
 	dependencies = {
-		{'junegunn/fzf',run = function() vim.fn['fzf#install']() end }
+		{'junegunn/fzf',build = function() vim.fn['fzf#install']() end }
 	},
 	config = function()
 		kmn( "<leader>ff", 	":Files<CR>") 		-- Fuzzy finds and open file 
