@@ -2,7 +2,7 @@
 return {
 	'junegunn/fzf.vim',
 	lazy = false,
-	run = function() vim.fn['fzf#install']() end,
+	build = function() vim.fn['fzf#install']() end,
 	dependencies = {
 		{'junegunn/fzf',run = function() vim.fn['fzf#install']() end }
 	},

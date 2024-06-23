@@ -13,12 +13,12 @@
     - Install and test gitsigns
     - Install and test vim-fugitive
     - Install and test diffview.nvim
-- Install and experiment with undo-tree
 
 # In-progress
-- Switch to lazy.nvim
+- Install and experiment with undo-tree
 
 # Done
+- Switch to lazy.nvim
 - Copilot:
     - Fix that problem where it enables itself randomly
         - Create a init.lua file just for copilot
