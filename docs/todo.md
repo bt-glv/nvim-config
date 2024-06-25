@@ -9,15 +9,15 @@
 - CopilotChat:
     - Execute remaps just on copilot chat buffer
 - Install and try Codium as a copilot alternative
+
+# In-progress
 - Git
     - Install and test gitsigns
     - Install and test vim-fugitive
     - Install and test diffview.nvim
 
-# In-progress
-- Install and experiment with undo-tree
-
 # Done
+- Install and experiment with undo-tree
 - Switch to lazy.nvim
 - Copilot:
     - Fix that problem where it enables itself randomly
