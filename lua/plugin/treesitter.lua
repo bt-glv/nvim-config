@@ -16,5 +16,10 @@ return {
 			additional_vim_regex_highlighting = false,
 		  },
 		}
+
+			vim.o.foldmethod = 'expr'
+			vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
+			vim.o.foldlevelstart = 99
+
 	end -- END Config function 
 }

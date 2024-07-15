@@ -4,9 +4,8 @@ function Get_active_buffer_name() return vim.api.nvim_buf_get_name(0) end
 function Get_active_buffer_number() return vim.api.nvim_buf_get_number(0) end
 
 
-function km		(mode,trigger,command)
-	vim.keymap.set(mode,trigger,command) 	
-end
+function km		(mode,trigger,command) vim.keymap.set(mode,trigger,command) 	end
+function kmt	(trigger,command) 		km("t",trigger,command) 				end
 function kmn	(trigger,command) 		km("n",trigger,command) 				end
 function kmv	(trigger,command) 		km("v",trigger,command) 				end
 function kmnv	(trigger,command) 		km({'n','v'},trigger,command) 			end
