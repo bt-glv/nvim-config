@@ -4,26 +4,23 @@
     - perhaps find a way to use system-installed lsp servers together with mason?
     - perhaps switching to the nixos unstable branch might fix it?
 - Experiment using VimWiki instead of Obsidian
-- Install a patched font (nedfonts hack) and that icons plugin
 - CopilotChat:
     - Execute remaps just on copilot chat buffer
 - Install and try Codium as a copilot alternative
-- Consider removing flash.nvim and adding another plugin that just handles multiline "f" and "t"
 - Create a utility that checks if there is any terminal buffer open and displays it somewhere 
-- Create a utility that enables remaps just for terminal buffers, somehow
 - Try out some fold plugins: nvim-ufo, nvim-treesitter-context, et cetera
 
 # In-progress
-- Git
-    X Install and test gitsigns
-    d Install and test neogit
-    d Install and test diffview.nvim
-    - Install and test vim-fugitive
-    - Configure gitsings 
-        - Remaps
-        - Fix that lsp sign column (remove it)
 
 # Done
+- Git
+    X Install and test gitsigns
+    x Install and test neogit
+    x Install and test diffview.nvim
+    x Install and test vim-fugitive
+    x Configure gitsings 
+        x Remaps
+        x Fix that lsp sign column (remove it)
 - Fix all command mode buffer specific remaps
 - Fix those other pending remaps 
 - Treesitter as a fold source

@@ -78,7 +78,8 @@ local function quality_of_life()
 	vim.keymap.set({'c'}			,"<A- >", "<c-c>")
 
 	-- Opens alacritty terminal emulator and opens vim at the current directory
-	kmn("<leader>new", ':!alacritty --working-directory %:p:h -e bash -c "nvim ." &<cr><cr>')
+	kmn("<leader>new", ':!alacritty --working-directory '..vim.fn.getcwd()..' -e bash -c "nvim ." &<cr><cr>')
+
 	kmn("<leader>mk", ":mksession!<cr>")
 	kmn("<leader>bash", ":w !bash")
 
@@ -150,7 +151,7 @@ local function search_and_replace()
 end
 local function clipboard_utilities()
 	-- Facilitates the use of the system clipboard
-	kmi("<A-p>", '<C-r>"')
+	kmi("<A-p>", '<C-r>')
 	kmi("<A-P>", "<C-r>+")
 	kmn("<leader>yy", '"+yy')
 	kmn("<leader>dd", '"+dd')
@@ -158,6 +159,11 @@ local function clipboard_utilities()
 	kmv("<leader>d", '"+d')
 	kmnv( "<leader>p", '"+p')
 	kmnv( "P", '"+p')
+
+	kmn("<leader>Y", '"+Y')
+	kmn("<leader>D", '"+D')
+	kmn("<leader>C", '"+C')
+
 	-- Facilitates the usage of 'a' as an alternative copy-paste register
 	kmn("<leader>ayy", '"ayy')
 	kmn("<leader>add", '"add')
