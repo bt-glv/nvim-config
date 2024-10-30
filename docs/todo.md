@@ -3,12 +3,11 @@
     - more about it (3rd answer): https://stackoverflow.com/questions/75880481/cant-use-lua-lsp-in-neovim
     - perhaps find a way to use system-installed lsp servers together with mason?
     - perhaps switching to the nixos unstable branch might fix it?
-- Experiment using VimWiki instead of Obsidian
-- CopilotChat:
-    - Execute remaps just on copilot chat buffer
 - Install and try Codium as a copilot alternative
 - Create a utility that checks if there is any terminal buffer open and displays it somewhere 
 - Try out some fold plugins: nvim-ufo, nvim-treesitter-context, et cetera
+- ??? Vim regex formatter
+    - Create a remap that format any regex simbles inside seleciton 
 
 # In-progress
 
@@ -54,30 +53,6 @@
 - Find a better remap for <c-w>
 - Change 8 space indenting to 4 or 3 space indenting 
 
-
-
-
-# Temp test
-
-top right corner => shows the name of the buffers in each window
-
-default state ->
-Shows the name i defined: 'changed'; at the top right corner when the tab bar shows up.
-I defined it on:
-
-            line 49
-			{ 'changed', hl = theme.fill },
-			hl = theme.fill,
-
-Copilot result ->
-shows tabs all times 
-Tab names remain the same after creation: "[no name]"
-At the top right corner it shows the name I told it to use "Changed"
-in another segment:
-
-            line 49
-			{ 'changed', hl = theme.fill },
-			hl = theme.fill,
 
 
 

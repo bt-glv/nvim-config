@@ -43,7 +43,7 @@ return {
 			  "lua_ls", "pyright",
 			  "html", "gopls",
 			  "tsserver", "bashls",
-			  "cssls"
+			  "cssls", "nil_ls"
 				-- You must input the lspconfig name of the lsp server
 				-- Here is a translation list: 
 				-- https://github.com/williamboman/mason-lspconfig.nvim/blob/main/doc/server-mapping.md

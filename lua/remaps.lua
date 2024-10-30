@@ -1,12 +1,14 @@
 --[[
 Attention
-All remaps with Alt "<A-...>" do not work as intended on windows terminal
-and MacOs terminal. Not sure if this is a thing only on their respective 
-operating system of if it is just the terminal emulators.
+Any remaps with the Alt modifier key (<A-..>) will not work with windows terminal initially.
+To make it work, access the settings, keybinds, and remove every single keybing that uses Alt.
+
+I'm not sure how well those keybinds work with MacOS
 ]]--
+
 --  << Code Utilities >> --
 vim.g.mapleader = " "
-function Parse_termcodes(key) return vim.api.nvim_replace_termcodes(key, true, false, true) end
+local function Parse_termcodes(key) return vim.api.nvim_replace_termcodes(key, true, false, true) end
 
 -- The command line buffer does not have a name.
 -- This is the best way I found to check if the buffer is the command line buffer
@@ -26,20 +28,23 @@ function Execute_if_command_line_buff(if_exec,else_exec,mode)
 end
 
 function Execute_if_buff(buffer_name,if_exec,else_exec,mode)
-	local buf_name = vim.api.nvim_buf_get_name(0) 
+	local buf_name = vim.api.nvim_buf_get_name(0)
 	if buf_name:match(buffer_name) then
 		vim.api.nvim_feedkeys(if_exec, mode, false)
 		return
 	end
-		if else_exec == nil or else_exec == "" then return end 
+		if else_exec == nil or else_exec == "" then return end
 		vim.api.nvim_feedkeys(else_exec, mode, false)
 end
 
 -- << Remaps by topic >> --
-local function terminal_mode()
-	kmt("<C- >","<C-\\><C-n>")
+local function comments()
+	kmnv("<leader>cc",":s$^\\(\\s\\| \\)*\\zs\\(.\\)$\\2$g|noh<Left><Left><Left><Left><Left><Left><Left><Left>")
+	kmnv("<leader>cr",':s$^\\(\\s\\| \\)*\\zs$$g|noh<Left><Left><Left><Left><Left><Left><Left>')
+	-- wasted 20min of my life for this
+	-- TODO: add <leader>cd (commend delete) -> g/^\s*--/normal dd
+	-- ^\\(\\s\\)
 end
-
 local function tabs()
 
 	kmn("<leader>tl", ":tabnext<CR>")
@@ -72,13 +77,22 @@ local function ctrl_space_commands()
 	kmn("<c- >", "<c-c><c-c>:<up>")
 	kmv("<c- >", ":")
 end
+local function terminal_mode_related()
+	kmt("<C- >","<C-\\><C-n>")
+	-- Quickly opens a terminal in a vertical split in a vertical split
+	kmn("<leader>ter", "<c-w>v<c-w>l:term<CR><c-w>h") -- opens terminal at project root
+	-- kmn("<leader>teh", ':vnew<CR><c-w>l:call termopen(&shell, #{cwd: expand("%:p:h")})<CR><c-w>h') -- Opens terminal at current file location; not usable at this moment
+end
 local function quality_of_life()
 
+	vim.keymap.set({'n','v','i'}	,"<A-BS>", "<Esc>") -- Experimental, might delete later
 	vim.keymap.set({'n','v','i'}	,"<A- >", "<Esc>")
 	vim.keymap.set({'c'}			,"<A- >", "<c-c>")
 
+
 	-- Opens alacritty terminal emulator and opens vim at the current directory
-	kmn("<leader>new", ':!alacritty --working-directory '..vim.fn.getcwd()..' -e bash -c "nvim ." &<cr><cr>')
+	-- Kinda like opening a new window in a IDE
+	kmn("<leader>new", ':!alacritty --working-directory '..vim.fn.getcwd()..' -e bash -c "nvim ." & disown<cr><cr>')
 
 	kmn("<leader>mk", ":mksession!<cr>")
 	kmn("<leader>bash", ":w !bash")
@@ -121,7 +135,7 @@ local function quality_of_life()
 
 	-- Creates some to-do list headers.
 	-- This is somewhat important to my workflow.
-	kmn("<leader>todo", "o# To-Start<cr># Done<esc>k")
+	-- kmn("<leader>todo", "o# To-Start<cr># Done<esc>k")
 end
 local function split_window_controls()
 	kmn("<c-w>,", "<c-w>7<")
@@ -151,20 +165,25 @@ local function search_and_replace()
 end
 local function clipboard_utilities()
 	-- Facilitates the use of the system clipboard
-	kmi("<A-p>", '<C-r>')
-	kmi("<A-P>", "<C-r>+")
+
 	kmn("<leader>yy", '"+yy')
 	kmn("<leader>dd", '"+dd')
+
 	kmv("<leader>y", '"+y')
 	kmv("<leader>d", '"+d')
 	kmnv( "<leader>p", '"+p')
 	kmnv( "P", '"+p')
+	kmv("Y", '"+y')
+	kmv("D", '"+d')
 
-	kmn("<leader>Y", '"+Y')
-	kmn("<leader>D", '"+D')
-	kmn("<leader>C", '"+C')
+	-- kmn("<leader>Y", '"+Y')
+	-- kmn("<leader>D", '"+D')
+	-- kmn("<leader>C", '"+C')
 
-	-- Facilitates the usage of 'a' as an alternative copy-paste register
+	kmi("<A-P>", '<C-r>')
+	kmi("<A-p>", "<C-r>+")
+
+	-- Facilitates the USAGE of 'a' as an alternative copy-paste register
 	kmn("<leader>ayy", '"ayy')
 	kmn("<leader>add", '"add')
 	kmv("<leader>ay", '"ay')
@@ -182,7 +201,7 @@ local function run_scirpt()
 	km('n', "<leader><F5>", ":!%:p<cr>")
 		-- pr -> Project.Run
 end
-local function set_spell() 
+local function set_spell()
 --  Set Spell Checker  --
 	kmn( "<leader>ss", ":set spell!<cr>")
 		-- "set  spell" --
@@ -230,4 +249,5 @@ indentation_bs()
 default_buffer_manipulation()
 ctrl_space_commands()
 tabs()
-terminal_mode()
+terminal_mode_related()
+comments()
