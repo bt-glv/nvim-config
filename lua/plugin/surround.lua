@@ -21,38 +21,16 @@ return {
 
 
 
-		local function Parse_termcodes(key)
-			return vim.api.nvim_replace_termcodes(key, true, false, true)
-		end
+		-- local function Parse_termc(key)
+			-- return vim.api.nvim_replace_termcodes(key, true, false, true)
+		-- end
 
-		local esc 	= Parse_termcodes("<Esc>")
-		-- local cr 	= Parse_termcodes("<CR>")
+		-- local esc 	= Parse_termc("<Esc>")
+		-- local cr 	= Parse_termc("<CR>")
 
-		local function manual_surround()
 
-				local function invert_simple(input_end)
-					input_end = string.gsub(input_end,'%[',']')
-					input_end = string.gsub(input_end,'%(',')')
-					input_end = string.gsub(input_end,'%{','}')
-					return input_end
-				end
-				-- #TODO: Add tag detection with vim regex and handle it 
-
-				local function invert_vimscript()
-					-- #TODO: remake invert_simple using vim regex
-				end
-
-				local input 		= vim.fn.input('>')
-				local input_end 	= invert_simple(input)
-				return			 	  esc.."`>a"..input_end..esc.."`<i"..input..esc.."lm<".."`>"..#input.."lm>"
-		end
-
-		local function action()
-				vim.api.nvim_feedkeys(manual_surround(), "i", false)
-		end
-
-		kmnv("<leader>x", function() action() end)
-		kmnv("<leader>S", function() action() end)
+		-- local function action() vim.api.nvim_feedkeys(Manual_surround(), "i", false) end
+		-- kmnv("<leader>S", function() action() end)
 
 		-- I made this to kind of fill the role of a two character or more surround command.
 		-- Use surround with tag, then run this command

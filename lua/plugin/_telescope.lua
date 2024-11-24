@@ -28,7 +28,7 @@ return {
 		kmn( "<leader>fl", 	":Telescope live_grep<CR>") 		-- Fuzzy finds a line in your current text buffer
 		kmn( "<leader>fm", 	":Telescope marks<CR>") 		-- Fuzzy finds marks 
 		kmn( "<leader>fr", 	":Telescope registers<CR>") 		-- Finds files that contain a ripgrep match
-		kmn( "<leader>rr", 	":Telescope registers<CR>") 		-- Finds files that contain a ripgrep match
+		-- kmn( "<leader>rr", 	":Telescope registers<CR>") 		-- Finds files that contain a ripgrep match
 		kmn( "<leader>fh", 	":Telescope current_buffer_fuzzy_find<CR>") 		-- Finds files that contain a ripgrep match
 
 	end

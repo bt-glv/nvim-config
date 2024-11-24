@@ -8,42 +8,40 @@ I'm not sure how well those keybinds work with MacOS
 
 --  << Code Utilities >> --
 vim.g.mapleader = " "
-local function Parse_termcodes(key) return vim.api.nvim_replace_termcodes(key, true, false, true) end
 
 -- The command line buffer does not have a name.
 -- This is the best way I found to check if the buffer is the command line buffer
-function Execute_if_command_line_buff(if_exec,else_exec,mode)
-	local bufnr 	= vim.api.nvim_get_current_buf()
-	local filetype 	= vim.bo[bufnr].filetype
-	local bufname	= vim.api.nvim_buf_get_name(bufnr)
-	local success, undo_ftplugin = pcall(function() return vim.api.nvim_buf_get_var(bufnr, "undo_ftplugin") end)
-	if not success then undo_ftplugin = "" end
 
-	if filetype == "vim" and (bufname == "" or bufname == nil) and undo_ftplugin == "call VimFtpluginUndo()" then
-		vim.api.nvim_feedkeys(if_exec, mode, false)
-		return
-	end
-
-	vim.api.nvim_feedkeys(else_exec, mode, false)
-end
-
-function Execute_if_buff(buffer_name,if_exec,else_exec,mode)
-	local buf_name = vim.api.nvim_buf_get_name(0)
-	if buf_name:match(buffer_name) then
-		vim.api.nvim_feedkeys(if_exec, mode, false)
-		return
-	end
-		if else_exec == nil or else_exec == "" then return end
-		vim.api.nvim_feedkeys(else_exec, mode, false)
-end
+-- If its just one line, yy, else, 0Y
 
 -- << Remaps by topic >> --
+local function indentation()
+	kmn( '<A-;>', "mzo<cr><cr><cr><Esc>'z")
+	kmn( "<A-'>", "mzo<cr><Esc>'z")
+	kmn( "<A-\\>", "i<tab><esc>l")
+	kmn( "<A-cr>", "o<Esc>k")
+	kmn( "<leader><tab>", "i<tab><esc>l")
+	kmn( "<leader><cr>", "o<Esc>k")
+	kmn( "<leader>\\>", "i<tab><esc>l")
+	kmn( '<leader>;>', "mzo<cr><cr><cr><Esc>'z")
+	kmn( "<leader>'>", "mzo<cr><Esc>'z")
+
+	kmv( "<leader>bi", function() Block_indent() end)
+end
 local function comments()
 	kmnv("<leader>cc",":s$^\\(\\s\\| \\)*\\zs\\(.\\)$\\2$g|noh<Left><Left><Left><Left><Left><Left><Left><Left>")
 	kmnv("<leader>cr",':s$^\\(\\s\\| \\)*\\zs$$g|noh<Left><Left><Left><Left><Left><Left><Left>')
 	-- wasted 20min of my life for this
 	-- TODO: add <leader>cd (commend delete) -> g/^\s*--/normal dd
 	-- ^\\(\\s\\)
+end
+local function surround_basic()
+		kmnv("<leader>x", function() Manual_surround() end)
+		-- km_all("<leader>xt", function() 
+			-- local pp = vim.api.nvim_get_mode().mode 
+			-- local esc = Parse_termc("<Esc>")
+			-- vim.api.nvim_feedkeys(esc.."i"..pp..esc, "xn", false)
+		-- end)
 end
 local function tabs()
 
@@ -69,13 +67,21 @@ local function movement()
 end
 local function ctrl_space_commands()
 
-	-- kmi('<c- >', function() Execute_if_command_line_buff(termcodes.cc..termcodes.cc..":<Up>", termcodes.cc..":"..termcodes.up, "i") end)
-	kmi('<c- >', function() Execute_if_command_line_buff(Parse_termcodes("<c-c><c-c>:<Up>"), Parse_termcodes("<c-c>:<Up>"), "i") end)
+	--[[ Old behaviour
+	kmi('<c- >', function() Execute_if_command_line_buff(termcodes.cc..termcodes.cc..":<Up>", termcodes.cc..":"..termcodes.up, "i") end)
+
+	kmi('<c- >', function() Execute_if_command_line_buff(Parse_termc("<c-c><c-c>:<Up>"), Parse_termc("<c-c>:<Up>"), "i") end)
+
 	kmc("<c- >", "<c-c>q:k0")
 
-	-- From command mode, enters command mode buffer
+	From command mode, enters command mode buffer
 	kmn("<c- >", "<c-c><c-c>:<up>")
+	]]--
+
+	vim.keymap.set({"n","c","i"}, "<c- >", function() Cmdline_buff_control() end )
+	vim.keymap.set({"n","c"}, "<c-;>", "<c-c><c-c><c-c>q:k")
 	kmv("<c- >", ":")
+
 end
 local function terminal_mode_related()
 	kmt("<C- >","<C-\\><C-n>")
@@ -85,14 +91,27 @@ local function terminal_mode_related()
 end
 local function quality_of_life()
 
-	vim.keymap.set({'n','v','i'}	,"<A-BS>", "<Esc>") -- Experimental, might delete later
-	vim.keymap.set({'n','v','i'}	,"<A- >", "<Esc>")
-	vim.keymap.set({'c'}			,"<A- >", "<c-c>")
+
+	-- Removes all indentation and spaces at the begining of the line
+	kmn("<leader><", [[:s/\v(^[\t ]+)//g|noh<CR>]])
+	kmv("<leader><", [[<Esc>:'<,'>s/\v(^[\t ]+)//g|noh<CR>]])
+
+	-- Gets rid of "life with trailing spaces"
+	kmn("<leader>rr",[[:%s/\v(^[ \t]+$)|([ \t]+$)//g|noh]])
+	kmv("<leader>rr",[[<Esc>:'<,'>s/[ \t]\+$//g|noh]])
+
+	vim.keymap.set({'n','v','i'}	,"<A-BS>", "<Esc>"	) -- Experimental, might delete later
+	vim.keymap.set({'n','v','i'}	,"<A- >", "<Esc>"	)
+	vim.keymap.set({'c'}			,"<A- >", "<c-c>"	)
 
 
-	-- Opens alacritty terminal emulator and opens vim at the current directory
-	-- Kinda like opening a new window in a IDE
-	kmn("<leader>new", ':!alacritty --working-directory '..vim.fn.getcwd()..' -e bash -c "nvim ." & disown<cr><cr>')
+	-- Opens terminal emulator and opens neo vim at the current directory
+	kmn("<leader>new", ':!alacritty --working-directory "'..vim.fn.getcwd()..'" -e bash -c "nvim ." & disown<cr><cr>')
+	-- Opens terminal emulator at project path
+	kmn("<leader>tew", ':!alacritty --working-directory "'..vim.fn.getcwd()..'" & disown<cr><cr>')
+	-- Opens file explorer (dolphin) at project location
+	kmn("<leader>ex", ':!dolphin "'..vim.fn.getcwd()..'" & disown<cr><cr>')
+
 
 	kmn("<leader>mk", ":mksession!<cr>")
 	kmn("<leader>bash", ":w !bash")
@@ -176,14 +195,11 @@ local function clipboard_utilities()
 	kmv("Y", '"+y')
 	kmv("D", '"+d')
 
-	-- kmn("<leader>Y", '"+Y')
-	-- kmn("<leader>D", '"+D')
-	-- kmn("<leader>C", '"+C')
-
-	kmi("<A-P>", '<C-r>')
+	kmi("<A-P>", '<C-r>"')
 	kmi("<A-p>", "<C-r>+")
 
 	-- Facilitates the USAGE of 'a' as an alternative copy-paste register
+	-- I rarely use this
 	kmn("<leader>ayy", '"ayy')
 	kmn("<leader>add", '"add')
 	kmv("<leader>ay", '"ay')
@@ -219,18 +235,7 @@ local function replace_across_project_files()
 	kmv("<leader>r1", 'y:vimgrep /<c-r>"/gj **/*')
 	kmn("<leader>r2", ':copen<cr>')
 	kmn("<leader>r3", 'q:icfdo %s/<c-r>"/,/g | update<Esc>F,xi')
-	-- Be careful where you use this
-end
-local function indentation_bs()
-	kmn( '<A-;>', "mzo<cr><cr><cr><Esc>'z")
-	kmn( "<A-'>", "mzo<cr><Esc>'z")
-	kmn( "<A-\\>", "i<tab><esc>l")
-	kmn( "<A-cr>", "o<Esc>k")
-	kmn( "<leader><tab>", "i<tab><esc>l")
-	kmn( "<leader><cr>", "o<Esc>k")
-	kmn( "<leader>\\>", "i<tab><esc>l")
-	kmn( '<leader>;>', "mzo<cr><cr><cr><Esc>'z")
-	kmn( "<leader>'>", "mzo<cr><Esc>'z")
+	-- Be careful with where you use this
 end
 
 
@@ -245,9 +250,11 @@ spell_check()
 split_window_controls()
 replace_across_project_files()
 movement()
-indentation_bs()
+indentation()
 default_buffer_manipulation()
 ctrl_space_commands()
 tabs()
 terminal_mode_related()
 comments()
+surround_basic()
+

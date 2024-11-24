@@ -1,6 +1,7 @@
 
 require('short_commands')
 require('buffer_settings')
+require('remaps_tools')
 require('remaps')
 
 require("lazy_bootstrap")

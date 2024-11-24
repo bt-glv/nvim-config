@@ -4,6 +4,65 @@ return {
 	lazy = false,
 	dependencies = {},
 	config = function()
+
+		local function telescope_goto_folder()
+			local cwd 			= vim.fn.getcwd()
+			local actions 		= require("telescope.actions")
+			local action_state 	= require("telescope.actions.state")
+			local pickers 		= require("telescope.pickers")
+			local finders 		= require("telescope.finders")
+			local config 		= require("telescope.config").values
+
+
+		  pickers.new({}, {
+			prompt_title = "Go to folder",
+			finder = finders.new_oneshot_job({ "fd", "-t", "d", "--hidden", "--exclude", ".git"}, { cwd = vim.fn.getcwd() }),
+			sorter = config.generic_sorter({}),
+
+			attach_mappings = function(prompt_bufnr, _)
+			  actions.select_default:replace(function()
+				actions.close(prompt_bufnr)
+					local results = vim.fn.getcwd().."/"..action_state.get_selected_entry()[1]
+					require("oil").open(results)
+			  end)
+				print(vim.inspect(action_state.get_selected_entry()))
+			  return true
+			end,
+		  }):find()
+		end
+
+
+		local function telescope_goto_file_folder()
+			local cwd 			= vim.fn.getcwd()
+			local actions 		= require("telescope.actions")
+			local action_state 	= require("telescope.actions.state")
+			local pickers 		= require("telescope.pickers")
+			local finders 		= require("telescope.finders")
+			local config 		= require("telescope.config").values
+
+
+		  pickers.new({}, {
+			prompt_title = "Go to file folder",
+			finder = finders.new_oneshot_job({ "fd", "--hidden", "--exclude", ".git" }, { cwd = vim.fn.getcwd() }),
+			sorter = config.generic_sorter({}),
+
+			-- s/[/][^/]\+$//g
+			attach_mappings = function(prompt_bufnr, _)
+			  actions.select_default:replace(function()
+					actions.close(prompt_bufnr)
+
+					local pick = action_state.get_selected_entry()[1]
+					pick = vim.fn.substitute(pick, [[[/][^/]\+$]], "", "g" )
+
+					local results = vim.fn.getcwd().."/"..pick
+					require("oil").open(results)
+			  end)
+				print(vim.inspect(action_state.get_selected_entry()))
+			  return true
+			end,
+		  }):find()
+		end
+
 			require("oil").setup({
 			  default_file_explorer = true,
 			  columns = {
@@ -34,6 +93,8 @@ return {
 			  constrain_cursor = "editable",
 			  experimental_watch_for_changes = false,
 			  keymaps = {
+				["<leader>="] = function() telescope_goto_folder() end,
+				["<leader>-"] = function() telescope_goto_file_folder() end,
 				["g?"] = "actions.show_help",
 				["<CR>"] = "actions.select",
 				["<C-s>"] = "actions.select_vsplit",
@@ -43,9 +104,11 @@ return {
 				["<C-c>"] = "actions.close",
 				["<C-l>"] = "actions.refresh",
 				["-"] = "actions.parent",
-				["_"] = "actions.open_cwd",
-				["`"] = "actions.cd",
-				["~"] = "actions.tcd",
+				["_"] = "actions.open_cwd", -- Goes to the dir saved by "="
+				["="] = "actions.cd",		-- Saves a dir 
+				["+"] = "actions.tcd",
+				["~"] = false,
+				["`"] = false,
 				["gs"] = "actions.change_sort",
 				["gx"] = "actions.open_external",
 				["g."] = "actions.toggle_hidden",
@@ -124,7 +187,12 @@ return {
 			  },
 			})
 
+
+
 		vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 		vim.keymap.set("n", "<leader>vp", "<CMD>Oil<CR>", { desc = "Open parent directory" })
-	end -- END Config function 
+		-- For global use
+		-- vim.keymap.set("n", "<leader>=", function() telescope_goto_folder() end)
+
+	end -- END Config function
 }
