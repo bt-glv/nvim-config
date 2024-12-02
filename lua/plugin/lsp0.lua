@@ -1,7 +1,7 @@
 
 -- LSP0_on_attach_functions = {}
 -- 	table.insert(LSP0_on_attach_functions, config_function) end
--- 
+--
 -- local function LSP0_on_attach_functions_exec()
 -- 	if not next(LSP0_on_attach_functions) then return end
 -- 	for i, func in ipairs(LSP0_on_attach_functions) do
@@ -43,9 +43,10 @@ return {
 			  "lua_ls", "pyright",
 			  "html", "gopls",
 			  "tsserver", "bashls",
-			  "cssls", "nil_ls"
+			  "cssls",
+			  -- "nil_ls"
 				-- You must input the lspconfig name of the lsp server
-				-- Here is a translation list: 
+				-- Here is a translation list:
 				-- https://github.com/williamboman/mason-lspconfig.nvim/blob/main/doc/server-mapping.md
 			},
 		  handlers = {
@@ -60,5 +61,5 @@ return {
 			vim.fn.sign_define("DiagnosticSignWarn", { text = "", numhl = "" })
 			vim.fn.sign_define("DiagnosticSignInfo", { text = "", numhl = "" })
 			vim.fn.sign_define("DiagnosticSignHint", { text = "", numhl = "" })
-		end -- END Config function 
+		end -- END Config function
 }

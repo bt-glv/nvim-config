@@ -7,5 +7,8 @@ return {
     "sindrets/diffview.nvim",        -- optional - Diff integration
     "nvim-telescope/telescope.nvim", -- optional
   },
-  config = true
+  config = (function()
+		cmd("command! Ng Neogit")
+		return true
+  end)()
 }

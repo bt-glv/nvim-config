@@ -1,17 +1,36 @@
 
+
+
+---------
 ## Get project path
 vim.fn.getcwd()
 
 
+
+---------
 ## Get buffer number
 vim.api.nvim_get_current_buf()
 
 
+
+---------
 ## Get buffer name
 vim.api.nvim_buf_get_name(bufnr)
 vim.api.nvim_buf_get_name(0) -- For current buffer
 
 
+
+---------
+## Remap repeat count variable 
+> >> Test this later
+> Detecting if a remap is being executed multiple times or not
+
+Just make use of this variable:
+vim.v.count
+
+
+
+---------
 ## feed keys
 
 This function executes in parallel with your code unless specified not to.
@@ -32,5 +51,19 @@ vim.api.nvim_feedkeys("q:","xn",false)
 x       -> Makes the function wait till all keys are fed
 t       -> keys will be handles as if they where typed
 n       -> ""do not remap keys""
+
+> More about:
+> https://neovim.io/doc/user/builtin.html#feedkeys()
+
+
+
+----------
+## search and replace using vim
+
+vim.fn.substitute()
+vim.fn.substitute(input_string, regex_pattern, replace_with_this, mode)
+
+Example:
+vim.fn.substitute(pick, [[[/][^/]\+$]], "", "g" )
 
 

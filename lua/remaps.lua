@@ -26,7 +26,7 @@ local function indentation()
 	kmn( '<leader>;>', "mzo<cr><cr><cr><Esc>'z")
 	kmn( "<leader>'>", "mzo<cr><Esc>'z")
 
-	kmv( "<leader>bi", function() Block_indent() end)
+	kmv( "<leader>bi", function() Block_indent_2() end)
 end
 local function comments()
 	kmnv("<leader>cc",":s$^\\(\\s\\| \\)*\\zs\\(.\\)$\\2$g|noh<Left><Left><Left><Left><Left><Left><Left><Left>")
@@ -37,8 +37,8 @@ local function comments()
 end
 local function surround_basic()
 		kmnv("<leader>x", function() Manual_surround() end)
-		-- km_all("<leader>xt", function() 
-			-- local pp = vim.api.nvim_get_mode().mode 
+		-- km_all("<leader>xt", function()
+			-- local pp = vim.api.nvim_get_mode().mode
 			-- local esc = Parse_termc("<Esc>")
 			-- vim.api.nvim_feedkeys(esc.."i"..pp..esc, "xn", false)
 		-- end)
@@ -67,17 +67,6 @@ local function movement()
 end
 local function ctrl_space_commands()
 
-	--[[ Old behaviour
-	kmi('<c- >', function() Execute_if_command_line_buff(termcodes.cc..termcodes.cc..":<Up>", termcodes.cc..":"..termcodes.up, "i") end)
-
-	kmi('<c- >', function() Execute_if_command_line_buff(Parse_termc("<c-c><c-c>:<Up>"), Parse_termc("<c-c>:<Up>"), "i") end)
-
-	kmc("<c- >", "<c-c>q:k0")
-
-	From command mode, enters command mode buffer
-	kmn("<c- >", "<c-c><c-c>:<up>")
-	]]--
-
 	vim.keymap.set({"n","c","i"}, "<c- >", function() Cmdline_buff_control() end )
 	vim.keymap.set({"n","c"}, "<c-;>", "<c-c><c-c><c-c>q:k")
 	kmv("<c- >", ":")
@@ -101,9 +90,11 @@ local function quality_of_life()
 	kmv("<leader>rr",[[<Esc>:'<,'>s/[ \t]\+$//g|noh]])
 
 	vim.keymap.set({'n','v','i'}	,"<A-BS>", "<Esc>"	) -- Experimental, might delete later
-	vim.keymap.set({'n','v','i'}	,"<A- >", "<Esc>"	)
-	vim.keymap.set({'c'}			,"<A- >", "<c-c>"	)
 
+	-- By using nvim_feedkeys on "t" mode, <A- > now works with every single plugin,
+	-- since the keys are sent as if typed.
+	vim.keymap.set({'n','v','i'}	,"<A- >", function() vim.api.nvim_feedkeys("", "t", false) end)
+	vim.keymap.set({'c'}			,"<A- >", function() vim.api.nvim_feedkeys("", "t", false) end)
 
 	-- Opens terminal emulator and opens neo vim at the current directory
 	kmn("<leader>new", ':!alacritty --working-directory "'..vim.fn.getcwd()..'" -e bash -c "nvim ." & disown<cr><cr>')
@@ -111,6 +102,14 @@ local function quality_of_life()
 	kmn("<leader>tew", ':!alacritty --working-directory "'..vim.fn.getcwd()..'" & disown<cr><cr>')
 	-- Opens file explorer (dolphin) at project location
 	kmn("<leader>ex", ':!dolphin "'..vim.fn.getcwd()..'" & disown<cr><cr>')
+
+	local function current_file_path() 
+		local filepath = vim.fn.expand('%:p')
+		-- return vim.fn.substitute(filepath, [[[^/]\+$]], "", "g")
+		return filepath
+        -- home/btglv/shared/Shared.Backups/ConfigFiles/.cotfig/nvim/doc/curiosities.md
+	end
+	kmn("<leader>exf", ':!dolphin "'..current_file_path()..'" & disown<cr><cr>')
 
 
 	kmn("<leader>mk", ":mksession!<cr>")
@@ -123,7 +122,7 @@ local function quality_of_life()
 	kmv("zz", "<Esc>zzgv")
 	kmv("zb", "<Esc>zbgv")
 
-	-- control+hjkl as arrow keys in command mode 
+	-- control+hjkl as arrow keys in command mode
 	kmc("<c-h>", "<Left>")
 	kmc("<c-j>", "<Down>")
 	kmc("<c-k>", "<Up>")
@@ -167,10 +166,11 @@ local function split_window_controls()
 	kmn("<A-.>", "<c-w>7>")
 	kmn("<A-=>", "<c-w>7+")
 	kmn("<A-->", "<c-w>7-")
-	kmn("<A-h>", "<c-w>h")
-	kmn("<A-j>", "<c-w>j")
-	kmn("<A-k>", "<c-w>k")
-	kmn("<A-l>", "<c-w>l")
+
+	kmn("<c-h>", function() vim.cmd.wincmd('h') end)
+	kmn("<c-j>", function() vim.cmd.wincmd('j') end)
+	kmn("<c-k>", function() vim.cmd.wincmd('k') end)
+	kmn("<c-l>", function() vim.cmd.wincmd('l') end)
 end
 local function search_and_replace()
 	-- NORMAL: serach and replace word under cursor

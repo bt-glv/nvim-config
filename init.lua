@@ -25,7 +25,6 @@ require('plugin.diffview'),
 require('plugin._neogit'),
 -- require('plugin.copilot'),
 -- require('plugin.copilotChat'),
--- require('plugin.fzf'), -- Telescope has better compatibility overall 
 -- require('vim_fugitive'),
 
 })

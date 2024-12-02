@@ -9,7 +9,11 @@ return {
 		harpoon:setup()
 
 		kmn("<leader>ha", function() harpoon:list():add() end)
-		kmn("<leader>hs", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+		kmn("<leader>hs", function()
+			harpoon.ui:toggle_quick_menu(harpoon:list())
+			-- sometimes, this function also needs for another movement to register for the harpoon interface to show up
+			vim.api.nvim_feedkeys("k", "t", false)
+		end)
 
 		kmn("<leader>1", function() harpoon:list():select(1) end)
 		kmn("<leader>2", function() harpoon:list():select(2) end)
@@ -33,5 +37,6 @@ return {
 		-- Toggle previous & next buffers stored within Harpoon list
 		kmn("<leader>N", function() harpoon:list():prev() end)
 		kmn("<leader>n", function() harpoon:list():next() end)
-	end -- END Config function 
+
+	end -- END Config function
 }
