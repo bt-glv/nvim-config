@@ -7,11 +7,11 @@ return {
 		{'junegunn/fzf',build = function() vim.fn['fzf#install']() end }
 	},
 	config = function()
-		kmn( "<leader>ff", 	":Files<CR>") 		-- Fuzzy finds and open file 
-		kmn( "<leader>fb", 	":Buffers<CR>") 	-- Fuzzy finds and open buffer
-		kmn( "<leader>fl", 	":BLines<CR>") 		-- Fuzzy finds a line in your current text buffer
-		kmn( "<leader>fm", 	":Marks<CR>") 		-- Fuzzy finds marks 
-		kmn( "<leader>fr", 	":Rg<CR>") 		-- Finds files that contain a ripgrep match
-		kmn( "<leader>fg", 	":Ag<CR>")
+		km("n", "<leader>ff", 	":Files<CR>") 		-- Fuzzy finds and open file 
+		km("n", "<leader>fb", 	":Buffers<CR>") 	-- Fuzzy finds and open buffer
+		km("n", "<leader>fl", 	":BLines<CR>") 		-- Fuzzy finds a line in your current text buffer
+		km("n", "<leader>fm", 	":Marks<CR>") 		-- Fuzzy finds marks 
+		km("n", "<leader>fr", 	":Rg<CR>") 		-- Finds files that contain a ripgrep match
+		km("n", "<leader>fg", 	":Ag<CR>")
 	end
 }

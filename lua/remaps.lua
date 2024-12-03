@@ -16,27 +16,27 @@ vim.g.mapleader = " "
 
 -- << Remaps by topic >> --
 local function indentation()
-	kmn( '<A-;>', "mzo<cr><cr><cr><Esc>'z")
-	kmn( "<A-'>", "mzo<cr><Esc>'z")
-	kmn( "<A-\\>", "i<tab><esc>l")
-	kmn( "<A-cr>", "o<Esc>k")
-	kmn( "<leader><tab>", "i<tab><esc>l")
-	kmn( "<leader><cr>", "o<Esc>k")
-	kmn( "<leader>\\>", "i<tab><esc>l")
-	kmn( '<leader>;>', "mzo<cr><cr><cr><Esc>'z")
-	kmn( "<leader>'>", "mzo<cr><Esc>'z")
+	km("n", '<A-;>', "mzo<cr><cr><cr><Esc>'z")
+	km("n", "<A-'>", "mzo<cr><Esc>'z")
+	km("n", "<A-\\>", "i<tab><esc>l")
+	km("n", "<A-cr>", "o<Esc>k")
+	km("n", "<leader><tab>", "i<tab><esc>l")
+	km("n", "<leader><cr>", "o<Esc>k")
+	km("n", "<leader>\\>", "i<tab><esc>l")
+	km("n", '<leader>;>', "mzo<cr><cr><cr><Esc>'z")
+	km("n", "<leader>'>", "mzo<cr><Esc>'z")
 
-	kmv( "<leader>bi", function() Block_indent_2() end)
+	km("v", "<leader>bi", function() Block_indent_2() end)
 end
 local function comments()
-	kmnv("<leader>cc",":s$^\\(\\s\\| \\)*\\zs\\(.\\)$\\2$g|noh<Left><Left><Left><Left><Left><Left><Left><Left>")
-	kmnv("<leader>cr",':s$^\\(\\s\\| \\)*\\zs$$g|noh<Left><Left><Left><Left><Left><Left><Left>')
+	km({"v","n"},"<leader>cc",":s$^\\(\\s\\| \\)*\\zs\\(.\\)$\\2$g|noh<Left><Left><Left><Left><Left><Left><Left><Left>")
+	km({"v","n"},"<leader>cr",':s$^\\(\\s\\| \\)*\\zs$$g|noh<Left><Left><Left><Left><Left><Left><Left>')
 	-- wasted 20min of my life for this
 	-- TODO: add <leader>cd (commend delete) -> g/^\s*--/normal dd
 	-- ^\\(\\s\\)
 end
 local function surround_basic()
-		kmnv("<leader>x", function() Manual_surround() end)
+		km({"v","n"},"<leader>x", function() Manual_surround() end)
 		-- km_all("<leader>xt", function()
 			-- local pp = vim.api.nvim_get_mode().mode
 			-- local esc = Parse_termc("<Esc>")
@@ -45,63 +45,65 @@ local function surround_basic()
 end
 local function tabs()
 
-	kmn("<leader>tl", ":tabnext<CR>")
-	kmn("<leader>th", ":tabprevious<CR>")
-	kmn("<leader>tn", ":tabnew<CR>")
-	kmn("<leader>td", ":tabclose<CR>")
-	kmn("<leader>t1", "1gt")
-	kmn("<leader>t2", "2gt")
-	kmn("<leader>t3", "3gt")
-	kmn("<leader>t4", "4gt")
-	kmn("<leader>t5", "5gt")
+	km("n","<leader>tl", ":tabnext<CR>")
+	km("n","<leader>th", ":tabprevious<CR>")
+	km("n","<leader>tn", ":tabnew<CR>")
+	km("n","<leader>td", ":tabclose<CR>")
+	km("n","<leader>t1", "1gt")
+	km("n","<leader>t2", "2gt")
+	km("n","<leader>t3", "3gt")
+	km("n","<leader>t4", "4gt")
+	km("n","<leader>t5", "5gt")
 
 end
 local function movement()
-	vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-	vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+	km("v", "J", ":m '>+1<CR>gv=gv")
+	km("v", "K", ":m '<-2<CR>gv=gv")
 
-	kmn("J", "mzJ`z")
-	kmn("<C-d>", "<C-d>zz")
-	kmn("<C-u>", "<C-u>zz")
-	kmn("<C-o>", "<C-o>zz")
+	km("n","J", "mzJ`z")
+	km("n","<C-d>", "<C-d>zz")
+	km("n","<C-u>", "<C-u>zz")
+	km("n","<C-o>", "<C-o>zz")
 end
 local function ctrl_space_commands()
 
-	vim.keymap.set({"n","c","i"}, "<c- >", function() Cmdline_buff_control() end )
-	vim.keymap.set({"n","c"}, "<c-;>", "<c-c><c-c><c-c>q:k")
-	kmv("<c- >", ":")
+	km({"n","c","i"}, "<c- >", function() Cmdline_buff_control() end )
+	km({"n","c"}, "<c-;>", "<c-c><c-c><c-c>q:k")
+	km("v","<c- >", ":")
 
 end
 local function terminal_mode_related()
-	kmt("<C- >","<C-\\><C-n>")
+	km("t","<C- >","<C-\\><C-n>")
 	-- Quickly opens a terminal in a vertical split in a vertical split
-	kmn("<leader>ter", "<c-w>v<c-w>l:term<CR><c-w>h") -- opens terminal at project root
-	-- kmn("<leader>teh", ':vnew<CR><c-w>l:call termopen(&shell, #{cwd: expand("%:p:h")})<CR><c-w>h') -- Opens terminal at current file location; not usable at this moment
+	km("n","<leader>ter", "<c-w>v<c-w>l:term<CR><c-w>h") -- opens terminal at project root
+	-- km("n","<leader>teh", ':vnew<CR><c-w>l:call termopen(&shell, #{cwd: expand("%:p:h")})<CR><c-w>h') -- Opens terminal at current file location; not usable at this moment
 end
 local function quality_of_life()
 
+	-- This substitutes a vim feature that shows the hex to the character under the cursor
+	km({'v','n'},'ga','<Esc>ggVG')
 
 	-- Removes all indentation and spaces at the begining of the line
-	kmn("<leader><", [[:s/\v(^[\t ]+)//g|noh<CR>]])
-	kmv("<leader><", [[<Esc>:'<,'>s/\v(^[\t ]+)//g|noh<CR>]])
+	km("n","<leader><", [[:s/\v(^[\t ]+)//g|noh<CR>]])
+	km("v","<leader><", [[<Esc>:'<,'>s/\v(^[\t ]+)//g|noh<CR>]])
 
 	-- Gets rid of "life with trailing spaces"
-	kmn("<leader>rr",[[:%s/\v(^[ \t]+$)|([ \t]+$)//g|noh]])
-	kmv("<leader>rr",[[<Esc>:'<,'>s/[ \t]\+$//g|noh]])
+	km("n","<leader>rr",[[:%s/\v(^[ \t]+$)|([ \t]+$)//g|noh]])
+	km("v","<leader>rr",[[<Esc>:'<,'>s/[ \t]\+$//g|noh]])
 
-	vim.keymap.set({'n','v','i'}	,"<A-BS>", "<Esc>"	) -- Experimental, might delete later
+	km({'n','v','i'}	,"<A-BS>", "<Esc>"	) -- Experimental, might delete later
 
 	-- By using nvim_feedkeys on "t" mode, <A- > now works with every single plugin,
 	-- since the keys are sent as if typed.
-	vim.keymap.set({'n','v','i'}	,"<A- >", function() vim.api.nvim_feedkeys("", "t", false) end)
-	vim.keymap.set({'c'}			,"<A- >", function() vim.api.nvim_feedkeys("", "t", false) end)
+	km({'n','v','i'}	,"<A- >", function() vim.api.nvim_feedkeys("", "t", false) end)
+	km({'c'}			,"<A- >", function() vim.api.nvim_feedkeys("", "t", false) end)
 
 	-- Opens terminal emulator and opens neo vim at the current directory
-	kmn("<leader>new", ':!alacritty --working-directory "'..vim.fn.getcwd()..'" -e bash -c "nvim ." & disown<cr><cr>')
+	km("n","<leader>new", ':!alacritty --working-directory "'..vim.fn.getcwd()..'" -e bash -c "nvim ." & disown<cr><cr>')
 	-- Opens terminal emulator at project path
-	kmn("<leader>tew", ':!alacritty --working-directory "'..vim.fn.getcwd()..'" & disown<cr><cr>')
+	km("n","<leader>tew", ':!alacritty --working-directory "'..vim.fn.getcwd()..'" & disown<cr><cr>')
 	-- Opens file explorer (dolphin) at project location
-	kmn("<leader>ex", ':!dolphin "'..vim.fn.getcwd()..'" & disown<cr><cr>')
+	km("n","<leader>ex", ':!dolphin "'..vim.fn.getcwd()..'" & disown<cr><cr>')
 
 	local function current_file_path() 
 		local filepath = vim.fn.expand('%:p')
@@ -109,43 +111,43 @@ local function quality_of_life()
 		return filepath
         -- home/btglv/shared/Shared.Backups/ConfigFiles/.cotfig/nvim/doc/curiosities.md
 	end
-	kmn("<leader>exf", ':!dolphin "'..current_file_path()..'" & disown<cr><cr>')
+	km("n","<leader>exf", ':!dolphin "'..current_file_path()..'" & disown<cr><cr>')
 
 
-	kmn("<leader>mk", ":mksession!<cr>")
-	kmn("<leader>bash", ":w !bash")
+	km("n","<leader>mk", ":mksession!<cr>")
+	km("n","<leader>bash", ":w !bash")
 
-	kmv(":", ":<C-u>")
+	km("v",":", ":<C-u>")
 
 	-- zz zt zb in visual selection mode
-	kmv("zt", "<Esc>ztgv")
-	kmv("zz", "<Esc>zzgv")
-	kmv("zb", "<Esc>zbgv")
+	km("v","zt", "<Esc>ztgv")
+	km("v","zz", "<Esc>zzgv")
+	km("v","zb", "<Esc>zbgv")
 
 	-- control+hjkl as arrow keys in command mode
-	kmc("<c-h>", "<Left>")
-	kmc("<c-j>", "<Down>")
-	kmc("<c-k>", "<Up>")
-	kmc("<c-l>", "<Right>")
-	kmc("<c-b>", "<c-Left>")
-	kmc("<c-e>", "<c-Right>")
+	km("c","<c-h>", "<Left>")
+	km("c","<c-j>", "<Down>")
+	km("c","<c-k>", "<Up>")
+	km("c","<c-l>", "<Right>")
+	km("c","<c-b>", "<c-Left>")
+	km("c","<c-e>", "<c-Right>")
 
 	-- Toggle relative line number on/of
-	kmn("<leader>rnu", ":set rnu! nu<cr>")
+	km("n","<leader>rnu", ":set rnu! nu<cr>")
 
 	-- Write(save) file from shortcut
-	kmn("<leader>ww", ":w<cr>")
-	kmn("<leader>wa", ":wa<cr>")
-	kmn("<leader>q", ":q<cr>")
+	km("n","<leader>ww", ":w<cr>")
+	km("n","<leader>wa", ":wa<cr>")
+	km("n","<leader>q", ":q<cr>")
 
 	-- Opens Explorer (newtr)
-	kmn( "<leader>pv", vim.cmd.Ex)
+	km("n", "<leader>pv", vim.cmd.Ex)
 
 	-- :noh (no highlight) remap
-	kmn( "<leader><space>", ":noh<CR>")
+	km("n", "<leader><space>", ":noh<CR>")
 
 	-- Normal mode Backspace is now @
-	kmn("<BS>", "@")
+	km("n","<BS>", "@")
 
 	-- Fast quit without saving
 	cmd('command! Q qa!')
@@ -153,64 +155,67 @@ local function quality_of_life()
 
 	-- Creates some to-do list headers.
 	-- This is somewhat important to my workflow.
-	-- kmn("<leader>todo", "o# To-Start<cr># Done<esc>k")
+	-- km("n","<leader>todo", "o# To-Start<cr># Done<esc>k")
 end
 local function split_window_controls()
-	kmn("<c-w>,", "<c-w>7<")
-	kmn("<c-w>.", "<c-w>7>")
-	kmn("<c-w>=", "<c-w>7+")
-	kmn("<c-w>-", "<c-w>7-")
+	km("n","<c-w>,", "<c-w>7<")
+	km("n","<c-w>.", "<c-w>7>")
+	km("n","<c-w>=", "<c-w>7+")
+	km("n","<c-w>-", "<c-w>7-")
 
-	kmn("<A-w>", "<c-w>")
-	kmn("<A-,>", "<c-w>7<")
-	kmn("<A-.>", "<c-w>7>")
-	kmn("<A-=>", "<c-w>7+")
-	kmn("<A-->", "<c-w>7-")
+	km("n","<A-w>", "<c-w>")
+	km("n","<A-,>", "<c-w>7<")
+	km("n","<A-.>", "<c-w>7>")
+	km("n","<A-=>", "<c-w>7+")
+	km("n","<A-->", "<c-w>7-")
 
-	kmn("<c-h>", function() vim.cmd.wincmd('h') end)
-	kmn("<c-j>", function() vim.cmd.wincmd('j') end)
-	kmn("<c-k>", function() vim.cmd.wincmd('k') end)
-	kmn("<c-l>", function() vim.cmd.wincmd('l') end)
+	km("n","<c-h>", function() vim.cmd.wincmd('h') end)
+	km("n","<c-j>", function() vim.cmd.wincmd('j') end)
+	km("n","<c-k>", function() vim.cmd.wincmd('k') end)
+	km("n","<c-l>", function() vim.cmd.wincmd('l') end)
 end
 local function search_and_replace()
 	-- NORMAL: serach and replace word under cursor
-	kmn("<leader>*", [[viwy<Esc>q:i%s/<C-r>"/]]) -- TODO: Fix this
+	km("n","<leader>*", [[viwy<Esc>q:i%s/<C-r>"/]]) -- TODO: Fix this
 	-- VISUAL: search selected text in visual mode
-	kmv("<leader>8", 'y<Esc>/<C-r>"/e<cr>')
+	km("v","<leader>8", 'y<Esc>/<C-r>"/e<cr>')
 	-- VISUAL: search and replace selected text
-	kmv("<leader>*", 'y<Esc>q:i%s/\\(<C-r>"\\)//g<Esc>F/;li')
+	km("v","<leader>*", 'y<Esc>q:i%s/\\(<C-r>"\\)//g<Esc>F/;li')
 	-- NORMAL: Counts how many matches for last search
 	km('n', "<leader>tc", ":%s///gn<cr>")
 end
 local function clipboard_utilities()
 	-- Facilitates the use of the system clipboard
+	--
+	km("v","<leader>y", '"+y')
+	km("v","<leader>d", '"+d')
+	km({"v","n"}, "<leader>p", '"+p')
+	km({"v","n"}, "P", '"+p')
+	km("v","Y", '"+y')
+	km("v","D", '"+d')
 
-	kmn("<leader>yy", '"+yy')
-	kmn("<leader>dd", '"+dd')
+	km("n","<leader>yy", '"+yy')
+	km("n","<leader>dd", '"+dd')
+	km("n", "<leader>Y", [["+Y]])
+	km("n", "<leader>D", [["+D]])
+	km("n", "<leader>C", [["+C]])
 
-	kmv("<leader>y", '"+y')
-	kmv("<leader>d", '"+d')
-	kmnv( "<leader>p", '"+p')
-	kmnv( "P", '"+p')
-	kmv("Y", '"+y')
-	kmv("D", '"+d')
-
-	kmi("<A-P>", '<C-r>"')
-	kmi("<A-p>", "<C-r>+")
+	km("i","<A-P>", '<C-r>"')
+	km("i","<A-p>", "<C-r>+")
 
 	-- Facilitates the USAGE of 'a' as an alternative copy-paste register
 	-- I rarely use this
-	kmn("<leader>ayy", '"ayy')
-	kmn("<leader>add", '"add')
-	kmv("<leader>ay", '"ay')
-	kmv("<leader>ad", '"ad')
-	kmnv("<leader>ap", '"ap')
+	km("n","<leader>ayy", '"ayy')
+	km("n","<leader>add", '"add')
+	km("v","<leader>ay", '"ay')
+	km("v","<leader>ad", '"ad')
+	km({"v","n"},"<leader>ap", '"ap')
 end
 local function default_buffer_manipulation()
 	-- Default buffer commands remapings
-	kmn( "<A-n>", ":bn<CR>")
-	kmn( "<A-N>", ":bN<CR>")
-	kmn( "<leader>bd", ":bd!<CR>")
+	km("n", "<A-n>", ":bn<CR>")
+	km("n", "<A-N>", ":bN<CR>")
+	km("n", "<leader>bd", ":bd!<CR>")
 end
 local function run_scirpt()
 		--  LUA and Python scripting utilities  --
@@ -219,22 +224,22 @@ local function run_scirpt()
 end
 local function set_spell()
 --  Set Spell Checker  --
-	kmn( "<leader>ss", ":set spell!<cr>")
+	km("n", "<leader>ss", ":set spell!<cr>")
 		-- "set  spell" --
-	kmn( "<leader>sl", ":set spelllang=")
+	km("n", "<leader>sl", ":set spelllang=")
 		-- "set language" --
 end
 local function spell_check()
 --  spell checke keys remaps  --
-	kmn("z;","]s")
-	kmn("z,","[s")
-	kmn("z<leader>","z=")
+	km("n","z;","]s")
+	km("n","z,","[s")
+	km("n","z<leader>","z=")
 end
 local function replace_across_project_files()
-	kmn("<leader>r1", ':vimgrep /<c-r>"/gj **/*')
-	kmv("<leader>r1", 'y:vimgrep /<c-r>"/gj **/*')
-	kmn("<leader>r2", ':copen<cr>')
-	kmn("<leader>r3", 'q:icfdo %s/<c-r>"/,/g | update<Esc>F,xi')
+	km("n","<leader>r1", ':vimgrep /<c-r>"/gj **/*')
+	km("v","<leader>r1", 'y:vimgrep /<c-r>"/gj **/*')
+	km("n","<leader>r2", ':copen<cr>')
+	km("n","<leader>r3", 'q:icfdo %s/<c-r>"/,/g | update<Esc>F,xi')
 	-- Be careful with where you use this
 end
 

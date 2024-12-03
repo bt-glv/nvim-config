@@ -17,7 +17,7 @@ return {
 			nmap ySs <Plug>YSsurround
 			nmap ySS <Plug>YSsurround
 		]])
-		kmv("<leader>s", "<Plug>VSurround")
+		km("v", "<leader>s", "<Plug>VSurround")
 
 
 

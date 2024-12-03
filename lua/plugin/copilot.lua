@@ -36,9 +36,9 @@ return {
 		end -- END hook
 
 		-- EXEC
-		kmn("<leader>cs", ":Copilot status<cr>")
-		kmn("<leader>cp", ":Copilot panel<cr>")
-		kmn("<leader>ce", ":let b:copilot_enabled = 1")
+		km("n","<leader>cs", ":Copilot status<cr>")
+		km("n","<leader>cp", ":Copilot panel<cr>")
+		km("n","<leader>ce", ":let b:copilot_enabled = 1")
 		--let b:workspace_folder = getcwd() 
 		--let g:copilot_workspace_folders = ["".getcwd()]
 		--cmd('let g:copilot_workspace_folders = ["".getcwd()]')

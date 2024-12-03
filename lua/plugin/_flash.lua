@@ -144,6 +144,6 @@ return {
 	})
 
 	-- Keymaps
-	kmnc("<c-s>", '<cmd>lua require("flash").toggle()<cr>')
+	km({'n','c'}, "<c-s>", '<cmd>lua require("flash").toggle()<cr>')
 end
 } -- Config table end

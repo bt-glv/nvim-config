@@ -56,8 +56,8 @@ return {
 		  },
 		} -- copilot_chat_config END
 
-		kmn("<leader>cc", ":CopilotChatToggle<cr>")
-		kmv("<leader>cc", "<Esc>:CopilotChatToggle<cr>")
-		kmv("<leader>cst", "<Esc>:CopilotStop<cr>")
+		km("n","<leader>cc", ":CopilotChatToggle<cr>")
+		km("v","<leader>cc", "<Esc>:CopilotChatToggle<cr>")
+		km("v","<leader>cst", "<Esc>:CopilotStop<cr>")
 	end -- END Config function 
 }

@@ -1,4 +1,3 @@
-
 return {
     'nvim-telescope/telescope.nvim',
 	branch = '0.1.x',
@@ -23,13 +22,13 @@ return {
 		  }
 		}
 
-		kmn( "<leader>ff", 	":Telescope find_files<CR>") 		-- Fuzzy finds and open file 
-		kmn( "<leader>fb", 	":Telescope buffers<CR>") 	-- Fuzzy finds and open buffer
-		kmn( "<leader>fl", 	":Telescope live_grep<CR>") 		-- Fuzzy finds a line in your current text buffer
-		kmn( "<leader>fm", 	":Telescope marks<CR>") 		-- Fuzzy finds marks 
-		kmn( "<leader>fr", 	":Telescope registers<CR>") 		-- Finds files that contain a ripgrep match
-		-- kmn( "<leader>rr", 	":Telescope registers<CR>") 		-- Finds files that contain a ripgrep match
-		kmn( "<leader>fh", 	":Telescope current_buffer_fuzzy_find<CR>") 		-- Finds files that contain a ripgrep match
+		km("n", "<leader>ff", 	":Telescope find_files<CR>") 		-- Fuzzy finds and open file 
+		km("n", "<leader>fb", 	":Telescope buffers<CR>") 	-- Fuzzy finds and open buffer
+		km("n", "<leader>fl", 	":Telescope live_grep<CR>") 		-- Fuzzy finds a line in your current text buffer
+		km("n", "<leader>fm", 	":Telescope marks<CR>") 		-- Fuzzy finds marks 
+		km("n", "<leader>fr", 	":Telescope registers<CR>") 		-- Finds files that contain a ripgrep match
+		-- km("n", "<leader>rr", 	":Telescope registers<CR>") 		-- Finds files that contain a ripgrep match
+		km("n", "<leader>fh", 	":Telescope current_buffer_fuzzy_find<CR>") 		-- Finds files that contain a ripgrep match
 
 	end
 }

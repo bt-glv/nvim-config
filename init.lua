@@ -1,5 +1,6 @@
 
-require('short_commands')
+km = vim.keymap.set
+cmd = vim.cmd
 require('buffer_settings')
 require('remaps_tools')
 require('remaps')

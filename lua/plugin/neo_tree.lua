@@ -4,6 +4,6 @@ return {
 	lazy = false,
 	dependencies = {'nvim-lua/plenary.nvim', 'MunifTanjim/nui.nvim'},
 	config = function()
-		kmn( "<leader>pv", ":Neotree toggle<cr>")
+		km("n", "<leader>pv", ":Neotree toggle<cr>")
 	end -- END Config function 
 }
