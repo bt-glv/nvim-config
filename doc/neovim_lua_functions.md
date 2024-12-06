@@ -18,6 +18,7 @@ vim.api.nvim_get_current_buf()
 vim.api.nvim_buf_get_name(bufnr)
 vim.api.nvim_buf_get_name(0) -- For current buffer
 
+0 -> THIS BUFNR ALWAYS REFFERS TO THE CURRENT BUFFER 
 
 
 ---------
@@ -65,5 +66,15 @@ vim.fn.substitute(input_string, regex_pattern, replace_with_this, mode)
 
 Example:
 vim.fn.substitute(pick, [[[/][^/]\+$]], "", "g" )
+
+
+----------
+## match lua string with vim regex
+
+(vim.fn.match(<String>, <vim regex pattern>) ~= -1)
+> this will return true or false if there is a match within the string
+
+#### Example
+vim.fn.match(bufname, '[[]Command Line[]]$') ~= -1)
 
 

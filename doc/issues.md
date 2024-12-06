@@ -10,9 +10,6 @@ This makes inserting a line into another a little bothersome
 
 # Change autocomplete from <c-n> to tab; keep <c-n> for movement within a autocomplete list
 
-# Command line buff 
-Every single action that leads to command mode window, after opening it, will mark that buffer with a variable
-if that variable is present, actions will and will not happen
 
 
 

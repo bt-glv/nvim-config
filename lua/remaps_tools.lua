@@ -8,17 +8,24 @@ local cc = Parse_termc("<c-c>")
 local up = Parse_termc("<Up>")
 
 local function is_commandline_buf()
-	local bufnr 			= vim.api.nvim_get_current_buf()
-	local filetype 			= vim.bo[bufnr].filetype
-	local bufname			= vim.api.nvim_buf_get_name(bufnr)
-	local undo_ftplugin		= (function()
-		local suc, und = pcall(function() return vim.api.nvim_buf_get_var(bufnr, "undo_ftplugin") end)
-		if not suc then return "" end; return und
+
+	local bufname =	(function() 
+		local bufname = vim.api.nvim_buf_get_name(0)
+		return (bufname == "" 
+				or bufname == nil 
+				or vim.fn.match(bufname, '[[]Command Line[]]$') ~= -1)
 	end)()
 
-	if filetype == "vim" and (bufname == "" or bufname == nil) and undo_ftplugin == "call VimFtpluginUndo()"
-	then return true end
-	return false
+	local undo_ftplugin	= (function()
+		local suc, undo_plug_var = pcall(function() return vim.api.nvim_buf_get_var(0, "undo_ftplugin") end)
+		if not suc then return false end 
+		return undo_plug_var == "call VimFtpluginUndo()"
+	end)()
+
+	local filetype = (vim.bo[0].filetype == "vim")
+
+	return (filetype and bufname and undo_ftplugin)
+
 end
 
 
@@ -251,21 +258,6 @@ function Block_indent_2()
 
 	vim.cmd("noh")
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

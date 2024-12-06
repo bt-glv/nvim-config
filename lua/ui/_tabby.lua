@@ -15,9 +15,9 @@ return {
 		-- Not an ideal solution; I didn't find a way to set a default tab name
 		local function redefine_default_tab_name(tab_name, tab_number)
 			if tab_name == "[No Name]" or tab_name == nil or tab_name == "" then
-				return "["..tab_number.."]"
+				return "["..tab_number.."] *"
 			end
-			return tab_name
+			return "["..tab_number.."] "..tab_name
 		end
 
 		require("tabby.tabline").set(function(line)
