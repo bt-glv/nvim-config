@@ -32,8 +32,6 @@ local function comments()
 	km({"v","n"},"<leader>cc",":s$^\\(\\s\\| \\)*\\zs\\(.\\)$\\2$g|noh<Left><Left><Left><Left><Left><Left><Left><Left>")
 	km({"v","n"},"<leader>cr",':s$^\\(\\s\\| \\)*\\zs$$g|noh<Left><Left><Left><Left><Left><Left><Left>')
 	-- wasted 20min of my life for this
-	-- TODO: add <leader>cd (commend delete) -> g/^\s*--/normal dd
-	-- ^\\(\\s\\)
 end
 local function surround_basic()
 		km({"v","n"},"<leader>x", function() Manual_surround() end)

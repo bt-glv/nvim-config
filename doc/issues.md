@@ -10,6 +10,15 @@ This makes inserting a line into another a little bothersome
 
 # Change autocomplete from <c-n> to tab; keep <c-n> for movement within a autocomplete list
 
+# Start using local lsp servers instead of Mason
+- Mason can be incredibly unpredictable. In some platforms it works, it others it does not
+
+# Try setting up lsp for myself - without lsp0
+- Perhaps, use coc instead of comp
+
+
+
+
 
 
 

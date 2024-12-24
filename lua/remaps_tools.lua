@@ -214,22 +214,22 @@ function Block_indent_2()
 
 	end
 
+	local function calc_tabs_amount(col_cursor, col_pivot)
+		if col_cursor >= col_pivot then return 0 end
 
-	local function next_multiple_of_4(x) return x + (4-(x%4)) end
-	local function determine_amount_of_tabs(col_cursor,col_pivot)
-		local first_tab = 5-(col_cursor-4)
-		local candidate =  col_cursor + first_tab
-		if candidate >= col_pivot then return 1 end
+		local first_tab_spaces = 4-(col_cursor%4)
+		local new_position=col_cursor+first_tab_spaces
 
-		local tabs_amount = 1
-		while candidate < col_pivot do
-			candidate = next_multiple_of_4(candidate)
-			tabs_amount = tabs_amount + 1
+		if new_position >= col_pivot then return 1 end
+
+		local tabs_to_input = 1
+		while true do
+			new_position=new_position+4
+			tabs_to_input=tabs_to_input+1
+			if new_position >= col_pivot then return tabs_to_input end
 		end
-
-		return tabs_amount
-
 	end
+
 
 	-- --
 	-- Code
@@ -247,9 +247,9 @@ function Block_indent_2()
 		local col_pivot = cordinates[2]
 		local col_cursor = vim.api.nvim_win_get_cursor(0)[2]
 
-		local tabs_amount = determine_amount_of_tabs(col_cursor, col_pivot)
-		local tabs = ""
+		local tabs_amount = calc_tabs_amount(col_cursor, col_pivot)
 
+		local tabs = ""
 		for i=1, tabs_amount do tabs=tabs..tab end
 
 		vim.api.nvim_feedkeys("i"..tabs..esc.."l","xn", false)
