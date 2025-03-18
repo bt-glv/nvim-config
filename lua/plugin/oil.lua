@@ -63,6 +63,14 @@ return {
 		  }):find()
 		end
 
+		local function pwc()
+			local path = vim.fn.expand('%:p:h')
+			path = vim.fn.substitute(path, "^oil:[/][/]","","g")
+			vim.fn.system('echo "'..path..'"  | if command -v wl-copy >/dev/null 2>&1; then wl-copy; else xclip -selection clipboard; fi')
+			print("Current folder path copied to clipboard")
+
+		end
+
 			require("oil").setup({
 			  default_file_explorer = true,
 			  columns = {
@@ -113,6 +121,7 @@ return {
 				["gx"] = "actions.open_external",
 				["g."] = "actions.toggle_hidden",
 				["g\\"] = "actions.toggle_trash",
+				["<leader>pwc"] = function() pwc() end,
 			  },
 			  use_default_keymaps = true,
 			  view_options = {

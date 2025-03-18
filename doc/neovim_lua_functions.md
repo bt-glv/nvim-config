@@ -1,5 +1,34 @@
 
 
+---------
+## execute shell commands
+
+#### Lua way of doing it (silently)
+```lua
+vim.fn.system("your-bash-command")
+```
+> this one is platform agnostic
+
+
+#### "vimscript" way of doing it
+```lua
+vim.cmd('!ls')
+```
+
+
+---------
+## file path
+
+```lua
+-- without the file in the path
+local filepath = vim.fn.expand('%:p:h')
+
+-- with the file in the path
+local filepath = vim.fn.expand('%:p')
+
+```
+
+
 
 ---------
 ## Get project path
@@ -50,7 +79,7 @@ vim.api.nvim_feedkeys("q:","xn",false)
 > Ex: xn xt
 
 x       -> Makes the function wait till all keys are fed
-t       -> keys will be handles as if they where typed
+t       -> keys will be handled as if they where typed
 n       -> ""do not remap keys""
 
 > More about:
@@ -65,8 +94,7 @@ vim.fn.substitute()
 vim.fn.substitute(input_string, regex_pattern, replace_with_this, mode)
 
 Example:
-vim.fn.substitute(pick, [[[/][^/]\+$]], "", "g" )
-
+pick = vim.fn.substitute(pick, [[[/][^/]\+$]], "", "g" )
 
 ----------
 ## match lua string with vim regex

@@ -6,11 +6,9 @@
 - Install and try Codium as a copilot alternative
 - Create a utility that checks if there is any terminal buffer open and displays it somewhere 
 - Try out some fold plugins: nvim-ufo, nvim-treesitter-context, et cetera
-- ??? Vim regex formatter
-    - Create a remap that format any regex simbles inside seleciton 
 
 # In-progress
-
+ 
 # Done
 - Git
     X Install and test gitsigns

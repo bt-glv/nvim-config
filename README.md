@@ -1,9 +1,9 @@
 # About
 This config was made on Linux for Linux.</br>
 
-Some features might not work as expected on Windows (native Neovim), MacOS or Android. </br></br>
-Everything works on Windows 10/11 under WLS </br>
-A lot of plugins and features might not work out of the box on native Neovim for Windows </br> 
+- Everything works on Windows 10/11 under WLS </br>
+- Some features might not work as expected on Windows (native Neovim), MacOS or Android.
+- A lot may not work out of the box on native Windows Neovim</br> 
 
 # What does not work (confirmed)
 NixOS: 
@@ -23,10 +23,11 @@ Termux (Android): </br>
 # Required programs
 <ul>
     <li>Alacritty (Can be changed for another terminal emulator on remaps.lua)</li>
-    <li>Node.js -> npm</li>
+    <li>npm</li>
+    <li>Node.js</li>
     <li>ripgrep</li>
     <li>fd</li>
-    <li>C compiler: gcc; clang; et cetera </li>
+    <li>C compiler: gcc; clang</li>
     <li>go (Optional)</li>
 </ul>
 

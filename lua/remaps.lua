@@ -26,7 +26,7 @@ local function indentation()
 	km("n", '<leader>;>', "mzo<cr><cr><cr><Esc>'z")
 	km("n", "<leader>'>", "mzo<cr><Esc>'z")
 
-	km("v", "<leader>bi", function() Block_indent_2() end)
+	km("v", "<leader>bi", function() Block_indent() end)
 end
 local function comments()
 	km({"v","n"},"<leader>cc",":s$^\\(\\s\\| \\)*\\zs\\(.\\)$\\2$g|noh<Left><Left><Left><Left><Left><Left><Left><Left>")
@@ -49,11 +49,15 @@ local function tabs()
 	km("n","<c-Left>", ":tabprevious<CR>")
 	km("n","<leader>tn", ":tabnew<CR>")
 	km("n","<leader>td", ":tabclose<CR>")
-	km("n","<leader>t1", "1gt")
-	km("n","<leader>t2", "2gt")
-	km("n","<leader>t3", "3gt")
-	km("n","<leader>t4", "4gt")
-	km("n","<leader>t5", "5gt")
+	km("n","<leader>1", "1gt")
+	km("n","<leader>2", "2gt")
+	km("n","<leader>3", "3gt")
+	km("n","<leader>4", "4gt")
+	km("n","<leader>5", "5gt")
+	km("n","<leader>6", "5gt")
+	km("n","<leader>7", "7gt")
+	km("n","<leader>8", "8gt")
+	km("n","<leader>9", "9gt")
 
 end
 local function movement()
@@ -80,6 +84,9 @@ local function terminal_mode_related()
 end
 local function quality_of_life()
 
+	-- restart all lsp servers
+	km("n", "<leader>lr", function() RestartLspServers() end)
+
 	-- This substitutes a vim feature that shows the hex to the character under the cursor
 	km({'v','n'},'ga','<Esc>ggVG')
 
@@ -105,14 +112,20 @@ local function quality_of_life()
 	-- Opens file explorer (dolphin) at project location
 	km("n","<leader>ex", ':!dolphin "'..vim.fn.getcwd()..'" & disown<cr><cr>')
 
-	local function current_file_path() 
-		local filepath = vim.fn.expand('%:p')
-		-- return vim.fn.substitute(filepath, [[[^/]\+$]], "", "g")
-		return filepath
-        -- home/btglv/shared/Shared.Backups/ConfigFiles/.cotfig/nvim/doc/curiosities.md
-	end
-	km("n","<leader>exf", ':!dolphin "'..current_file_path()..'" & disown<cr><cr>')
+	vim.keymap.set("n","<leader>hex", function()
+			local path = vim.fn.expand('%:p:h')
+			path = vim.fn.substitute(path, "^oil:[/][/]","","g")
+			vim.cmd('silent! !dolphin "'..path..'" & disown')
+			-- for debuggin purposes
+			-- local to_print = "i"..path
+			-- vim.api.nvim_feedkeys(to_print, "xn", false)
+		end)
 
+	vim.keymap.set("n","<leader>htew", function()
+			local path = vim.fn.expand('%:p:h')
+			path = vim.fn.substitute(path, "^oil:[/][/]","","g")
+			vim.cmd('silent! !alacritty --working-directory "'..path..'" & disown')
+		end)
 
 	km("n","<leader>mk", ":mksession!<cr>")
 	km("n","<leader>bash", ":w !bash")
@@ -150,7 +163,7 @@ local function quality_of_life()
 	km("n","<BS>", "@")
 
 	-- Fast quit without saving
-	cmd('command! Q qa!')
+	vim.cmd('command! Q qa!')
 		-- this must have the ! after command if you want to :so % this file
 
 	-- Creates some to-do list headers.
@@ -195,6 +208,12 @@ local function search_and_replace()
 	-- NORMAL: Counts how many matches for last search
 	km('n', "<leader>tc", ":%s///gn<cr>")
 end
+
+local function upper_to_unnamed_buffer(keys) 
+	vim.api.nvim_feedkeys(keys, "xn", false)
+	vim.fn.setreg("+", vim.fn.getreg(""))
+end
+
 local function clipboard_utilities()
 	-- Facilitates the use of the system clipboard
 	--
@@ -207,10 +226,20 @@ local function clipboard_utilities()
 
 	km("n","<leader>yy", '"+yy')
 	km("n","<leader>dd", '"+dd')
-	km("n", "<leader>Y", [["+Y]])
-	km("n", "<leader>D", [["+D]])
-	km("n", "<leader>C", [["+C]])
 
+
+
+	-- km("n", "<leader>Y", function() upper_to_unnamed_buffer("Y") end )
+	-- km("n", "<leader>D", function() upper_to_unnamed_buffer("D") end )
+	-- km("n", "<leader>C", function() upper_to_unnamed_buffer("C") end )
+
+	km("n", "<leader>Y", [[v$"+y]])
+
+	-- km("n", "<leader>Y", [["+Y]])
+	-- km("n", "<leader>D", [["+D]])
+	-- km("n", "<leader>C", [["+C]])
+
+	
 	km("i","<A-P>", '<C-r>"')
 	km("i","<A-p>", "<C-r>+")
 

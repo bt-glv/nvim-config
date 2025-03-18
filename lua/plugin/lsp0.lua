@@ -37,17 +37,20 @@ return {
 
 		--- if you want to know more about lsp-zero and mason.nvim
 		--- read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guide/integrate-with-mason-nvim.md
+		---
 		require('mason').setup({})
 		require('mason-lspconfig').setup({
 		  ensure_installed = {
 			  "lua_ls", "pyright",
 			  "html", "gopls",
 			  "tsserver", "bashls",
-			  "cssls",
-			  -- "nil_ls"
-				-- You must input the lspconfig name of the lsp server
-				-- Here is a translation list:
-				-- https://github.com/williamboman/mason-lspconfig.nvim/blob/main/doc/server-mapping.md
+			  "cssls", "ts_ls", "angularls"
+				--
+				-- # Tutorial
+				-- https://lsp-zero.netlify.app/docs/guide/integrate-with-mason-nvim
+				--
+				-- # lsp-config lsp name table
+				-- https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
 			},
 		  handlers = {
 			function(server_name)

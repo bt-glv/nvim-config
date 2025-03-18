@@ -24,8 +24,9 @@ require('ui._tabby'),
 require('ui._gitsigns'),
 require('plugin.diffview'),
 require('plugin._neogit'),
+require('plugin.treesitter_textobjects'),
+-- require('plugin.obsidian')
 -- require('plugin.copilot'),
 -- require('plugin.copilotChat'),
--- require('vim_fugitive'),
 
 })
