@@ -39,6 +39,8 @@ local function is_commandline_buf()
 end
 
 
+Exit_to_file_path = function() vim.cmd('qa!') end
+
 local cmdline_toggle = false
 function Cmdline_buff_control()
 	local is_commandline 	= is_commandline_buf()

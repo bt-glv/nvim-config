@@ -165,13 +165,9 @@ local function quality_of_life()
 	-- Normal mode Backspace is now @
 	km("n","<BS>", "@")
 
-	-- Fast quit without saving
-	vim.cmd('command! Q qa!')
-		-- this must have the ! after command if you want to :so % this file
-
-	-- Creates some to-do list headers.
-	-- This is somewhat important to my workflow.
-	-- km("n","<leader>todo", "o# To-Start<cr># Done<esc>k")
+	-- quit without saving
+	-- if oil is active, it will quit at file path
+	vim.api.nvim_create_user_command( 'Q', function() Exit_to_file_path() end, {})
 end
 local function split_window_controls()
 
@@ -212,7 +208,7 @@ local function search_and_replace()
 	km('n', "<leader>tc", ":%s///gn<cr>")
 end
 
-local function upper_to_unnamed_buffer(keys) 
+local function upper_to_unnamed_buffer(keys)
 	vim.api.nvim_feedkeys(keys, "xn", false)
 	vim.fn.setreg("+", vim.fn.getreg(""))
 end
@@ -242,7 +238,7 @@ local function clipboard_utilities()
 	-- km("n", "<leader>D", [["+D]])
 	-- km("n", "<leader>C", [["+C]])
 
-	
+
 	km("i","<A-P>", '<C-r>"')
 	km("i","<A-p>", "<C-r>+")
 

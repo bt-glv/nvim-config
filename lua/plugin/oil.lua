@@ -5,6 +5,22 @@ return {
 	dependencies = {},
 	config = function()
 
+		Exit_to_file_path = function()
+			local current_file_path = vim.fn.expand('%:p:h')
+			if current_file_path == '' or current_file_path == nil then return end
+
+			current_file_path = vim.fn.substitute(current_file_path, "^oil:[/][/]","","g")
+
+			local file_nvim_quit = io.open(os.getenv("HOME") .. "/.file_nvim_quit", "w")
+			if file_nvim_quit then
+				file_nvim_quit:write(current_file_path)
+				file_nvim_quit:close()
+			end
+
+			vim.cmd('qa!')
+		end
+
+
 		local function telescope_goto_folder()
 			local cwd 			= vim.fn.getcwd()
 			local actions 		= require("telescope.actions")
@@ -113,7 +129,7 @@ return {
 				["<C-l>"] = "actions.refresh",
 				["-"] = "actions.parent",
 				["_"] = "actions.open_cwd", -- Goes to the dir saved by "="
-				["="] = "actions.cd",		-- Saves a dir 
+				["="] = "actions.cd",		-- Saves a dir
 				["+"] = "actions.tcd",
 				["~"] = false,
 				["`"] = false,
