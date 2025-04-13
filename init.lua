@@ -2,8 +2,9 @@
 km 	= vim.keymap.set
 cmd = vim.cmd
 require('buffer_settings')
-require('remaps_tools')
+require('remap_tools')
 require('remaps')
+require('checks')
 
 require("lazy_bootstrap")
 require("lazy").setup({
@@ -28,5 +29,4 @@ require('plugin.treesitter_textobjects'),
 -- require('plugin.obsidian')
 -- require('plugin.copilot'),
 -- require('plugin.copilotChat'),
-
 })

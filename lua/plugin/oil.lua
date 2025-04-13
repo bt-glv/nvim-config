@@ -7,8 +7,8 @@ return {
 
 		Exit_to_file_path = function()
 			local current_file_path = vim.fn.expand('%:p:h')
-			if current_file_path == '' or current_file_path == nil then return end
 
+			if current_file_path == '' or current_file_path == nil then return end
 			current_file_path = vim.fn.substitute(current_file_path, "^oil:[/][/]","","g")
 
 			local file_nvim_quit = io.open(os.getenv("HOME") .. "/.file_nvim_quit", "w")
@@ -18,6 +18,22 @@ return {
 			end
 
 			vim.cmd('qa!')
+		end
+
+		local function pwc()
+			local current_file_path = vim.fn.expand('%:p:h')
+			current_file_path = vim.fn.substitute(current_file_path, "^oil:[/][/]","","g")
+
+			vim.cmd("silent! !echo '"..current_file_path.."' | if command -v wl-copy >/dev/null 2>&1; then wl-copy; else xclip -selection clipboard; fi ")
+			print("Current folder path copied to clipboard")
+		end
+
+		local function pg()
+			-- get current clipboard contents
+			-- oil cd to that directory if on oil buffer
+			local clipboard = vim.fn.getreg('+')
+			clipboard = vim.fn.substitute(clipboard, [[\_s$]],"","g")
+			require("oil").open(clipboard)
 		end
 
 
@@ -79,13 +95,6 @@ return {
 		  }):find()
 		end
 
-		local function pwc()
-			local path = vim.fn.expand('%:p:h')
-			path = vim.fn.substitute(path, "^oil:[/][/]","","g")
-			vim.fn.system('echo "'..path..'"  | if command -v wl-copy >/dev/null 2>&1; then wl-copy; else xclip -selection clipboard; fi')
-			print("Current folder path copied to clipboard")
-
-		end
 
 			require("oil").setup({
 			  default_file_explorer = true,
@@ -117,6 +126,8 @@ return {
 			  constrain_cursor = "editable",
 			  experimental_watch_for_changes = false,
 			  keymaps = {
+				["<leader>pg"] = function() pg() end,
+			  	["<leader>pwc"] = function() pwc() end,
 				["<leader>="] = function() telescope_goto_folder() end,
 				["<leader>-"] = function() telescope_goto_file_folder() end,
 				["g?"] = "actions.show_help",
@@ -137,7 +148,6 @@ return {
 				["gx"] = "actions.open_external",
 				["g."] = "actions.toggle_hidden",
 				["g\\"] = "actions.toggle_trash",
-				["<leader>pwc"] = function() pwc() end,
 			  },
 			  use_default_keymaps = true,
 			  view_options = {

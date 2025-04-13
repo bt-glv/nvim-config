@@ -9,10 +9,6 @@ I'm not sure how well those keybinds work with MacOS
 --  << Code Utilities >> --
 vim.g.mapleader = " "
 
--- The command line buffer does not have a name.
--- This is the best way I found to check if the buffer is the command line buffer
-
--- If its just one line, yy, else, 0Y
 
 -- << Remaps by topic >> --
 local function indentation()
@@ -167,7 +163,8 @@ local function quality_of_life()
 
 	-- quit without saving
 	-- if oil is active, it will quit at file path
-	vim.api.nvim_create_user_command( 'Q', function() Exit_to_file_path() end, {})
+	vim.api.nvim_create_user_command( 'QA', function() vim.cmd('qa!') end, {})
+	vim.api.nvim_create_user_command( 'QQ', function() Exit_to_file_path() end, {})
 end
 local function split_window_controls()
 

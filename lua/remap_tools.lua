@@ -16,7 +16,9 @@ function RestartLspServers()
 end
 vim.api.nvim_create_user_command("LspRestartAll", function() RestartLspServers() end, {})
 
-
+-- The command line buffer does not have a name.
+-- This is the best way I found to check if the buffer is the command line buffer
+-- If its just one line, yy, else, 0Y
 local function is_commandline_buf()
 
 	local bufname =	(function()
