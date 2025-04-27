@@ -95,6 +95,17 @@ function Manual_surround()
 		vim.api.nvim_feedkeys(expression, "xn", false)
 end
 
+
+-- # Block indent
+--
+-- [ ] 	check if the search match is after the pivot
+-- 		if so, de-indent it untill it reaches the pivot
+--
+-- [ ] 	also check if the match is on the pivot and solve that also
+--
+-- [ ]  find a way to add more caracters to the end of all selected lines 
+-- 		to make it easier to select on block selection mode
+--
 function Block_indent()
 	-- This function is made to be executed with expandtab turned off
 	if vim.o.expandtab then vim.o.expandtab = false end

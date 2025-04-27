@@ -32,3 +32,11 @@ end
 -- Code/calls
 if linux_check() then xclip_wlClipbaord_Check(Warning_print_func) end
 
+-- local function sh(command)
+	-- local command_file = io.popen(command.."")
+	-- local output = command_file:read('*a')
+	-- local _,_,op_status = command_file:close()
+
+	-- return {out = output, status=op_status}
+-- end
+--

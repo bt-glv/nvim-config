@@ -1,4 +1,8 @@
 # To-Start
+
+- (URGENT) Fix: f and t not working on remaps
+    - jumps to unpredictable locations
+
 - Fix: Lua lsp on nixos
     - more about it (3rd answer): https://stackoverflow.com/questions/75880481/cant-use-lua-lsp-in-neovim
     - perhaps find a way to use system-installed lsp servers together with mason?
@@ -12,6 +16,7 @@
 - Try: nvim-ufo
 - Try: nvim-treesitter-context
 
+- Add: keybind: serch across all files with ripgrep using telescope
 - Add: Which-key.nvim
 - Add: nvim-web-devicons
 - Add: nvim-notify
