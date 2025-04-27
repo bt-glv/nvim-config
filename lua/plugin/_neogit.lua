@@ -9,7 +9,7 @@ return {
     "nvim-telescope/telescope.nvim", -- optional
   },
   config = function()
-		vim.cmd("command! Ng Neogit")
+		vim.cmd("command! Neog Neogit")
 		require("neogit").setup{}
   end
 }
