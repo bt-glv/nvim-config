@@ -6,10 +6,9 @@ return {
 	config = function()
 
 		local theme = {
-		  current = { fg = "#cad3f5", bg = "transparent", style = "bold" },
-		  not_current = { fg = "#5b6078", bg = "transparent" },
-
-		  fill = { bg = "transparent" },
+		  current = { fg = "#cad3f5", bg = "#000000", style = "bold" },
+		  not_current = { fg = "#5b6078", bg = "#000000" },
+		  fill = { bg = "#000000" },
 		}
 
 		-- Not an ideal solution; I didn't find a way to set a default tab name
