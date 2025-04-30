@@ -22,7 +22,7 @@
 
 # In-progress
 - Add: keybind: serch across all files with ripgrep using telescope
-- Add: trouble.nvim
 
 # Done
+- Add: trouble.nvim
 

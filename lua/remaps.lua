@@ -77,8 +77,10 @@ local function ctrl_space_commands()
 end
 local function terminal_mode_related()
 	km("t","<C- >","<C-\\><C-n>")
+
 	-- Quickly opens a terminal in a vertical split in a vertical split
 	km("n","<leader>ter", "<c-w>v<c-w>l:term<CR><c-w>h") -- opens terminal at project root
+
 	-- km("n","<leader>teh", ':vnew<CR><c-w>l:call termopen(&shell, #{cwd: expand("%:p:h")})<CR><c-w>h') -- Opens terminal at current file location; not usable at this moment
 end
 local function quality_of_life()
