@@ -16,13 +16,13 @@
 - Try: nvim-ufo
 - Try: nvim-treesitter-context
 
-- Add: keybind: serch across all files with ripgrep using telescope
 - Add: Which-key.nvim
 - Add: nvim-web-devicons
 - Add: nvim-notify
-- Add: trouble.nvim
 
 # In-progress
+- Add: keybind: serch across all files with ripgrep using telescope
+- Add: trouble.nvim
 
 # Done
 
