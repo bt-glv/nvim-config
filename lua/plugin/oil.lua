@@ -24,7 +24,9 @@ return {
 			local current_file_path = vim.fn.expand('%:p:h')
 			current_file_path = vim.fn.substitute(current_file_path, "^oil:[/][/]","","g")
 
+			-- TODO: this command needs to be updated
 			vim.cmd("silent! !echo '"..current_file_path.."' | if command -v wl-copy >/dev/null 2>&1; then wl-copy; else xclip -selection clipboard; fi ")
+
 			print("Current folder path copied to clipboard")
 		end
 

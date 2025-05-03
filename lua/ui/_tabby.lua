@@ -36,7 +36,7 @@ return {
 		end)
 
 		-- Remaps
-		km("n","<leader>tr", ":Tabby rename_tab ")
+		km("n","<leader>tar", ":Tabby rename_tab ")
 
 	end -- END Config function 
 }

@@ -6,38 +6,38 @@ return {
   keys = {
     {
 	-- trouble diagnostics
-      "<leader>td",
+      "<leader>trD",
       "<cmd>Trouble diagnostics toggle<cr>",
       desc = "Diagnostics (Trouble)",
     },
     {
 	-- trouble diagnostics here
-      "<leader>tD",
+      "<leader>trd",
       "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
       desc = "Buffer Diagnostics (Trouble)",
     },
     {
 	-- trouble symbols
-      "<leader>ts",
+      "<leader>trs",
       "<cmd>Trouble symbols toggle focus=false<cr>",
       desc = "Symbols (Trouble)",
     },
     {
 	-- trouble definitions
-      "<leader>tf",
+      "<leader>trf",
       "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
       desc = "LSP Definitions / references / ... (Trouble)",
     },
     {
 	-- trouble loclist
-      "<leader>tl",
+      "<leader>trl",
       "<cmd>Trouble loclist toggle<cr>",
       desc = "Location List (Trouble)",
     },
     {
 	-- trouble quickfix
-      "<leader>tq",
-      "<cmd>Troub e qflist toggle<cr>",
+      "<leader>trq",
+      "<cmd>Trouble qflist toggle<cr>",
       desc = "Quickfix List (Trouble)",
     },
   },
