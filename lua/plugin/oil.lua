@@ -23,67 +23,7 @@ return {
 		local function pwc()
 			local current_file_path = vim.fn.expand('%:p:h')
 			current_file_path = vim.fn.substitute(current_file_path, "^oil:[/][/]","","g")
-
-			-- Does not work with wl-clipboard and xclip are installed
-			-- on the same computer.
-			-- vim.cmd("silent! !echo '"..current_file_path.."' | if command -v wl-copy >/dev/null 2>&1; then wl-copy; else xclip -selection clipboard; fi ")
-
-			local x_command = [[
-				function pwc() {
-					_wl_clipboard=false;
-					_xclip=false;
-
-					if which xclip >/dev/null 2>&1; then _xclip=true; fi
-					if which wl-copy >/dev/null 2>&1; then _wl_clipboard=true; fi
-
-					if { [ "$_wl_clipboard" = true ] || [ "$_xclip" = true ]; } && { [ "$_xclip" != true ] || [ "$_wl_clipboard" != true ]; }; then
-							echo ']]..current_file_path..[[' | xclip -selection clipboard >/dev/null 2>&1 || echo "$(pwd)" | wl-copy >/dev/null 2>&1;
-							return 0;
-					fi
-
-					echo ']]..current_file_path..[[' | xclip -selection clipboard >/dev/null 2>&1
-					echo ']]..current_file_path..[[' | wl-copy >/dev/null 2>&1 || echo "$(pwd)" | wl-copy >/dev/null 2>&1
-					return 0
-				}
-				pwc;]]
-
-			local async = require("plenary.async")
-			local Job = require("plenary.job")
-
-			local function run_ls_async()
-			  async.run(function()
-				-- Run the command and wait for result
-				Job:new({
-				  command = "bash",
-				  args = {'-c', x_command},
-				  on_exit = function(j) print('on exit') end,
-				}):sync()
-			  end)
-			end
-
-			-- run_ls_async()
-			vim.fn.jobstart({'bash','-c', 'echo "$(pwd)"'}, {
-				stdout_buffered = true,
-				  on_stdout = function(i, data, x)
-					if data then
-					  for _, line in ipairs(data) do
-						print(line)
-					  end
-					end
-				  end,
-				  on_stderr = function(_, data, _)
-					if data then
-					  for _, line in ipairs(data) do
-						vim.api.nvim_err_writeln(line)
-					  end
-					end
-				  end,
-				  on_exit = function(i, code, x)
-					-- print("code:" ..code.."   i:" ..i.."   x:" ..x)
-				  end
-			})
-
-			--vim.fn.system(x_command)
+			vim.fn.setreg('+', current_file_path)
 			print("Current folder path copied to clipboard")
 		end
 
