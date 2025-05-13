@@ -36,7 +36,7 @@ return {
     },
     {
 	-- trouble quickfix
-      "<leader>trq",
+      "<leader>q",
       "<cmd>Trouble qflist toggle<cr>",
       desc = "Quickfix List (Trouble)",
     },

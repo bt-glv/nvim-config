@@ -148,7 +148,6 @@ local function quality_of_life()
 	-- Write(save) file from shortcut
 	km("n","<leader>ww", ":w<cr>")
 	km("n","<leader>wa", ":wa<cr>")
-	km("n","<leader>q", ":q<cr>")
 
 	-- Opens Explorer (newtr)
 	km("n", "<leader>pv", vim.cmd.Ex)
