@@ -1,4 +1,13 @@
 # To-Start
+> up:   -priority
+> down: +priority
+
+- Try: adding another AI helper
+    - Codium
+- Try: nvim-ufo
+- Try: nvim-treesitter-context
+- Add: Which-key.nvim
+- Add: nvim-web-devicons
 
 - (URGENT) Fix: f and t not working on remaps
     - jumps to unpredictable locations
@@ -11,14 +20,8 @@
 - Fix: <leader>Y for "+Y
 - Fix: Block_indent()
 
-- Try: adding another AI helper
-    - Codium
-- Try: nvim-ufo
-- Try: nvim-treesitter-context
-
-- Add: Which-key.nvim
-- Add: nvim-web-devicons
-- Add: nvim-notify
+- Add: oil.nvim remap to add file to the quickfix list
+- Try: snacks.nvim
 
 # In-progress
 - Add: keybind: serch across all files with ripgrep using telescope
