@@ -1,12 +1,15 @@
---[[
-Attention
-Any remaps with the Alt modifier key (<A-..>) will not work with windows terminal initially.
-To make it work, access the settings, keybinds, and remove every single keybing that uses Alt.
 
-I'm not sure how well those keybinds work with MacOS
+--[[		<<Attention>>
+
+Any remaps with the Alt modifier key (<A-..>) wont work on windows terminal.
+To make it work, you got to access WT's settings, go to keybinds,
+and remove every single keybing that uses Alt.
+
+I'm unsure how well those keybinds would work on MacOS
 ]]--
 
---  << Code Utilities >> --
+
+--  << Leader Key Definition >> --
 vim.g.mapleader = " "
 
 
@@ -16,26 +19,17 @@ local function indentation()
 	km("n", "<A-'>", "mzo<cr><Esc>'z")
 	km("n", "<A-\\>", "i<tab><esc>l")
 	km("n", "<A-cr>", "o<Esc>k")
-	-- km("n", "<leader><tab>", "i<tab><esc>l")
-	-- km("n", "<leader><cr>", "o<Esc>k")
-	-- km("n", "<leader>\\>", "i<tab><esc>l")
-	-- km("n", '<leader>;>', "mzo<cr><cr><cr><Esc>'z")
-	-- km("n", "<leader>'>", "mzo<cr><Esc>'z")
 
+	-- TODO: fix Block_indent()
 	km("v", "<leader>bi", function() Block_indent() end)
 end
 local function comments()
 	km({"v","n"},"<leader>cc",":s$^\\(\\s\\| \\)*\\zs\\(.\\)$\\2$g|noh<Left><Left><Left><Left><Left><Left><Left><Left>")
 	km({"v","n"},"<leader>cr",':s$^\\(\\s\\| \\)*\\zs$$g|noh<Left><Left><Left><Left><Left><Left><Left>')
-	-- wasted 20min of my life for this
+	-- wasted 20min of my life for this lmao
 end
 local function surround_basic()
 		km({"v","n"},"<leader>x", function() Manual_surround() end)
-		-- km_all("<leader>xt", function()
-			-- local pp = vim.api.nvim_get_mode().mode
-			-- local esc = Parse_termc("<Esc>")
-			-- vim.api.nvim_feedkeys(esc.."i"..pp..esc, "xn", false)
-		-- end)
 end
 local function tabs()
 
@@ -76,8 +70,6 @@ local function terminal_mode_related()
 
 	-- Quickly opens a terminal in a vertical split in a vertical split
 	km("n","<leader>ter", "<c-w>v<c-w>l:term<CR><c-w>h") -- opens terminal at project root
-
-	-- km("n","<leader>teh", ':vnew<CR><c-w>l:call termopen(&shell, #{cwd: expand("%:p:h")})<CR><c-w>h') -- Opens terminal at current file location; not usable at this moment
 end
 local function quality_of_life()
 
@@ -104,8 +96,10 @@ local function quality_of_life()
 
 	-- Opens terminal emulator and opens neo vim at the current directory
 	km("n","<leader>new", ':!alacritty --working-directory "'..vim.fn.getcwd()..'" -e bash -c "nvim ." & disown<cr><cr>')
+
 	-- Opens terminal emulator at project path
 	km("n","<leader>tew", ':!alacritty --working-directory "'..vim.fn.getcwd()..'" & disown<cr><cr>')
+
 	-- Opens file explorer (dolphin) at project location
 	km("n","<leader>ex", ':!dolphin "'..vim.fn.getcwd()..'" & disown<cr><cr>')
 
@@ -181,32 +175,20 @@ local function split_window_controls()
 	km("n","<M-k>", function() vim.cmd.wincmd('k') end)
 	km("n","<M-l>", function() vim.cmd.wincmd('l') end)
 
-	-- km("n","<c-h>", function() vim.cmd.wincmd('h') end)
-	-- km("n","<c-j>", function() vim.cmd.wincmd('j') end)
-	-- km("n","<c-k>", function() vim.cmd.wincmd('k') end)
-	-- km("n","<c-l>", function() vim.cmd.wincmd('l') end)
-	--
-	-- km("n","<c-,>", "<c-w>7<")
-	-- km("n","<c-.>", "<c-w>7>")
-	-- km("n","<c-=>", "<c-w>7+")
-	-- km("n","<c-->", "<c-w>7-")
 end
 local function search_and_replace()
 	-- NORMAL: serach and replace word under cursor
 	km("n","<leader>*", [[viwy<Esc>q:i%s/<C-r>"/]]) -- TODO: Fix this
+
 	-- VISUAL: search selected text in visual mode
 	km("v","<leader>8", 'y<Esc>/<C-r>"/e<cr>')
+
 	-- VISUAL: search and replace selected text
 	km("v","<leader>*", 'y<Esc>q:i%s/\\(<C-r>"\\)//g<Esc>F/;li')
+
 	-- NORMAL: Counts how many matches for last search
 	km('n', "<leader>tc", ":%s///gn<cr>")
 end
-
-local function upper_to_unnamed_buffer(keys)
-	vim.api.nvim_feedkeys(keys, "xn", false)
-	vim.fn.setreg("+", vim.fn.getreg(""))
-end
-
 local function clipboard_utilities()
 	-- Facilitates the use of the system clipboard
 	--
@@ -220,24 +202,12 @@ local function clipboard_utilities()
 	km("n","<leader>yy", '"+yy')
 	km("n","<leader>dd", '"+dd')
 
-
-
-	-- km("n", "<leader>Y", function() upper_to_unnamed_buffer("Y") end )
-	-- km("n", "<leader>D", function() upper_to_unnamed_buffer("D") end )
-	-- km("n", "<leader>C", function() upper_to_unnamed_buffer("C") end )
-
 	km("n", "<leader>Y", [[v$"+y]])
-
-	-- km("n", "<leader>Y", [["+Y]])
-	-- km("n", "<leader>D", [["+D]])
-	-- km("n", "<leader>C", [["+C]])
-
 
 	km("i","<A-P>", '<C-r>"')
 	km("i","<A-p>", "<C-r>+")
 
-	-- Facilitates the USAGE of 'a' as an alternative copy-paste register
-	-- I rarely use this
+	-- Facilitates the usage of 'a' as an alternative register
 	km("n","<leader>ayy", '"ayy')
 	km("n","<leader>add", '"add')
 	km("v","<leader>ay", '"ay')
@@ -253,7 +223,6 @@ end
 local function run_scirpt()
 		--  LUA and Python scripting utilities  --
 	km('n', "<leader><F5>", ":!%:p<cr>")
-		-- pr -> Project.Run
 end
 local function set_spell()
 --  Set Spell Checker  --
@@ -263,22 +232,15 @@ local function set_spell()
 		-- "set language" --
 end
 local function spell_check()
---  spell checke keys remaps  --
+--  spell check keys remaps  --
 	km("n","z;","]s")
 	km("n","z,","[s")
 	km("n","z<leader>","z=")
 end
-local function replace_across_project_files()
-	km("n","<leader>r1", ':vimgrep /<c-r>"/gj **/*')
-	km("v","<leader>r1", 'y:vimgrep /<c-r>"/gj **/*')
-	km("n","<leader>r2", ':copen<cr>')
-	km("n","<leader>r3", 'q:icfdo %s/<c-r>"/,/g | update<Esc>F,xi')
-	-- Be careful with where you use this
-end
 
 
 
--->>> Declare remaps to use here <<<--
+-->>> Declare each remap group here <<<--
 quality_of_life()
 search_and_replace()
 set_spell()
@@ -286,7 +248,6 @@ run_scirpt()
 clipboard_utilities()
 spell_check()
 split_window_controls()
-replace_across_project_files()
 movement()
 indentation()
 default_buffer_manipulation()

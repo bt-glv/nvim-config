@@ -5,8 +5,8 @@ vim.g.netrw_bufsettings='noma nomod nu nobl nowrap ro'
 
 vim.opt.termguicolors=true
 vim.cmd([[
-set rnu			"relative line number
-set nu			"display line number of line under cursor
+set rnu				"relative line number
+set nu				"display line number of line under cursor
 set linebreak
 set breakindent
 set signcolumn=no
