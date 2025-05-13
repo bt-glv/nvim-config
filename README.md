@@ -7,7 +7,7 @@
 - Everything has been tested on Linux. Any distro should do.
 - Everything works on Windows 10/11 under WLS 
 - Some features might not work as expected on Windows (native Neovim), MacOS or Android.
-- A lot may not work out of the box on natively Windows
+- A lot may not work out of the box natively on Windows
 
 # What doesn't work
 NixOS: 
