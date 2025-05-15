@@ -6,31 +6,31 @@ return {
   keys = {
     {
 	-- trouble diagnostics
-      "<leader>trD",
+      "<leader>lE",
       "<cmd>Trouble diagnostics toggle<cr>",
       desc = "Diagnostics (Trouble)",
     },
     {
 	-- trouble diagnostics here
-      "<leader>trd",
+      "<leader>le",
       "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
       desc = "Buffer Diagnostics (Trouble)",
     },
     {
 	-- trouble symbols
-      "<leader>trs",
+      "<leader>ls",
       "<cmd>Trouble symbols toggle focus=false<cr>",
       desc = "Symbols (Trouble)",
     },
     {
 	-- trouble definitions
-      "<leader>trf",
+      "<leader>ld",
       "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
       desc = "LSP Definitions / references / ... (Trouble)",
     },
     {
 	-- trouble loclist
-      "<leader>trl",
+      "<leader>lo",
       "<cmd>Trouble loclist toggle<cr>",
       desc = "Location List (Trouble)",
     },
@@ -38,7 +38,9 @@ return {
 	-- trouble quickfix
       "<leader>q",
       "<cmd>Trouble qflist toggle<cr>",
+		-- function() vim.cmd("Trouble qflist toggle"); vim.api.nvim_feedkeys([[j]],"t",false) end
       desc = "Quickfix List (Trouble)",
+
     },
   },
 }
