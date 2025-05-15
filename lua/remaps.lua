@@ -186,8 +186,8 @@ local function search_and_replace()
 	-- VISUAL: search and replace selected text
 	km("v","<leader>*", 'y<Esc>q:i%s/\\(<C-r>"\\)//g<Esc>F/;li')
 
-	-- NORMAL: Counts how many matches for last search
-	km('n', "<leader>tc", ":%s///gn<cr>")
+	-- NORMAL: counts how many matches for last search
+	km('n', "<leader>sc", ":%s///gn<cr>")
 end
 local function clipboard_utilities()
 	-- Facilitates the use of the system clipboard
