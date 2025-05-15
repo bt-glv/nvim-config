@@ -76,32 +76,15 @@ return {
       },
     },
     char = {
-      enabled = true,
-      config = function(opts)
-        opts.autohide = opts.autohide or (vim.fn.mode(true):find("no") and vim.v.operator == "y")
-
-        opts.jump_labels = opts.jump_labels
-          and vim.v.count == 0
-          and vim.fn.reg_executing() == ""
-          and vim.fn.reg_recording() == ""
-
-      end,
-      autohide = false,
-      jump_labels = true,
-      multi_line = true,
-      label = { exclude = "hjkliardc" },
-      keys = { "f", "F", "t", "T", ";", "," },
-      char_actions = function(motion)
-        return {
-          [";"] = "next", -- set to `right` to always go right
-          [","] = "prev", -- set to `left` to always go left
-          [motion:lower()] = "next",
-          [motion:upper()] = "prev",
-        }
-      end,
-      search = { wrap = false },
-      highlight = { backdrop = true },
-      jump = { register = false },
+		char_actions = function() return { [";"] = "next", [","] = "prev" } end,
+			search = { wrap = true },
+			highlight = {
+				backdrop = false,
+				groups = {
+					match = "FlashCharMatch",
+					label = "FlashCharLabel"
+				}
+			}
     },
     treesitter = {
       labels = "abcdefghijklmnopqrstuvwxyz",
