@@ -22,6 +22,11 @@
 
 - Add: oil.nvim remap to add file to the quickfix list
 - Try: snacks.nvim
+- Fix: oil sech per file name not working as intended. it should oil cd into that file's folder
+- Fix: htew not working as expected on oil buffers. opening terminals at /tmp
+- Feature: termina mode clear buffer function
+- Feature: install raiinbow
+    - https://github.com/luochen1990/rainbow
 
 # In-progress
 - Add: keybind: serch across all files with ripgrep using telescope
