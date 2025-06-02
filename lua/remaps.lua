@@ -11,6 +11,7 @@ I'm unsure how well those keybinds would work on MacOS
 
 --  << Leader Key Definition >> --
 vim.g.mapleader = " "
+local leader = " "
 
 
 -- << Remaps by topic >> --
@@ -70,6 +71,8 @@ local function terminal_mode_related()
 
 	-- Quickly opens a terminal in a vertical split in a vertical split
 	km("n","<leader>ter", "<c-w>v<c-w>l:term<CR><c-w>h") -- opens terminal at project root
+
+	km('t', '<C-l><C-l>', [[<C-N>:lua ClearTerm(0)<CR>]], mapping_opts)
 end
 local function quality_of_life()
 

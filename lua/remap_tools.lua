@@ -40,6 +40,21 @@ local function is_commandline_buf()
 
 end
 
+function ClearTerm(reset)
+  vim.opt_local.scrollback = 1
+
+  vim.api.nvim_command("startinsert")
+  if reset == 1 then
+    vim.api.nvim_feedkeys("reset", 't', false)
+  else
+    vim.api.nvim_feedkeys("clear", 't', false)
+  end
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<cr>', true, false, true), 't', true)
+
+  -- defines maximum amount of lines
+  -- neovim's terminal mode will store in its buffer
+  vim.opt_local.scrollback = 10000
+end
 
 Exit_to_file_path = function() vim.cmd('qa!') end
 
