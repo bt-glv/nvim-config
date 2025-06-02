@@ -127,6 +127,6 @@ return {
 	})
 
 	-- Keymaps
-	km({'n','c'}, "<c-s>", '<cmd>lua require("flash").toggle()<cr>')
+	km({'n','c'}, "<c-s>", function() require("flash").toggle() end)
 end
 } -- Config table end
