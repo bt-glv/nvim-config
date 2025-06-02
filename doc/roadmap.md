@@ -9,7 +9,7 @@
 - Add: Which-key.nvim
 - Add: nvim-web-devicons
 
-- (URGENT) Fix: f and t not working on remaps
+- Fix: f and t not working on remaps
     - jumps to unpredictable locations
 
 - Fix: Lua lsp on nixos
@@ -24,9 +24,15 @@
 - Try: snacks.nvim
 - Fix: oil sech per file name not working as intended. it should oil cd into that file's folder
 - Fix: htew not working as expected on oil buffers. opening terminals at /tmp
-- Feature: termina mode clear buffer function
+- Feature: terminal mode clear buffer function
 - Feature: install raiinbow
     - https://github.com/luochen1990/rainbow
+- Feature: indentation markers
+    - https://github.com/lukas-reineke/indent-blankline.nvim
+    - https://medium.com/@shaikzahid0713/rainbow-parenthesis-and-indentation-in-neovim-dd379f4e516f
+
+
+
 
 # In-progress
 - Add: keybind: serch across all files with ripgrep using telescope
