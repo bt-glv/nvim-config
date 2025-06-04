@@ -1,39 +1,57 @@
 # About
 
-> This config is a work in progress
->
+> This config is a work in progress.
+> Made for Linux; other platforms might not work out of the box or be incompatible.
 </br>
 
-- Everything has been tested on Linux. Any distro should do.
-- Everything works on Windows 10/11 under WLS 
-- Some features might not work as expected on Windows (native Neovim), MacOS or Android.
-- A lot may not work out of the box natively on Windows
 
-# What doesn't work
-NixOS: 
-- Some Mason LSP servers wont start. (lua-language-server) </br>
+# Current state of things
+#### Linux
+- Everything is working as intended
 
-Termux (Android): </br>
-- Mason does not work
+#### Windows 10/11
+* WLS: everything works after configuring the clipboard (win32yank)
+* Native: some Linux specific features might not work (embedded shell commands, et cetera)
+
+#### MacOS
+* All key mappings that use the alt key as a modifier are incompatible
+* Mason LSP servers are unstable
+
+#### Android (termux)
+* Mason straight up doesn't work no matter what
+
 </br>
-
+</br>
 
 # Installation
-- Clone this repo at the neovim folder. (Linux: ~/.config/nvim)
-- Launch Neovim and sync Lazy.nvim by using the command below and then pressing "S":
-```:Lazy```
-- You might want to delete "lazy-lock.json"
 
-# Required programs
+- Clone this repo and place its files at the neovim folder. (Linux: ~/.config/nvim)
+- Be sure that the folder is empty beforehand
+
+```bash
+git clone https://github.com/bt-glv/nvim-config.git;
+cd nvim-config;
+mkdir -p ~/.config/nvim
+mv .* ~/.config/nvim
+```
+
+- Open Neovim and sync Lazy.nvim by using the command below and then pressing "S":
+```:Lazy```
+
+
+# Requirements
+
+<h2>Neovim</h2>
+<h4>Version: 0.11.x</h4>
+<h2>Dependencies</h2>
 <ul>
-    <li>Alacritty (Can be changed for another terminal emulator on remaps.lua)</li>
+    <li>Alacritty</li>
     <li>npm</li>
     <li>node.js</li>
     <li>ripgrep</li>
     <li>fd</li>
     <li>C compiler: gcc; clang</li>
-    <li>go (Optional)</li>
 </ul>
 
-</br>
-</br>
+
+
