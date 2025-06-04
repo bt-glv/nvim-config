@@ -27,11 +27,12 @@
 - Clone this repo and place its files at the neovim folder. (Linux: ~/.config/nvim)
 - Be sure that the folder is empty beforehand
 
+> Linux
 ```bash
 git clone https://github.com/bt-glv/nvim-config.git;
 cd nvim-config;
-mkdir -p ~/.config/nvim
-mv .* ~/.config/nvim
+mkdir -p ~/.config/nvim;
+mv .* ~/.config/nvim;
 ```
 
 - Open Neovim and sync Lazy.nvim by using the command below and then pressing "S":
