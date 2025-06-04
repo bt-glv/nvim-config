@@ -35,8 +35,7 @@ mkdir -p ~/.config/nvim;
 mv .* ~/.config/nvim;
 ```
 
-- Open Neovim and sync Lazy.nvim by using the command below and then pressing "S":
-```:Lazy```
+- Open Neovim; open the Lazy.nvim dashboard ```:Lazy``` and press ```S```.
 
 </br>
 
