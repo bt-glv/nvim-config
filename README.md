@@ -21,7 +21,6 @@
 * Mason straight up doesn't work no matter what
 
 </br>
-</br>
 
 # Installation
 
@@ -38,11 +37,13 @@ mv .* ~/.config/nvim
 - Open Neovim and sync Lazy.nvim by using the command below and then pressing "S":
 ```:Lazy```
 
+</br>
 
 # Requirements
 
 <h2>Neovim</h2>
 <h4>Version: 0.11.x</h4>
+&nbsp;
 <h2>Dependencies</h2>
 <ul>
     <li>Alacritty</li>
