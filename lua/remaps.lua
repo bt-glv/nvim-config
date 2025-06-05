@@ -82,10 +82,6 @@ local function quality_of_life()
 	-- This substitutes a vim feature that shows the hex to the character under the cursor
 	km({'v','n'},'ga','<Esc>ggVG')
 
-	-- Removes all indentation and spaces at the begining of the line
-	km("n","<leader><", [[:s/\v(^[\t ]+)//g|noh<CR>]])
-	km("v","<leader><", [[<Esc>:'<,'>s/\v(^[\t ]+)//g|noh<CR>]])
-
 	-- Gets rid of "life with trailing spaces"
 	km("n","<leader>rr",[[:%s/\v(^[ \t]+$)|([ \t]+$)//g|noh]])
 	km("v","<leader>rr",[[<Esc>:'<,'>s/[ \t]\+$//g|noh]])
@@ -98,10 +94,10 @@ local function quality_of_life()
 	km({'c'}			,"<A- >", function() vim.api.nvim_feedkeys("", "t", false) end)
 
 	-- Opens terminal emulator and opens neo vim at the current directory
-	km("n","<leader>new", ':!alacritty --working-directory "'..vim.fn.getcwd()..'" -e bash -c "nvim ." & disown<cr><cr>')
+	km("n","<leader>new", function() openNeovim(vim.fn.getcwd()) end)
 
 	-- Opens terminal emulator at project path
-	km("n","<leader>tew", ':!alacritty --working-directory "'..vim.fn.getcwd()..'" & disown<cr><cr>')
+	km("n","<leader>tew", function() openTerminal(vim.fn.getcwd()) end)
 
 	-- Opens file explorer (dolphin) at project location
 	km("n","<leader>ex", ':!dolphin "'..vim.fn.getcwd()..'" & disown<cr><cr>')
@@ -118,7 +114,7 @@ local function quality_of_life()
 	vim.keymap.set("n","<leader>htew", function()
 			local path = vim.fn.expand('%:p:h')
 			path = vim.fn.substitute(path, "^oil:[/][/]","","g")
-			vim.cmd('silent! !alacritty --working-directory "'..path..'" & disown')
+			openTerminal(path)
 		end)
 
 	km("n","<leader>mk", ":mksession!<cr>")
@@ -243,7 +239,10 @@ end
 
 
 
--->>> Declare each remap group here <<<--
+--
+-- << REMAPS TO USE >>
+--
+
 quality_of_life()
 search_and_replace()
 set_spell()

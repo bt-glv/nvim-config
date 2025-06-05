@@ -1,4 +1,3 @@
 *.commit
 Session.vim
 *.diff
-*.json

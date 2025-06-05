@@ -1,6 +1,13 @@
 
 km 	= vim.keymap.set
 cmd = vim.cmd
+
+function openTerminal(path) 
+	vim.cmd('silent! !alacritty --working-directory "'..path..'" & disown') end
+
+function openNeovim(path)
+	vim.cmd('silent! !alacritty --working-directory "'..path..'" -e bash -c "nvim ." & disown') end
+
 require('buffer_settings')
 require('remap_tools')
 require('remaps')
@@ -13,7 +20,7 @@ require("lazy").setup({
 	require('plugin._leap'),
 	require('plugin._flash'),
 	require('plugin.treesitter'),
-	require('plugin.lsp0'),
+	require('lsp.lsp0'),
 	require('plugin._telescope'),
 	require('plugin.oil'),
 	require('plugin.neo_tree'),
@@ -26,6 +33,8 @@ require("lazy").setup({
 	require('plugin._neogit'),
 	require('plugin.treesitter_textobjects'),
 	require('plugin.trouble'),
+	require('ui.nvim_web_devicons'),
+
 	-- require('plugin.obsidian')
 	-- require('plugin.copilot'),
 	-- require('plugin.copilotChat'),
