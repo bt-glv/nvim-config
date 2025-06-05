@@ -1,6 +1,7 @@
 # About
 
 > This config is a work in progress.
+
 > Made for Linux; other platforms might not work out of the box or be incompatible.
 </br>
 
@@ -14,11 +15,11 @@
 * Native: some Linux specific features might not work (embedded shell commands, et cetera)
 
 #### MacOS
-* All key mappings that use the alt key as a modifier are incompatible
-* Mason LSP servers are unstable
+* All key mappings that use the alt key as a modifier are incompatible and need to be changed
+* LSP servers managed by Mason are unstable
 
 #### Android (termux)
-* Mason straight up doesn't work no matter what
+* Mason straight up doesn't work, no matter what
 
 </br>
 
