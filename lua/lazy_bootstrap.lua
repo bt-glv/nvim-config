@@ -11,23 +11,3 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
   })
 end
 vim.opt.rtp:prepend(lazypath)
-
-
-
---[[
-Optionals
-branch = 'stable',
-main = 'mini.surround',
-opts = { search_method = 'cover_or_next', },
-run = function() end,
-dependencies = {}
-
-MAIN
-return {
-	'echasnovski/mini.surround',
-	lazy = false,
-	dependencies = {},
-	config = function()
-	end -- END Config function 
-}
-]]--
