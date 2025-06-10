@@ -48,7 +48,7 @@ cd ~/.config/nvim;
 &nbsp;
 <h2>Dependencies</h2>
 <ul>
-    <li>[A Pacthed Font (nerdfonts)](https://www.nerdfonts.com/)</li>
+    <li>[A Pacthed Nerdfonts Font](https://www.nerdfonts.com/)</li>
     <li>Alacritty (can be changed)</li>
     <li>npm</li>
     <li>node.js</li>
