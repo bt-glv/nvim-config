@@ -48,8 +48,8 @@ cd ~/.config/nvim;
 &nbsp;
 <h2>Dependencies</h2>
 <ul>
-    <li><a href='https://www.nerdfonts.com/'>Pacthed Nerd Fonts Font</a>(For Dev-Icons)</li>
-    <li><a href='https://alacritty.org/'>Alacritty Terminal Emulator</a>(Can be replaced)</li>
+    <li><a href='https://www.nerdfonts.com/'>Pacthed Nerd Fonts Font</a> (For Dev-Icons)</li>
+    <li><a href='https://alacritty.org/'>Alacritty Terminal Emulator</a> (Can be replaced)</li>
     <li>npm</li>
     <li>node.js</li>
     <li>ripgrep</li>
