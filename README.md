@@ -34,6 +34,7 @@ git clone https://github.com/bt-glv/nvim-config.git;
 cd nvim-config;
 mkdir -p ~/.config/nvim;
 mv .* ~/.config/nvim;
+cd ~/.config/nvim;
 ```
 
 - Open Neovim; open the Lazy.nvim dashboard ```:Lazy``` and press ```S```.
@@ -47,7 +48,8 @@ mv .* ~/.config/nvim;
 &nbsp;
 <h2>Dependencies</h2>
 <ul>
-    <li>Alacritty</li>
+    <li>[A Pacthed Font (nerdfonts)](https://www.nerdfonts.com/)</li>
+    <li>Alacritty (can be changed)</li>
     <li>npm</li>
     <li>node.js</li>
     <li>ripgrep</li>
