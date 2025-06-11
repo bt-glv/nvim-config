@@ -2,7 +2,7 @@
 
 > This config is a work in progress.
 
-> Made for Linux; other platforms might not work out of the box or be incompatible.
+> Made for Linux; other platforms might not work out of the box or may be incompatible.
 </br>
 
 
