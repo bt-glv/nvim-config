@@ -22,15 +22,17 @@
 
 
 
-
 # In-progress
+- Continue experimenting with snacks.nvim
+
+
+
+# Done
 - Try: snacks.nvim
 - Feature: install rainbow
     - https://github.com/luochen1990/rainbow
 - Feature: indentation markers
     - Used snacks.nvim for this
-
-# Done
 - Add: nvim-web-devicons
 - Add: keybind: serch across all files with ripgrep using telescope
 - Add: trouble.nvim
