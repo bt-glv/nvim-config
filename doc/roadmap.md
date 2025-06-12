@@ -2,8 +2,6 @@
 > up:   -priority
 > down: +priority
 
-- Try: adding another AI helper
-    - Codium
 - Try: nvim-ufo
 - Try: nvim-treesitter-context
 
@@ -19,7 +17,6 @@
 - Fix: Block_indent()
 
 - Add: oil.nvim remap to add file to the quickfix list
-- Try: snacks.nvim
 - Fix: oil sech per file name not working as intended. it should oil cd into that file's folder
 - Feature: Configure Neovim LSP integration without lsp0 (its currently deprecated)
 
@@ -27,11 +24,11 @@
 
 
 # In-progress
-- Feature: install raiinbow
+- Try: snacks.nvim
+- Feature: install rainbow
     - https://github.com/luochen1990/rainbow
 - Feature: indentation markers
-    - https://github.com/lukas-reineke/indent-blankline.nvim
-    - https://medium.com/@shaikzahid0713/rainbow-parenthesis-and-indentation-in-neovim-dd379f4e516f
+    - Used snacks.nvim for this
 
 # Done
 - Add: nvim-web-devicons
