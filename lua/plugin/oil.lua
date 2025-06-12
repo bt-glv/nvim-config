@@ -55,7 +55,7 @@ return {
 				actions.close(prompt_bufnr)
 					local results = vim.fn.getcwd().."/"..action_state.get_selected_entry()[1]
 					require("oil").open(results)
-			  end)
+				end)
 				print(vim.inspect(action_state.get_selected_entry()))
 			  return true
 			end,
