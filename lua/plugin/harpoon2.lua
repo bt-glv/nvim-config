@@ -35,8 +35,8 @@ return {
 		km("n","<A-9>", function() harpoon:list():select(9) end)
 
 		-- Toggle previous & next buffers stored within Harpoon list
-		km("n","<leader>N", function() harpoon:list():prev() end)
-		km("n","<leader>n", function() harpoon:list():next() end)
+		-- km("n","<leader>N", function() harpoon:list():prev() end)
+		-- km("n","<leader>n", function() harpoon:list():next() end)
 
 	end -- END Config function
 }
