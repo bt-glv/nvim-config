@@ -1,8 +1,7 @@
 
 ---@param text string
-function Warning_print_func(text)
-		local timer = vim.loop.new_timer()
-		timer:start(3000,0,function() print(text) end)
+local function warning(text)
+		vim.notify(text)
 end
 
 local function linux_check()
@@ -10,27 +9,33 @@ local function linux_check()
 	-- return jit.os == "Linux"
 end
 
+-- TODO: finish this
 ---@param warn_func? function
 function xclip_wlClipbaord_Check(warn_func)
-	if type(warn_func) ~= "function" then error("Warning function not defined in xclip_wlClipbaord_Check") end
 
-	local function shell(command)
-		local handle = io.popen(command)
-		return handle:read("*a")
+	local function sh(command)
+		local command_obj = io.popen(command)
+		if command_obj == nil then error("io.popen is returning nil") end
+
+		local output = command_obj:read('*a')
+		output = string.gsub(output,"\n$",'')
+		local _,_,op_status = command_obj:close()
+
+		return  {out = output, status = op_status}
 	end
 
-	local xclip = shell("which xclip >/dev/null 2>&1;echo $?") ~= "0\n"
-	local wl_clipboard = shell("which wl-paste >/dev/null 2>&1;echo $?") ~= "0\n"
+	local xclip = sh('which xclip').status
+	local wl_clipboard = sh('which wl-paste').status
 
-	if xclip and wl_clipboard then
-		warn_func("<<SYSTEM CLIPBOARD NOT WORKING>>\n\nxclip wl_clipboard NOT INSTALLED.\n\n")
+	if xclip ~= 0 and wl_clipboard ~= 0 then
+		warn_func("<<SYSTEM CLIPBOARD NOT WORKING>>\n\nxclip or wl_clipboard NOT currently INSTALLED\n"..xclip..wl_clipboard)
 	end
 
 end
 
 
 -- Code/calls
-if linux_check() then xclip_wlClipbaord_Check(Warning_print_func) end
+-- if linux_check() then xclip_wlClipbaord_Check(warning) end
 
 -- local function sh(command)
 	-- local command_file = io.popen(command.."")
