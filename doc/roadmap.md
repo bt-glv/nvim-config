@@ -21,13 +21,16 @@
 - Feature: Configure Neovim LSP integration without lsp0 (its currently deprecated)
 
 
-
 # In-progress
 - Continue experimenting with snacks.nvim
+- feat: checks for linux install
+
 
 
 
 # Done
+- fix: wilder.nvim python error
+- ~Add: better command mode autocomplete~
 - Try: snacks.nvim
 - Feature: install rainbow
     - https://github.com/luochen1990/rainbow
