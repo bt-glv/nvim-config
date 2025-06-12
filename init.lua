@@ -27,15 +27,14 @@ require("lazy").setup({
 	require('plugin.harpoon2'),
 	require('plugin.undotree'),
 	require('plugin.wilder'),
-	require('ui._tabby'),
-	require('ui._gitsigns'),
 	require('plugin.diffview'),
 	require('plugin._neogit'),
 	require('plugin.treesitter_textobjects'),
 	require('plugin.trouble'),
+	require('ui._tabby'),
+	require('ui._gitsigns'),
 	require('ui.nvim_web_devicons'),
-
-	-- require('plugin.obsidian')
-	-- require('plugin.copilot'),
-	-- require('plugin.copilotChat'),
+	require('ui.rainbow_delimiters'),
+	--require('ui.indent_blankline'),
+	require('plugin._snacks'),
 })
