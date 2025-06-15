@@ -1,47 +1,47 @@
 
----@param text string
-local function warning(text)
-		vim.notify(text)
-end
+local warn_func = Notify
+local linux = {
 
-local function linux_check()
-	return vim.loop.os_uname().sysname == "Linux"
-	-- return jit.os == "Linux"
-end
+	clipboard = function(self)
 
--- TODO: finish this
----@param warn_func? function
-function xclip_wlClipbaord_Check(warn_func)
+		vim.fn.system('which xclip')
+		local xclip = vim.v.shell_error
+		vim.fn.system('which wl-paste')
+		local wl_clipboard = vim.v.shell_error
+		-- vim.notify(xclip..' '..type(xclip)..wl_clipboard..' '..type(wl_clipboard))
 
-	local function sh(command)
-		local command_obj = io.popen(command)
-		if command_obj == nil then error("io.popen is returning nil") end
+		if xclip ~= 0 and wl_clipboard ~= 0 then
+			self.warn_func("xclip or wl_clipboard NOT INSTALLED\n"..xclip..wl_clipboard, 4,{title='SYSTEM CLIPBOARD NOT WORKING'})
+		end
 
-		local output = command_obj:read('*a')
-		output = string.gsub(output,"\n$",'')
-		local _,_,op_status = command_obj:close()
-
-		return  {out = output, status = op_status}
-	end
-
-	local xclip = sh('which xclip').status
-	local wl_clipboard = sh('which wl-paste').status
-
-	if xclip ~= 0 and wl_clipboard ~= 0 then
-		warn_func("<<SYSTEM CLIPBOARD NOT WORKING>>\n\nxclip or wl_clipboard NOT currently INSTALLED\n"..xclip..wl_clipboard)
-	end
-
-end
+	end,
+	
+}
 
 
 -- Code/calls
--- if linux_check() then xclip_wlClipbaord_Check(warning) end
+local _os = {
+	Linux = {
+		clipboard = function()
 
--- local function sh(command)
-	-- local command_file = io.popen(command.."")
-	-- local output = command_file:read('*a')
-	-- local _,_,op_status = command_file:close()
+			vim.fn.system('which xclip')
+			local xclip = vim.v.shell_error
+			vim.fn.system('which wl-paste')
+			local wl_clipboard = vim.v.shell_error
+			-- vim.notify(xclip..' '..type(xclip)..wl_clipboard..' '..type(wl_clipboard))
 
-	-- return {out = output, status=op_status}
--- end
---
+			if xclip ~= 0 and wl_clipboard ~= 0 then
+				warn_func("xclip or wl_clipboard NOT INSTALLED\n"..xclip..wl_clipboard, 4,{title='SYSTEM CLIPBOARD NOT WORKING'})
+			end
+
+		end,
+	}
+}
+
+local checks = _os[vim.loop.os_uname().sysname]
+if checks ~= nil then 
+	for _, func in ipairs(checks) do
+		func()
+	end
+end
+

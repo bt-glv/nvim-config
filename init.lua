@@ -8,13 +8,17 @@ function openTerminal(path)
 function openNeovim(path)
 	vim.cmd('silent! !alacritty --working-directory "'..path..'" -e bash -c "nvim ." & disown') end
 
+Notify = function(string, priority, opts) 
+	vim.notify(string)
+end
+
 require('buffer_settings')
 require('remap_tools')
 require('remaps')
-require('checks')
 
 require("lazy_bootstrap")
 require("lazy").setup({
+	require('plugin._snacks'),
 	require('colorscheme.catppuccin'),
 	require('plugin.surround'),
 	require('plugin._leap'),
@@ -35,6 +39,6 @@ require("lazy").setup({
 	require('ui._gitsigns'),
 	require('ui.nvim_web_devicons'),
 	require('ui.rainbow_delimiters'),
-	--require('ui.indent_blankline'),
-	require('plugin._snacks'),
 })
+
+require('checks')
