@@ -154,7 +154,9 @@ local function quality_of_life()
 	-- quit without saving
 	-- if oil is active, it will quit at file path
 	vim.api.nvim_create_user_command( 'QA', function() vim.cmd('qa!') end, {})
+	vim.api.nvim_create_user_command( 'Qa', function() vim.cmd('qa!') end, {})
 	vim.api.nvim_create_user_command( 'QQ', function() Exit_to_file_path() end, {})
+	vim.api.nvim_create_user_command( 'Qq', function() Exit_to_file_path() end, {})
 end
 local function split_window_controls()
 
