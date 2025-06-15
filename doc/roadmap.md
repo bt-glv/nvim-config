@@ -17,18 +17,28 @@
 - Fix: Block_indent()
 
 - Add: oil.nvim remap to add file to the quickfix list
-- Fix: oil sech per file name not working as intended. it should oil cd into that file's folder
 - Feature: Configure Neovim LSP integration without lsp0 (its currently deprecated)
+
+- Feature: Which key
+    - add descriptions for every single remap
+    - makes it so the plugin only loads if its set to
+- feat: rainbow colors: add more distinct colors
+- investigate what a linter is:
+    - Can it adapt different indentation to what i use in this config?
 
 
 # In-progress
+
+- feat: add lualine
+    - https://github.com/nvim-lualine/lualine.nvim
+
 - Continue experimenting with snacks.nvim
-- feat: checks for linux install
-
-
 
 
 # Done
+- refactor: lazy load all possible plugins
+- feat: checks for linux install
+- snacks.notify: add message title support; create custom notify function
 - fix: wilder.nvim python error
 - ~Add: better command mode autocomplete~
 - Try: snacks.nvim

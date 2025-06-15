@@ -21,6 +21,9 @@
 #### Android (termux)
 * Mason straight up doesn't work, no matter what
 
+## About GUI clients (Neovide, Nvim-QT, etc)
+- They are all untested
+
 </br>
 
 # Installation
@@ -53,6 +56,7 @@ cd ~/.config/nvim;
     <li>npm</li>
     <li>node.js</li>
     <li>ripgrep</li>
+    <li>Phyton?</li>
     <li>fd</li>
     <li>C compiler: gcc; clang</li>
 </ul>
