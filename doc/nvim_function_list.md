@@ -1,5 +1,9 @@
 
 
+--------
+## get current directory
+lua print(vim.fn.getcwd())
+
 ---------
 ## execute shell commands
 

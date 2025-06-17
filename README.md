@@ -16,10 +16,10 @@
 
 #### MacOS
 * All key mappings that use the alt key as a modifier are incompatible and need to be changed
-* LSP servers managed by Mason are unstable
+* LSP servers managed by <a href='https://github.com/mason-org/mason.nvim'>Mason</a> are unstable
 
 #### Android (termux)
-* Mason straight up doesn't work, no matter what
+* <a href='https://github.com/mason-org/mason.nvim'>Mason</a> straight up doesn't work, no matter what
 
 ## About GUI clients (Neovide, Nvim-QT, etc)
 - They are all untested
@@ -56,8 +56,8 @@ cd ~/.config/nvim;
     <li>npm</li>
     <li>node.js</li>
     <li>ripgrep</li>
-    <li>Phyton?</li>
-    <li>fd</li>
+    <li>Phyton...?</li>
+    <li><a href='https://github.com/sharkdp/fd'>fd</a></li>
     <li>C compiler: gcc; clang</li>
 </ul>
 
