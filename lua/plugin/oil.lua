@@ -94,11 +94,32 @@ return {
 		  }):find()
 		end
 
+		vim.g.oil_toggle = false
+		local function oil_toggle_full_view()
+
+			local oil = require('oil')
+			if not vim.g.oil_toggle then
+				oil.set_columns({ "icon", "permissions", "size", "mtime" })
+				vim.g.oil_toggle=true
+				return
+			end
+			oil.set_columns({ "icon" })
+			vim.g.oil_toggle=false
+
+		end
+
 
 			require("oil").setup({
 			  default_file_explorer = true,
-			  columns = {
+
+			  columns = { -- all possible options are listed below
 				"icon",
+				--'size',
+				--'mtime',
+				--'ctime',
+				--'atime',
+				--'birthtime',
+				--'permissions',
 			  },
 			  buf_options = {
 				buflisted = false,
@@ -119,22 +140,30 @@ return {
 			  prompt_save_on_select_new_entry = true,
 			  cleanup_delay_ms = 2000,
 			  lsp_file_methods = {
+				enabled = true,
 				timeout_ms = 1000,
 				autosave_changes = false,
 			  },
 			  constrain_cursor = "editable",
-			  experimental_watch_for_changes = false,
+			  -- attention: might cause problems
+			  watch_for_changes = true,
 			  keymaps = {
 				["<leader>pg"] = function() pg() end,
 			  	["<leader>pwc"] = function() pwc() end,
 				["<leader>="] = function() telescope_goto_folder() end,
 				["<leader>-"] = function() telescope_goto_file_folder() end,
-				["g?"] = "actions.show_help",
 				["<CR>"] = "actions.select",
-				["<C-s>"] = "actions.select_vsplit",
-				["<C-h>"] = "actions.select_split",
-				["<C-t>"] = "actions.select_tab",
-				["<C-p>"] = "actions.preview",
+				["<C-s>"] = function() oil_toggle_full_view() end,
+
+				-- Opens the file in a external program (system default for filetype)
+				----- this is huge
+				["<C-CR>"] = "actions.open_external", 
+
+				--["<C-s>"] = "actions.select_vsplit",
+				--["<C-h>"] = "actions.select_split",
+				--["<C-t>"] = "actions.select_tab",
+				--["<C-p>"] = "actions.preview",
+				["g?"] = "actions.show_help",
 				["<C-c>"] = "actions.close",
 				["<C-l>"] = "actions.refresh",
 				["-"] = "actions.parent",
@@ -144,7 +173,8 @@ return {
 				["~"] = false,
 				["`"] = false,
 				["gs"] = "actions.change_sort",
-				["gx"] = "actions.open_external",
+
+
 				["g."] = "actions.toggle_hidden",
 				["g\\"] = "actions.toggle_trash",
 			  },
@@ -225,8 +255,6 @@ return {
 
 		vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 		vim.keymap.set("n", "<leader>vp", "<CMD>Oil<CR>", { desc = "Open parent directory" })
-		-- For global use
-		-- vim.keymap.set("n", "<leader>=", function() telescope_goto_folder() end)
 
-	end -- END Config function
+	end
 }
