@@ -32,10 +32,10 @@
 - feat: add lualine
     - https://github.com/nvim-lualine/lualine.nvim
 
-- Continue experimenting with snacks.nvim
 
 
 # Done
+- Continue experimenting with snacks.nvim
 - refactor: lazy load all possible plugins
 - feat: checks for linux install
 - snacks.notify: add message title support; create custom notify function

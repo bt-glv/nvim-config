@@ -1,7 +1,4 @@
 
-km 	= vim.keymap.set
-cmd = vim.cmd
-
 function openTerminal(path) 
 	vim.cmd('silent! !alacritty --working-directory "'..path..'" & disown') end
 
@@ -11,6 +8,10 @@ function openNeovim(path)
 Notify = function(string, priority, opts) 
 	vim.notify(string)
 end
+
+km 	= vim.keymap.set
+cmd = vim.cmd
+
 
 require('buffer_settings')
 require('remap_tools')
@@ -39,6 +40,7 @@ require("lazy").setup({
 	require('ui._gitsigns'),
 	require('ui.nvim_web_devicons'),
 	require('ui.rainbow_delimiters'),
+	require('ui._lua-line'),
 })
 
 require('checks')
