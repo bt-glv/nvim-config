@@ -31,7 +31,7 @@
 - Clone this repo and place its files at the neovim folder. (Linux: ~/.config/nvim)
 - Be sure that the folder is empty beforehand
 
-> Linux
+> Linux/MacOS
 ```bash
 git clone https://github.com/bt-glv/nvim-config.git;
 cd nvim-config;
