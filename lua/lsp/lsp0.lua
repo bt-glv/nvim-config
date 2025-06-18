@@ -1,15 +1,23 @@
 
--- LSP0_on_attach_functions = {}
--- 	table.insert(LSP0_on_attach_functions, config_function) end
---
--- local function LSP0_on_attach_functions_exec()
--- 	if not next(LSP0_on_attach_functions) then return end
--- 	for i, func in ipairs(LSP0_on_attach_functions) do
--- 		func()
--- 	end
--- end
-	  -- pcall(LSP0_on_attach_functions_exec)
-	  --https://github.com/VonHeikemen/lsp-zero.nvim.git
+-- # Tutorial
+-- https://lsp-zero.netlify.app/docs/guide/integrate-with-mason-nvim
+
+-- # "lsp-config" LSP name table
+-- https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
+
+local lsp_servers = {
+	"lua_ls",
+	"pyright",
+	"html",
+	"gopls",
+	"tsserver",
+	"bashls",
+	"cssls",
+	"ts_ls",
+	"angularls"
+}
+
+
 return {
 	'VonHeikemen/lsp-zero.nvim',
 	branch = 'v3.x',
@@ -39,18 +47,7 @@ return {
 		---
 		require('mason').setup({})
 		require('mason-lspconfig').setup({
-		  ensure_installed = {
-			  "lua_ls", "pyright",
-			  "html", "gopls",
-			  "tsserver", "bashls",
-			  "cssls", "ts_ls", "angularls"
-				--
-				-- # Tutorial
-				-- https://lsp-zero.netlify.app/docs/guide/integrate-with-mason-nvim
-				--
-				-- # lsp-config lsp name table
-				-- https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
-			},
+		  ensure_installed = lsp_servers,
 		  handlers = {
 			function(server_name)
 			  require('lspconfig')[server_name].setup({})
