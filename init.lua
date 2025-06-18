@@ -40,7 +40,7 @@ require("lazy").setup({
 	require('ui._gitsigns'),
 	require('ui.nvim_web_devicons'),
 	require('ui.rainbow_delimiters'),
-	require('ui._lua-line'),
+	require('ui.lua-line'),
 })
 
 require('checks')
