@@ -20,6 +20,7 @@
 
 #### Android (termux)
 * <a href='https://github.com/mason-org/mason.nvim'>Mason</a> straight up doesn't work, no matter what
+</br>
 
 ## About GUI clients (Neovide, Nvim-QT, etc)
 - They are all untested
@@ -56,7 +57,11 @@ cd ~/.config/nvim;
     <li>npm</li>
     <li>node.js</li>
     <li>ripgrep</li>
-    <li>Phyton...?</li>
+    <li><a href='https://www.python.org/'>Phyton</a> 
+        <ul>
+            <li>PIP module: <a href='https://pypi.org/project/neovim-remote/'>neovim-remote</a> (Required for cmd mode autocomplete)</li>
+        </ul>    
+    </li>
     <li><a href='https://github.com/sharkdp/fd'>fd</a></li>
     <li>C compiler: gcc; clang</li>
 </ul>
