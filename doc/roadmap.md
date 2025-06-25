@@ -29,6 +29,7 @@
 
 # In-progress
 
+- Explore treesitter text objects for more useful motions
 - feat: add lualine
     - https://github.com/nvim-lualine/lualine.nvim
 

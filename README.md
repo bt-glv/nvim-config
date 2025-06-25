@@ -15,7 +15,7 @@
 * Native: some Linux specific features might not work (embedded shell commands, et cetera)
 
 #### MacOS
-* All key mappings that use the alt key as a modifier are incompatible and need to be changed
+* All mappings that use `Alt` as a modifier key are incompatible and need to be changed
 * LSP servers managed by <a href='https://github.com/mason-org/mason.nvim'>Mason</a> are unstable
 
 #### Android (termux)
