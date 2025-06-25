@@ -65,5 +65,5 @@ return {
 
 
 		}
-	end -- END Config function
+	end
 }

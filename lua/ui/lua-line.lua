@@ -22,13 +22,22 @@ local function cwd_path_relative()
 	local buff_path = vim.fn.expand('%:h')
 	local buff_name = vim.fn.expand('%:t')
 
+	-- if oil buffer, display full buffer path
 	if string.find(buff_path, '^'..cwd) then
 
 		local res = string.sub(buff_path, #cwd + 1)
-		res = res..'/'..buff_name
+		res = (res ~= '') and res..'/'..buff_name or buff_name
 		return res
 
 	end
+
+	if vim.b.current_syntax == 'oil' then
+		local res = vim.fn.substitute(buff_path, "^oil:[/][/]","","g")
+		return res
+	end
+
+	-- TODO?: get screen size and dynamically "crop" the path
+	-- to fit it within the screen.
 
 	return buff_name
 end
@@ -40,12 +49,13 @@ function TT() Notify(cwd_path_relative()) end
 return {
     'nvim-lualine/lualine.nvim',
 	lazy = false,
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    dependencies = { 'nvim-tree/nvim-web-devicons', 'stevearc/oil.nvim'},
 	opts = {
 
 		sections = {
 			lualine_a = {'mode'},
-			lualine_b = {'branch', 'diff', 'diagnostics'},
+			lualine_b = {'diff', 'diagnostics'},
+			-- TODO: beautify this
 			lualine_c = { function() return cwd_path_relative() end },
 			lualine_x = { lsp_info },
 			lualine_y = {'progress'},
