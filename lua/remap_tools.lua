@@ -14,7 +14,7 @@ function RestartLspServers()
 	for _, client in pairs(lsp_clients) do vim.cmd("LspRestart "..client.id); end
 	print("All lsp clients restarted")
 end
-vim.api.nvim_create_user_command("LspRestartAll", function() RestartLspServers() end, {})
+vim.api.nvim_create_user_command("RestartLspServers", function() RestartLspServers() end, {})
 
 -- The command line buffer does not have a name.
 -- This is the best way I found to check if the buffer is the command line buffer
