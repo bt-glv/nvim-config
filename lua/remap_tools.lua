@@ -24,8 +24,8 @@ local function is_commandline_buf()
 	local bufname =	(function()
 		local bufname = vim.api.nvim_buf_get_name(0)
 		return (bufname == ""
-				or bufname == nil
-				or vim.fn.match(bufname, '[[]Command Line[]]$') ~= -1)
+		or bufname == nil
+		or vim.fn.match(bufname, '[[]Command Line[]]$') ~= -1)
 	end)()
 
 	local undo_ftplugin	= (function()
@@ -41,19 +41,19 @@ local function is_commandline_buf()
 end
 
 function ClearTerm(reset)
-  vim.opt_local.scrollback = 1
+	vim.opt_local.scrollback = 1
 
-  vim.api.nvim_command("startinsert")
-  if reset == 1 then
-    vim.api.nvim_feedkeys("reset", 't', false)
-  else
-    vim.api.nvim_feedkeys("clear", 't', false)
-  end
-  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<cr>', true, false, true), 't', true)
+	vim.api.nvim_command("startinsert")
+	if reset == 1 then
+		vim.api.nvim_feedkeys("reset", 't', false)
+	else
+		vim.api.nvim_feedkeys("clear", 't', false)
+	end
+	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<cr>', true, false, true), 't', true)
 
-  -- defines maximum amount of lines
-  -- neovim's terminal mode will store in its buffer
-  vim.opt_local.scrollback = 10000
+	-- defines maximum amount of lines
+	-- neovim's terminal mode will store in its buffer
+	vim.opt_local.scrollback = 10000
 end
 
 Exit_to_file_path = function() vim.cmd('qa!') end
@@ -64,26 +64,26 @@ function Cmdline_buff_control()
 	local mode 				= vim.api.nvim_get_mode().mode
 
 	if mode == "n" and not is_commandline then
-			vim.api.nvim_feedkeys(":"..up,"t",false)
-			cmdline_toggle = false
-			return
+		vim.api.nvim_feedkeys(":"..up,"t",false)
+		cmdline_toggle = false
+		return
 	end
 	if mode == "c" and not is_commandline then
-			if cmdline_toggle then
-				vim.api.nvim_feedkeys(esc,"t",false)
-				cmdline_toggle = false
-				return
-			end
-			vim.api.nvim_feedkeys(esc.."q:k","t",false)
+		if cmdline_toggle then
+			vim.api.nvim_feedkeys(esc,"t",false)
+			cmdline_toggle = false
 			return
+		end
+		vim.api.nvim_feedkeys(esc.."q:k","t",false)
+		return
 	end
 	if mode == "n" and is_commandline then
-			vim.api.nvim_feedkeys(cc..cc..":"..up,"t",false)
-			cmdline_toggle = true
-			return
+		vim.api.nvim_feedkeys(cc..cc..":"..up,"t",false)
+		cmdline_toggle = true
+		return
 	end
 	if mode == "i" and is_commandline then
-			vim.api.nvim_feedkeys(cc..cc,"t",false)
+		vim.api.nvim_feedkeys(cc..cc,"t",false)
 		return
 	end
 
@@ -91,23 +91,23 @@ end
 
 function Manual_surround()
 
-		local function invert_simple(input_end)
-			input_end = string.gsub(input_end,'%[',']')
-			input_end = string.gsub(input_end,'%(',')')
-			input_end = string.gsub(input_end,'%{','}')
-			return input_end
-		end
-		-- TODO: Add tag detection with vim regex and handle it
+	local function invert_simple(input_end)
+		input_end = string.gsub(input_end,'%[',']')
+		input_end = string.gsub(input_end,'%(',')')
+		input_end = string.gsub(input_end,'%{','}')
+		return input_end
+	end
+	-- TODO: Add tag detection with vim regex and handle it
 
-		local function invert_vimscript()
-			-- TODO: remake invert_simple using vim regex
-		end
+	local function invert_vimscript()
+		-- TODO: remake invert_simple using vim regex
+	end
 
-		local input 		= vim.fn.input('>')
-		local input_end 	= invert_simple(input)
-		local expression 	= esc.."`>a"..input_end..esc.."`<i"..input..esc.."lm<".."`>"..#input.."lm>"
+	local input 		= vim.fn.input('>')
+	local input_end 	= invert_simple(input)
+	local expression 	= esc.."`>a"..input_end..esc.."`<i"..input..esc.."lm<".."`>"..#input.."lm>"
 
-		vim.api.nvim_feedkeys(expression, "xn", false)
+	vim.api.nvim_feedkeys(expression, "xn", false)
 end
 
 
