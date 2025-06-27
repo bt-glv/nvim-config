@@ -18,9 +18,10 @@
 * All mappings that use `Alt` as a modifier key are incompatible and need to be changed
 * LSP servers managed by <a href='https://github.com/mason-org/mason.nvim'>Mason</a> are unstable
 
-#### Android (termux)
+#### Android: <a href='https://github.com/termux/termux-app'>termux</a>
 * <a href='https://github.com/mason-org/mason.nvim'>Mason</a> straight up doesn't work, no matter what
 </br>
+* Clipboard does not work out of the box
 
 ## About GUI clients (Neovide, Nvim-QT, etc)
 - They are all untested
