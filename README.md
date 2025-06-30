@@ -19,7 +19,8 @@
 * LSP servers managed by <a href='https://github.com/mason-org/mason.nvim'>Mason</a> are unstable
 
 #### Android: <a href='https://github.com/termux/termux-app'>termux</a>
-* <a href='https://github.com/mason-org/mason.nvim'>Mason</a> straight up doesn't work, no matter what
+* Some Mason LSP servers may not install<a href='https://github.com/mason-org/mason.nvim'>Mason</a>
+> Most Mason LSP server work now
 </br>
 * Clipboard does not work out of the box
 
@@ -60,7 +61,7 @@ cd ~/.config/nvim;
     <li>ripgrep</li>
     <li><a href='https://www.python.org/'>Phyton</a> 
         <ul>
-            <li>PIP module: <a href='https://pypi.org/project/neovim-remote/'>neovim-remote</a> (Required for cmd mode autocomplete)</li>
+            <li>PIP module: <a href='https://pypi.org/project/neovim-remote/'>neovim-remote</a> (Required for cmd line autocomplete)</li>
         </ul>    
     </li>
     <li><a href='https://github.com/sharkdp/fd'>fd</a></li>

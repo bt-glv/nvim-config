@@ -1,55 +1,46 @@
 # To-Start
-> up:   -priority
-> down: +priority
 
-- Try: nvim-ufo
-- Try: nvim-treesitter-context
-
-- Fix: f and t not working on remaps
-    - jumps to unpredictable locations
-
+- Fix: <leader>Y for "+Y
+- Fix: Block_indent()
 - Fix: Lua lsp on nixos
     - more about it (3rd answer): https://stackoverflow.com/questions/75880481/cant-use-lua-lsp-in-neovim
     - perhaps find a way to use system-installed lsp servers together with mason?
     - perhaps switching to the nixos unstable branch might fix it?
 
-- Fix: <leader>Y for "+Y
-- Fix: Block_indent()
-
-- Add: oil.nvim remap to add file to the quickfix list
-- Feature: Configure Neovim LSP integration without lsp0 (its currently deprecated)
+- Experiment: nvim-ufo
+- Experiment: nvim-treesitter-context
+- Experiment: LuaSnip
+    - https://www.youtube.com/watch?v=FmHhonPjvvA
 
 - Feature: Which key
     - add descriptions for every single remap
     - makes it so the plugin only loads if its set to
-- feat: rainbow colors: add more distinct colors
-- investigate what a linter is:
-    - Can it adapt different indentation to what i use in this config?
+- Feature: Configure Neovim LSP integration without lsp0 (its currently deprecated)
+- Feature: Add DAP debugger support
 
-
+------
 # In-progress
 
-- Explore treesitter text objects for more useful motions
-- feat: add lualine
-    - https://github.com/nvim-lualine/lualine.nvim
 
-
-
+------
 # Done
+- Explore treesitter text objects for more useful motions
+- ~Feat: add lualine~
+    - ~https://github.com/nvim-lualine/lualine.nvim~
 - Continue experimenting with snacks.nvim
 - refactor: lazy load all possible plugins
-- feat: checks for linux install
+- Feat: checks for linux install
 - snacks.notify: add message title support; create custom notify function
-- fix: wilder.nvim python error
-- ~Add: better command mode autocomplete~
+- Fix: wilder.nvim python error
+- ~Feat: better command mode autocomplete~
 - Try: snacks.nvim
 - Feature: install rainbow
     - https://github.com/luochen1990/rainbow
 - Feature: indentation markers
     - Used snacks.nvim for this
-- Add: nvim-web-devicons
-- Add: keybind: serch across all files with ripgrep using telescope
-- Add: trouble.nvim
+- Feat: nvim-web-devicons
+- Feat: keybind: serch across all files with ripgrep using telescope
+- Feat: trouble.nvim
 - Feature: terminal mode clear buffer function
 - Fix: htew not working as expected on oil buffers. opening terminals at /tmp
 
