@@ -5,19 +5,6 @@
 -- # "lsp-config" LSP name table
 -- https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
 
-local lsp_servers = {
-    "lua_ls",
-    "pyright",
-    "html",
-    "gopls",
-    "tsserver",
-    "bashls",
-    "cssls",
-    "ts_ls",
-    "angularls"
-}
-
-
 return {
     'VonHeikemen/lsp-zero.nvim',
     branch = 'v3.x',
@@ -45,20 +32,20 @@ return {
         --- if you want to know more about lsp-zero and mason.nvim
         --- read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guide/integrate-with-mason-nvim.md
         ---
-        require('mason').setup({})
-        require('mason-lspconfig').setup({
-            ensure_installed = lsp_servers,
-            handlers = {
-                function(server_name)
-                    require('lspconfig')[server_name].setup({})
-                end,
-            },
-        })
+        --require('mason').setup({})
+        --require('mason-lspconfig').setup({
+            --ensure_installed = lsp_servers,
+            --handlers = {
+                --function(server_name)
+                    --require('lspconfig')[server_name].setup({})
+                --end,
+            --},
+        --})
 
         -- This hides syntax check column in nvim.cmp
         vim.fn.sign_define("DiagnosticSignError", { text = "", numhl = "" })
         vim.fn.sign_define("DiagnosticSignWarn", { text = "", numhl = "" })
         vim.fn.sign_define("DiagnosticSignInfo", { text = "", numhl = "" })
         vim.fn.sign_define("DiagnosticSignHint", { text = "", numhl = "" })
-    end -- END Config function
+    end 
 }
