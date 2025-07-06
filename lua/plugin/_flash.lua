@@ -125,8 +125,10 @@ return {
             }
 
         })
-
-        -- Keymaps
-        km({'n','c'}, "<c-s>", function() require("flash").toggle() end)
+        -- keymaps
+        km({'c'}, "<C-/>", function() require("flash").toggle() end)
+        km({'c'}, "<A-/>", function() require("flash").toggle() end)
+        km({'c'}, "<C-?>", function() require("flash").toggle() end)
+        km({'c'}, "<A-?>", function() require("flash").toggle() end)
     end
 } -- Config table end
