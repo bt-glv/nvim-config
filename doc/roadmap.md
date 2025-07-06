@@ -21,6 +21,7 @@
 ------
 # In-progress
 
+- Fix: neogit commit tab close behaviour
 
 ------
 # Done
