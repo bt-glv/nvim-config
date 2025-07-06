@@ -4,6 +4,7 @@ local snacks_autocmd_group = vim.api.nvim_create_augroup("snacks_custom", {clear
 vim.api.nvim_create_autocmd(
     { "FileType", "BufFilePost"},
     {
+		group = snacks_autocmd_group,
         pattern = '*',
         callback = function(args)
 
@@ -11,7 +12,7 @@ vim.api.nvim_create_autocmd(
                 markdown = true,
             }
 
-            if(ignore[vim.bo[args.buf].filetype] == true) then 
+            if(ignore[vim.bo[args.buf].filetype] == true) then
                 vim.b[args.buf].snacks_indent = false
             end
 
@@ -90,7 +91,7 @@ vim.api.nvim_create_autocmd(
             Notify = function(string, priority, opts)
                 opts = (type(opts)=='table') and opts or {}
                 priority = priority or 6
-                opts['title'] = opts['title'] or 'Notify' 
+                opts['title'] = opts['title'] or 'Notify'
 
                 --fun(msg: string, level?: snacks.notifier.level|number, opts?: snacks.notifier.Notif.opts): number|string
                 snacks.notifier(string, priority, opts)
