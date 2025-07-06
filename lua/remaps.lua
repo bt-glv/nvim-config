@@ -91,10 +91,19 @@ local function terminal_mode_related()
 end
 local function quality_of_life()
 
+	-- Disables jumps after searching with *
+	km('n', '*', '*N', { noremap = true })
+	km('v', '*', 'y/\\V<C-r>"<Cr>N', { noremap = true }) -- "*N" does not work directly
+
+	-- Search and replace last search
+	-- This "nests" search groups if used more than once; not sure if this will be a problem or not
+	km({'v'}, '<leader>/', [[q:is/\(<C-r>/\)//g<Esc>F/i]])
+	km({'n'}, '<leader>/', [[q:i%s/\(<C-r>/\)//g<Esc>F/i]])
+
 	-- This substitutes a vim feature that shows the hex to the character under the cursor
 	km({'v','n'},'ga','<Esc>ggVG')
 
-	-- Gets rid of "life with trailing spaces"
+	-- Gets rid of "line with trailing spaces"
 	km("n","<leader>rr",[[:%s/\v(^[ \t]+$)|([ \t]+$)//g|noh]])
 	km("v","<leader>rr",[[<Esc>:'<,'>s/[ \t]\+$//g|noh]])
 
