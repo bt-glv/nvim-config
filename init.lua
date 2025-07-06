@@ -1,11 +1,11 @@
 
-function openTerminal(path) 
+function openTerminal(path)
 	vim.cmd('silent! !alacritty --working-directory "'..path..'" & disown') end
 
 function openNeovim(path)
 	vim.cmd('silent! !alacritty --working-directory "'..path..'" -e bash -c "nvim ." & disown') end
 
-Notify = function(string, priority, opts) 
+Notify = function(string, priority, opts)
 	vim.notify(string)
 end
 
@@ -28,6 +28,7 @@ require("lazy").setup({
 	require('ui._treesitter_context'),
 	require('lsp._mason'),
 	require('lsp.lsp0'),
+	require('lsp._lazydev'),
 	require('plugin._telescope'),
 	require('plugin.oil'),
 	require('plugin.neo_tree'),
