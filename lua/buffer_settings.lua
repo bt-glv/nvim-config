@@ -1,24 +1,32 @@
 
+
+--
+-- # Default status line
+--
+
 StatusLine = {
 	path_relative = function()
 
-		local cwd = vim.fn.getcwd()
-		local buff_path = vim.fn.expand('%:p:h')
+		local full_path = vim.fn.expand('%:p')
+		if full_path == '' or full_path == nil then return '[Unnamed]' end
+
 		local buff_name = vim.fn.expand('%:t')
+		local buff_path = vim.fn.expand('%:p:h')
+		local cwd = vim.fn.getcwd()
 
 		if string.find(buff_path, '^'..cwd) then
 			local res = string.sub(buff_path, #cwd + 1)
-			res = (res ~= '') and res..'/'..buff_name or '/'..buff_name
-			return '.'..res
+			res = (res == '' or nil) and './'..buff_name or '.'..res..'/'..buff_name
+			return res
 		end
 
 		if vim.b.current_syntax == 'oil' then
-			local res = vim.fn.substitute(buff_path, "^oil:[/][/]","","g") -- I dont think vim regex is needed here
+			local res = vim.fn.substitute(buff_path, [[^oil:[/]\?[/]\?]],"","g") -- I dont think vim regex is needed here
 			res = vim.fn.substitute(res, "^"..vim.fn.expand('~'),'~','g')
 			return res
 		end
 
-		return vim.fn.expand('%:p')
+		return full_path
 		--return buff_name
 	end,
 
@@ -39,7 +47,8 @@ StatusLine = {
 		return ''
 	end,
 }
-vim.opt.statusline = "%{v:lua.StatusLine.path_relative()} %R%M%= %{v:lua.StatusLine.lsp()}  %l:%c %P "
+--:help statusline
+vim.opt.statusline = "%{v:lua.StatusLine.path_relative()} %w%h%m%r%= %{v:lua.StatusLine.lsp()} %l:%c %P "
 
 
 
@@ -57,8 +66,22 @@ vim.opt.nu = true
 vim.opt.linebreak = true
 vim.opt.breakindent = true
 vim.opt.signcolumn = "no"
-vim.opt.tabstop = 4
+vim.opt.tabstop = 4 -- Defines indent spacing
 vim.opt.shiftwidth = 4
 vim.opt.scrolloff = 4
 vim.opt.updatetime = 50
+
+-- When a tab is closed, go to previous tab
+-- (overrides default behaviour: go to next tab)
+--local group = vim.api.nvim_create_augroup('__temp', { clear = true })
+--vim.api.nvim_create_autocmd(
+	--{
+		--"TabClosed"
+	--},
+	--{
+		--group = group,
+		--pattern = "*",
+		--command = "tabprevious",
+	--}
+--)
 

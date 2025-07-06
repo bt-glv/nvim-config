@@ -14,7 +14,7 @@ return {
         "DiffviewToggleFiles",
         "DiffviewFocusFiles",
         "DiffviewRefresh",
-        "Diff", 
+        "Diff",
     },
 
 }

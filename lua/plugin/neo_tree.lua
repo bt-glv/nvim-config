@@ -2,15 +2,15 @@
 return {
     'nvim-neo-tree/neo-tree.nvim',
     dependencies = {
-        'nvim-lua/plenary.nvim', 
-        'MunifTanjim/nui.nvim', 
+        'nvim-lua/plenary.nvim',
+        'MunifTanjim/nui.nvim',
         'stevearc/oil.nvim'
     },
     keys = {
         {"<leader>pv", ":Neotree toggle<cr>", mode = 'n'}
     },
-    cmd = { 
-        'Neotree' 
+    cmd = {
+        'Neotree'
     },
     config = function()
         require("neo-tree").setup({
@@ -30,11 +30,11 @@ return {
                 mappings = {
                     ["<space>"] = {
                         "toggle_node",
-                        nowait = false, 
+                        nowait = false,
                     },
                     ["<2-LeftMouse>"] = "open",
                     ["<cr>"] = "open",
-                    ["<esc>"] = "cancel", 
+                    ["<esc>"] = "cancel",
                     ["P"] = { "toggle_preview", config = { use_float = true, use_image_nvim = true } },
                     ["l"] = "focus_preview",
 
@@ -47,18 +47,18 @@ return {
                     ["a"] = {
                         "add",
                         config = {
-                            show_path = "none", 
+                            show_path = "none",
                         },
                     },
-                    ["A"] = "add_directory", 
+                    ["A"] = "add_directory",
                     ["d"] = "delete",
                     ["r"] = "rename",
                     ["b"] = "rename_basename",
                     ["y"] = "copy_to_clipboard",
                     ["x"] = "cut_to_clipboard",
                     ["p"] = "paste_from_clipboard",
-                    ["c"] = "copy", 
-                    ["m"] = "move", 
+                    ["c"] = "copy",
+                    ["m"] = "move",
                     ["q"] = "close_window",
                     ["R"] = "refresh",
                     ["?"] = "show_help",
@@ -70,5 +70,5 @@ return {
 
         })
 
-    end 
+    end
 }
