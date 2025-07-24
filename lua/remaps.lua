@@ -182,8 +182,14 @@ local function clipboard_utilities()
 
     km("n", "<leader>Y", [[v$"+y]], { desc = "Yank from cursor to end of line to system clipboard" })
 
-    km("i", "<A-P>", '<C-r>"', { desc = "Paste from default register in insert mode" })
-    km("i", "<A-p>", "<C-r>+", { desc = "Paste from system clipboard in insert mode" })
+	km('i', '<A-r>', '<C-r>', 		{ desc = 'Alternate mapping for <C-r>', noremap = true })
+    km("i", "<A-p>", '<C-r>"', 		{ desc = 'Insert mode: paste " register'})
+    km("i", "<A-S-p>", "<C-r>+", 	{ desc = 'Insert mode: paste + register'})
+	-- km('i', '<A-p>', '<C-r>', { noremap = true })
+
+	-- this makes a lot more sence than A-p
+	km('i', "<A-S-'>", '<C-r>"')
+	km('i', '<A-S-=>', '<C-r>+')
 
     km("n", "<leader>ayy", '"ayy', 			{ desc = "Yank line to register 'a'" })
     km("n", "<leader>add", '"add', 			{ desc = "Cut line to register 'a'" })

@@ -58,6 +58,7 @@ end
 
 Exit_to_file_path = function() vim.cmd('qa!') end
 
+-- still not completely sure of why i created this
 local cmdline_toggle = false
 function Cmdline_buff_control()
 	local is_commandline 	= is_commandline_buf()
@@ -86,7 +87,6 @@ function Cmdline_buff_control()
 		vim.api.nvim_feedkeys(cc..cc,"t",false)
 		return
 	end
-
 end
 
 function Manual_surround()
@@ -118,24 +118,28 @@ end
 --
 -- [ ] 	also check if the match is on the pivot and solve that also
 --
--- [ ]  find a way to add more caracters to the end of all selected lines 
+-- [ ]  find a way to add more caracters to the end of all selected lines
 -- 		to make it easier to select on block selection mode
---
-function Block_indent()
-	-- This function is made to be executed with expandtab turned off
-	if vim.o.expandtab then vim.o.expandtab = false end
+
+---@param tabstop integer | nil Amount of spaces a 'tab' character occupies
+function Block_indent(tabstop)
+
+	-- if vim.o.expandtab then vim.o.expandtab = false end
+
 	-- only executes the function if visual block mode is the active mode
 	if vim.api.nvim_get_mode().mode ~= "\22" then return end
 
-	-- local indent_size = vim.o.shiftwidth
-	local function reach_back(input)
+	-- if tabstop isnt defined
+	tabstop = tabstop or vim.o.tabstop
+
+	local function reach_back(input) -- TODO: improve this
 		if #input == 1 then input = "["..input.."]" end
 		vim.api.nvim_feedkeys(esc..[[:silent g/\v%.l((]]..input..[[)|(^))/]]..cr.."N","xn", false)
 		-- silent g/\v%.l(([(])|(^.))/
 		vim.cmd("noh")
 	end
 
-	local function create_target_col_table()
+	local function create_target_col_table() -- bad name
 
 		local out_positions= {}
 		local search = vim.fn.searchcount().total
@@ -149,26 +153,21 @@ function Block_indent()
 
 	end
 
-	local function calc_tabs_amount(col_cursor, col_pivot)
-		if col_cursor >= col_pivot then return 0 end
+	local function calc_tabs_amount(col_cursor, col_pivot, tabstop)
 
-		local first_tab_spaces = 4-(col_cursor%4)
-		local new_position=col_cursor+first_tab_spaces
+		local loop_position = col_cursor
+		local amount = 1
 
-		if new_position >= col_pivot then return 1 end
-
-		local tabs_to_input = 1
 		while true do
-			new_position=new_position+4
-			tabs_to_input=tabs_to_input+1
-			if new_position >= col_pivot then return tabs_to_input end
+			loop_position=loop_position+tabstop
+			amount=amount+1
+			if loop_position >= col_pivot then return amount end
 		end
 	end
 
+	local function first_tab_size(column, tabstop)
+	end
 
-	-- --
-	-- Code
-	-- --
 	vim.api.nvim_feedkeys(esc..[[:silent '<,'>g/\%V.\+/]]..cr..cr.."n","xn",false)
 	local positions = create_target_col_table()
 	local input = vim.fn.input('>')
@@ -177,17 +176,25 @@ function Block_indent()
 	for _, cordinates in pairs(positions) do
 
 		vim.api.nvim_win_set_cursor(0,{cordinates[1],cordinates[2]}) -- move the cursor the the col_pivot
-		reach_back(input) -- use reach back
-
-		local col_pivot = cordinates[2]
-		local col_cursor = vim.api.nvim_win_get_cursor(0)[2]
-
-		local tabs_amount = calc_tabs_amount(col_cursor, col_pivot)
 
 		local tabs = ""
-		for i=1, tabs_amount do tabs=tabs..tab end
+		local col_pivot = cordinates[2]
+		local col_cursor = vim.api.nvim_win_get_cursor(0)[2]
+		local tabs_amount = calc_tabs_amount(col_cursor, col_pivot, tabstop)
+		local literal_tab = (
+			function()
+				local out=''
+				for i=1, tabstop do out = out.." " end
+				return out
+			end
+		)()
+
+		reach_back(input) -- use reach back
+
+		for i=1, tabs_amount do tabs=tabs..literal_tab end
 
 		vim.api.nvim_feedkeys("i"..tabs..esc.."l","xn", false)
+		vim.api.nvim_feedkeys(''..':s/'..literal_tab..'/\\t/g'..cr, 'xn', false)
 
 	end
 
