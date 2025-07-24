@@ -10,7 +10,11 @@ return {
 		vim.g.undotree_SplitWidth = 40
 	end,
 	keys = {
-		{'<leader>u', ':UndotreeToggle<CR>'},
+		{'<leader>u', ':UndotreeToggle<CR><CR><CR>'},
 	},
-	config = function() end -- END Config function 
+	config = function()
+		-- TODO: add an autocmd that sets relative line
+		-- number if it is a undotree buffer
+		-- buffer variable: IsUndoTreeBuffer
+	end
 }
