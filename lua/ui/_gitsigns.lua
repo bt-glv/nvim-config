@@ -38,12 +38,13 @@ return {
                 end)
 
                 -- Actions
-                map('n', '<leader>ghs', gitsigns.stage_hunk)
-                map('n', '<leader>ghr', gitsigns.reset_hunk)
-                map('n', '<leader>ghu', gitsigns.undo_stage_hunk)
-                map('v', '<leader>ghs', function() gitsigns.stage_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
-                map('v', '<leader>ghr', function() gitsigns.reset_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
-                map('n', '<leader>ghp', gitsigns.preview_hunk_inline)
+                map('n', '<leader>hr', gitsigns.reset_hunk)
+                map('v', '<leader>hr', function() gitsigns.reset_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
+
+                map('n', '<leader>hu', gitsigns.undo_stage_hunk)
+                map('n', '<leader>hS', gitsigns.stage_hunk)
+                map('v', '<leader>hS', function() gitsigns.stage_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
+                map('n', '<leader>hp', gitsigns.preview_hunk_inline)
                 -- map('n', '<leader>gph', gitsigns.preview_hunk)
 
                 map('n', '<leader>gsb', gitsigns.stage_buffer)
