@@ -6,11 +6,8 @@
     - more about it (3rd answer): https://stackoverflow.com/questions/75880481/cant-use-lua-lsp-in-neovim
     - perhaps find a way to use system-installed lsp servers together with mason?
     - perhaps switching to the nixos unstable branch might fix it?
+- Fix: undotree treesitter error 
 
-- Experiment: nvim-ufo
-- Experiment: nvim-treesitter-context
-- Experiment: LuaSnip
-    - https://www.youtube.com/watch?v=FmHhonPjvvA
 
 - Feature: Which key
     - add descriptions for every single remap
@@ -18,13 +15,20 @@
 - Feature: Configure Neovim LSP integration without lsp0 (its currently deprecated)
 - Feature: Add DAP debugger support
 
+- Refactor: treesitter-context: make the plugin's style more distinct
+
+- Experiment: nvim-ufo
+- Experiment: LuaSnip
+    - https://www.youtube.com/watch?v=FmHhonPjvvA
+
 ------
 # In-progress
 
-- Fix: neogit commit tab close behaviour
 
 ------
 # Done
+- Experiment: nvim-treesitter-context
+- Fix: neogit commit tab close behaviour
 - Explore treesitter text objects for more useful motions
 - ~Feat: add lualine~
     - ~https://github.com/nvim-lualine/lualine.nvim~
