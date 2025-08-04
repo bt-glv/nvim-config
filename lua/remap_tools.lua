@@ -153,19 +153,36 @@ function Block_indent(tabstop)
 
 	end
 
+
+	local function first_tab(column, tabstop)
+		local tab_size = tabstop-(column%tabstop)
+		local tab_string = (
+			function()
+				local out = ""
+				for i=1, tab_size do
+					out = out.." "
+				end
+				return out
+			end
+		)()
+		return {size = tab_size, string = tab_string}
+	end
+
 	local function calc_tabs_amount(col_cursor, col_pivot, tabstop)
 
+		local f_size, _ = first_tab(col_cursor, tabstop).size
 		local loop_position = col_cursor
-		local amount = 1
+		local amount = 0
+
+		loop_position = loop_position + f_size
+		amount = amount + 1
+		if loop_position >= col_pivot then return amount end
 
 		while true do
 			loop_position=loop_position+tabstop
 			amount=amount+1
 			if loop_position >= col_pivot then return amount end
 		end
-	end
-
-	local function first_tab_size(column, tabstop)
 	end
 
 	vim.api.nvim_feedkeys(esc..[[:silent '<,'>g/\%V.\+/]]..cr..cr.."n","xn",false)
@@ -181,7 +198,9 @@ function Block_indent(tabstop)
 		local col_pivot = cordinates[2]
 		local col_cursor = vim.api.nvim_win_get_cursor(0)[2]
 		local tabs_amount = calc_tabs_amount(col_cursor, col_pivot, tabstop)
-		local literal_tab = (
+
+		local tab_first = first_tab(col_cursor, tabstop).string
+		local _tab = (
 			function()
 				local out=''
 				for i=1, tabstop do out = out.." " end
@@ -191,10 +210,18 @@ function Block_indent(tabstop)
 
 		reach_back(input) -- use reach back
 
-		for i=1, tabs_amount do tabs=tabs..literal_tab end
+
+		if tabs_amount > 0 then
+			tabs=tabs..tab_first
+		end
+		if tabs_amount > 1 then
+			for i=2, tabs_amount do
+					tabs=tabs.._tab
+			end
+		end
 
 		vim.api.nvim_feedkeys("i"..tabs..esc.."l","xn", false)
-		vim.api.nvim_feedkeys(''..':s/'..literal_tab..'/\\t/g'..cr, 'xn', false)
+		vim.api.nvim_feedkeys(''..':s/'.._tab..'/\\t/g'..cr, 'xn', false)
 
 	end
 
