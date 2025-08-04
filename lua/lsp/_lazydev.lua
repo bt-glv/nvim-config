@@ -5,6 +5,9 @@ return {
 	ft = "lua", -- only load on lua files
 	opts = {
 		library = {
+			-- this line is a requirement for nvim-dap-ui
+			"nvim-dap-ui",
+
 			--[[
 
 			-- Library paths can be absolute
