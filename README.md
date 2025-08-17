@@ -46,7 +46,13 @@ cd ~/.config/nvim;
 - Open Neovim; open the Lazy.nvim dashboard ```:Lazy``` and press ```S```.
 
 </br>
+# LSP (autocomplete) support
 
+- Install language servers locally or have them automatically installed and managed by mason.nvim.
+- Define with LSPs to install and/or use in: `lsp/lsp_settings.lua`.
+
+
+</br>
 # Requirements
 
 <h2>Neovim</h2>
@@ -67,6 +73,5 @@ cd ~/.config/nvim;
     <li><a href='https://github.com/sharkdp/fd'>fd</a></li>
     <li>C compiler: gcc; clang</li>
 </ul>
-
 
 
