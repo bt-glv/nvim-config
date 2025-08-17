@@ -1,23 +1,22 @@
 
-
---
--- # Default status line
---
-
 StatusLine = {
 	path_relative = function()
 
 		local full_path = vim.fn.expand('%:p')
 		if full_path == '' or full_path == nil then return '[Unnamed]' end
 
-		local buff_name = vim.fn.expand('%:t')
+		local buff_file_name = vim.fn.expand('%:t')
 		local buff_path = vim.fn.expand('%:p:h')
-		local cwd = vim.fn.getcwd()
+		local working_directory = vim.fn.getcwd()
 
-		if string.find(buff_path, '^'..cwd) then
-			local res = string.sub(buff_path, #cwd + 1)
-			res = (res == '' or nil) and './'..buff_name or '.'..res..'/'..buff_name
-			return res
+		if string.find(buff_path, '^'..working_directory) then
+			if buff_file_name == 'NeogitStatus' then return '[Neogit]' end
+
+			local relative_path = string.sub(buff_path, #working_directory + 1)
+			local relative_path_with_file = relative_path..'/'..buff_file_name
+
+			local out = (relative_path == '' or nil) and './'..buff_file_name or '.'..relative_path_with_file
+			return out
 		end
 
 		if vim.b.current_syntax == 'oil' then
@@ -26,8 +25,25 @@ StatusLine = {
 			return res
 		end
 
+		if string.find(buff_path, '^'..'diffview://') then
+			local res = vim.fn.substitute(full_path, [[^diffview:[/]\?[/]\?]],"","g")
+
+			if string.find(res, '^.panels') then
+				return '[DiffView]'
+			end
+
+			res = string.sub(res, #working_directory + 1)
+
+			if string.find(res, '^.[.]git/') then
+				return vim.fn.substitute(res, '^.[.]git[/][:].\\+[:][/]',"old::","g")
+			end
+
+			res = (res == '' or nil) and './'..buff_file_name or '.'..res..'/'..buff_file_name
+			return res
+		end
+
 		return full_path
-		--return buff_name
+		--return buff_file_name
 	end,
 
 	lsp = function()
@@ -50,8 +66,6 @@ StatusLine = {
 --:help statusline
 vim.opt.statusline = "%{v:lua.StatusLine.path_relative()} %w%h%m%r%= %{v:lua.StatusLine.lsp()} %l:%c %P "
 
-
-
 --
 -- # Buffer Settings
 --
@@ -70,18 +84,4 @@ vim.opt.tabstop = 4 -- Defines indent spacing
 vim.opt.shiftwidth = 4
 vim.opt.scrolloff = 4
 vim.opt.updatetime = 50
-
--- When a tab is closed, go to previous tab
--- (overrides default behaviour: go to next tab)
---local group = vim.api.nvim_create_augroup('__temp', { clear = true })
---vim.api.nvim_create_autocmd(
-	--{
-		--"TabClosed"
-	--},
-	--{
-		--group = group,
-		--pattern = "*",
-		--command = "tabprevious",
-	--}
---)
 
