@@ -57,7 +57,7 @@ return {
 
 			mappings = {
 				commit_editor = {
-					["q"] = "Close",
+					["q"] = false,
 					["<c-c><c-c>"] = "Submit",
 					["<c-c><c-k>"] = "Abort",
 					["<m-p>"] = "PrevMessage",
@@ -77,7 +77,7 @@ return {
 					["x"] = "Execute",
 					["d"] = "Drop",
 					["b"] = "Break",
-					["q"] = "Close",
+					["q"] = false,
 					["<cr>"] = "OpenCommit",
 					["gk"] = "MoveUp",
 					["gj"] = "MoveDown",
@@ -149,7 +149,7 @@ return {
 					["j"] = "MoveDown",
 					["k"] = "MoveUp",
 					["o"] = "OpenTree",
-					["q"] = "Close",
+					["q"] = false,
 					["I"] = "InitRepo",
 					["<c-s>"] = "StageAll",
 					["Q"] = "Command",
