@@ -19,8 +19,8 @@
 * LSP servers managed by <a href='https://github.com/mason-org/mason.nvim'>Mason</a> are unstable
 
 #### Android: <a href='https://github.com/termux/termux-app'>termux</a>
-* Some Mason LSP servers may not install<a href='https://github.com/mason-org/mason.nvim'>Mason</a>
-> Most Mason LSP server work now
+* Some <a href='https://github.com/mason-org/mason.nvim'>Mason</a> LSP servers may not install
+> Most <a href='https://github.com/mason-org/mason.nvim'>Mason</a> LSP server work now
 </br>
 * Clipboard does not work out of the box
 
@@ -46,6 +46,7 @@ cd ~/.config/nvim;
 - Open Neovim; open the Lazy.nvim dashboard ```:Lazy``` and press ```S```.
 
 </br>
+
 # LSP (autocomplete) support
 
 - Install language servers locally or have them automatically installed and managed by mason.nvim.
@@ -53,6 +54,7 @@ cd ~/.config/nvim;
 
 
 </br>
+
 # Requirements
 
 <h2>Neovim</h2>
