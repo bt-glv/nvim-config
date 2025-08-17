@@ -8,17 +8,8 @@ local cc = Parse_termc("<c-c>")
 local up = Parse_termc("<Up>")
 
 
--- restart all lsp servers
-function RestartLspServers()
-	local lsp_clients = vim.lsp.get_active_clients()
-	for _, client in pairs(lsp_clients) do vim.cmd("LspRestart "..client.id); end
-	print("All lsp clients restarted")
-end
-vim.api.nvim_create_user_command("RestartLspServers", function() RestartLspServers() end, {})
-
 -- The command line buffer does not have a name.
 -- This is the best way I found to check if the buffer is the command line buffer
--- If its just one line, yy, else, 0Y
 local function is_commandline_buf()
 
 	local bufname =	(function()

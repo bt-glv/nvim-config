@@ -4,6 +4,7 @@
 
 -- # "lsp-config" LSP name table
 -- https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
+-- outdated
 
 return {
     'VonHeikemen/lsp-zero.nvim',
@@ -43,9 +44,5 @@ return {
         --})
 
         -- This hides syntax check column in nvim.cmp
-        vim.fn.sign_define("DiagnosticSignError", { text = "", numhl = "" })
-        vim.fn.sign_define("DiagnosticSignWarn", { text = "", numhl = "" })
-        vim.fn.sign_define("DiagnosticSignInfo", { text = "", numhl = "" })
-        vim.fn.sign_define("DiagnosticSignHint", { text = "", numhl = "" })
     end 
 }

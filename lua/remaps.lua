@@ -13,6 +13,7 @@ vim.g.mapleader = " "
 
 
 -- << Remaps by topic >> --
+
 local function terminal_and_fileEx()
 	km("n","<leader>tew", function() openTerminal(vim.fn.getcwd()) end)
 
@@ -23,31 +24,31 @@ local function terminal_and_fileEx()
 	km("n","<leader>new", function() openNeovim(vim.fn.getcwd()) end)
 
 	vim.keymap.set("n","<leader>hex", function()
-			local path = vim.fn.expand('%:p:h')
-			path = vim.fn.substitute(path, "^oil:[/][/]","","g")
-			vim.cmd('silent! !dolphin "'..path..'" & disown')
+		local path = vim.fn.expand('%:p:h')
+		path = vim.fn.substitute(path, "^oil:[/][/]","","g")
+		vim.cmd('silent! !dolphin "'..path..'" & disown')
 	end)
 	vim.keymap.set("n","<leader>htew", function()
-			local path = vim.fn.expand('%:p:h')
-			path = vim.fn.substitute(path, "^oil:[/][/]","","g")
-			openTerminal(path)
+		local path = vim.fn.expand('%:p:h')
+		path = vim.fn.substitute(path, "^oil:[/][/]","","g")
+		openTerminal(path)
 	end)
 end
 local function tabs()
-    km("n", "<leader><Right>", ":tabnext<CR>", { desc = "Next tab" })
-    km("n", "<leader><Left>", ":tabprevious<CR>", { desc = "Previous tab" })
+	km("n", "<leader><Right>", ":tabnext<CR>", { desc = "Next tab" })
+	km("n", "<leader><Left>", ":tabprevious<CR>", { desc = "Previous tab" })
 
-    km("n", "<leader>tan", ":tabnew<CR>", 	{ desc = "New tab" })
-    km("n", "<leader>tad", ":tabclose<CR>", { desc = "Close tab" })
-    km("n", "<leader>1", "1gt", { desc = "Go to tab 1" })
-    km("n", "<leader>2", "2gt", { desc = "Go to tab 2" })
-    km("n", "<leader>3", "3gt", { desc = "Go to tab 3" })
-    km("n", "<leader>4", "4gt", { desc = "Go to tab 4" })
-    km("n", "<leader>5", "5gt", { desc = "Go to tab 5" })
-    km("n", "<leader>6", "6gt", { desc = "Go to tab 6" })
-    km("n", "<leader>7", "7gt", { desc = "Go to tab 7" })
-    km("n", "<leader>8", "8gt", { desc = "Go to tab 8" })
-    km("n", "<leader>9", "9gt", { desc = "Go to tab 9" })
+	km("n", "<leader>tan", ":tabnew<CR>", 	{ desc = "New tab" })
+	km("n", "<leader>tad", ":tabclose<CR>", { desc = "Close tab" })
+	km("n", "<leader>1", "1gt", { desc = "Go to tab 1" })
+	km("n", "<leader>2", "2gt", { desc = "Go to tab 2" })
+	km("n", "<leader>3", "3gt", { desc = "Go to tab 3" })
+	km("n", "<leader>4", "4gt", { desc = "Go to tab 4" })
+	km("n", "<leader>5", "5gt", { desc = "Go to tab 5" })
+	km("n", "<leader>6", "6gt", { desc = "Go to tab 6" })
+	km("n", "<leader>7", "7gt", { desc = "Go to tab 7" })
+	km("n", "<leader>8", "8gt", { desc = "Go to tab 8" })
+	km("n", "<leader>9", "9gt", { desc = "Go to tab 9" })
 end
 local function indent()
 	km("n", '<A-;>', "mzo<cr><cr><cr><Esc>'z")
@@ -63,7 +64,7 @@ local function comments()
 	-- wasted 20min of my life for this lmao
 end
 local function surround_basic()
-		km({"v","n"},"<leader>x", function() Manual_surround() end)
+	km({"v","n"},"<leader>x", function() Manual_surround() end)
 end
 local function movement()
 	km("v", "J", ":m '>+1<CR>gv=gv")
@@ -80,13 +81,13 @@ local function cmd_mode_edit()
 	km("v","<c- >", ":")
 end
 local function terminal_mode_related()
-    km("t", "<C- >", "<C-\\><C-n>",
+	km("t", "<C- >", "<C-\\><C-n>",
 	{ desc = "Escape terminal mode" })
 
-    km("n", "<leader>ter", "<c-w>v<c-w>l:term<CR><c-w>h",
+	km("n", "<leader>ter", "<c-w>v<c-w>l:term<CR><c-w>h",
 	{ desc = "Open terminal in vertical split" })
 
-    km('t', '<C-l><C-l>', [[<C-\><C-N>:lua ClearTerm(0)<CR>]],
+	km('t', '<C-l><C-l>', [[<C-\><C-N>:lua ClearTerm(0)<CR>]],
 	{ desc = "Clear terminal screen" })
 end
 local function quality_of_life()
@@ -153,49 +154,49 @@ local function quality_of_life()
 	vim.api.nvim_create_user_command( 'Qq', function() Exit_to_file_path() end, {})
 end
 local function split_window_controls()
-    km("n", "<c-w>,", "<c-w>7<", { desc = "Decrease window width" })
-    km("n", "<c-w>.", "<c-w>7>", { desc = "Increase window width" })
-    km("n", "<c-w>=", "<c-w>7+", { desc = "Increase window height" })
-    km("n", "<c-w>-", "<c-w>7-", { desc = "Decrease window height" })
+	km("n", "<c-w>,", "<c-w>7<", { desc = "Decrease window width" })
+	km("n", "<c-w>.", "<c-w>7>", { desc = "Increase window width" })
+	km("n", "<c-w>=", "<c-w>7+", { desc = "Increase window height" })
+	km("n", "<c-w>-", "<c-w>7-", { desc = "Decrease window height" })
 
-    km("n", "<M-w>", "<c-w>", 	{ desc = "Window command prefix" })
-    km("n", "<M-,>", "<c-w>7<", { desc = "Decrease window width" })
-    km("n", "<M-.>", "<c-w>7>", { desc = "Increase window width" })
-    km("n", "<M-=>", "<c-w>7+", { desc = "Increase window height" })
-    km("n", "<M-->", "<c-w>7-", { desc = "Decrease window height" })
+	km("n", "<M-w>", "<c-w>", 	{ desc = "Window command prefix" })
+	km("n", "<M-,>", "<c-w>7<", { desc = "Decrease window width" })
+	km("n", "<M-.>", "<c-w>7>", { desc = "Increase window width" })
+	km("n", "<M-=>", "<c-w>7+", { desc = "Increase window height" })
+	km("n", "<M-->", "<c-w>7-", { desc = "Decrease window height" })
 
-    km("n", "<M-h>", function() vim.cmd.wincmd('h') end, { desc = "Move to window left" })
-    km("n", "<M-j>", function() vim.cmd.wincmd('j') end, { desc = "Move to window below" })
-    km("n", "<M-k>", function() vim.cmd.wincmd('k') end, { desc = "Move to window above" })
-    km("n", "<M-l>", function() vim.cmd.wincmd('l') end, { desc = "Move to window right" })
+	km("n", "<M-h>", function() vim.cmd.wincmd('h') end, { desc = "Move to window left" })
+	km("n", "<M-j>", function() vim.cmd.wincmd('j') end, { desc = "Move to window below" })
+	km("n", "<M-k>", function() vim.cmd.wincmd('k') end, { desc = "Move to window above" })
+	km("n", "<M-l>", function() vim.cmd.wincmd('l') end, { desc = "Move to window right" })
 end
 local function clipboard_utilities()
-    km("v", "<leader>y", '"+y', 		{ desc = "Yank to system clipboard" })
-    km("v", "<leader>d", '"+d', 		{ desc = "Cut to system clipboard" })
-    km({"v", "n"}, "<leader>p", '"+p', 	{ desc = "Paste from system clipboard" })
-    km({"v", "n"}, "P", '"+p', 			{ desc = "Paste from system clipboard" })
-    km("v", "Y", '"+y', 				{ desc = "Yank to system clipboard" })
-    km("v", "D", '"+d', 				{ desc = "Cut to system clipboard" })
+	km("v", "<leader>y", '"+y', 		{ desc = "Yank to system clipboard" })
+	km("v", "<leader>d", '"+d', 		{ desc = "Cut to system clipboard" })
+	km({"v", "n"}, "<leader>p", '"+p', 	{ desc = "Paste from system clipboard" })
+	km({"v", "n"}, "P", '"+p', 			{ desc = "Paste from system clipboard" })
+	km("v", "Y", '"+y', 				{ desc = "Yank to system clipboard" })
+	km("v", "D", '"+d', 				{ desc = "Cut to system clipboard" })
 
-    km("n", "<leader>yy", '"+yy', { desc = "Yank line to system clipboard" })
-    km("n", "<leader>dd", '"+dd', { desc = "Cut line to system clipboard" })
+	km("n", "<leader>yy", '"+yy', { desc = "Yank line to system clipboard" })
+	km("n", "<leader>dd", '"+dd', { desc = "Cut line to system clipboard" })
 
-    km("n", "<leader>Y", [[v$"+y]], { desc = "Yank from cursor to end of line to system clipboard" })
+	km("n", "<leader>Y", [[v$"+y]], { desc = "Yank from cursor to end of line to system clipboard" })
 
 	km('i', '<A-r>', '<C-r>', 		{ desc = 'Alternate mapping for <C-r>', noremap = true })
-    km("i", "<A-p>", '<C-r>"', 		{ desc = 'Insert mode: paste " register'})
-    km("i", "<A-S-p>", "<C-r>+", 	{ desc = 'Insert mode: paste + register'})
+	km("i", "<A-p>", '<C-r>"', 		{ desc = 'Insert mode: paste " register'})
+	km("i", "<A-S-p>", "<C-r>+", 	{ desc = 'Insert mode: paste + register'})
 	-- km('i', '<A-p>', '<C-r>', { noremap = true })
 
 	-- this makes a lot more sence than A-p
 	km('i', "<A-S-'>", '<C-r>"')
 	km('i', '<A-S-=>', '<C-r>+')
 
-    km("n", "<leader>ayy", '"ayy', 			{ desc = "Yank line to register 'a'" })
-    km("n", "<leader>add", '"add', 			{ desc = "Cut line to register 'a'" })
-    km("v", "<leader>ay", '"ay', 			{ desc = "Yank selection to register 'a'" })
-    km("v", "<leader>ad", '"ad', 			{ desc = "Cut selection to register 'a'" })
-    km({"v", "n"}, "<leader>ap", '"ap', 	{ desc = "Paste from register 'a'" })
+	km("n", "<leader>ayy", '"ayy', 			{ desc = "Yank line to register 'a'" })
+	km("n", "<leader>add", '"add', 			{ desc = "Cut line to register 'a'" })
+	km("v", "<leader>ay", '"ay', 			{ desc = "Yank selection to register 'a'" })
+	km("v", "<leader>ad", '"ad', 			{ desc = "Cut selection to register 'a'" })
+	km({"v", "n"}, "<leader>ap", '"ap', 	{ desc = "Paste from register 'a'" })
 end
 local function default_buffer_manipulation()
 	km("n", "<leader>bd", ":bd!<CR>")
@@ -206,12 +207,12 @@ local function scripting()
 end
 local function set_spell()
 	km("n", "<leader>ss", ":set spell!<cr>", { desc = "Toggle spell checking" })
-    km("n", "<leader>sl", ":set spelllang=", { desc = "Set spell language" })
+	km("n", "<leader>sl", ":set spelllang=", { desc = "Set spell language" })
 end
 local function spell_check()
 	km("n", "z;", "]s", 		{ desc = "Next spelling error" })
-    km("n", "z,", "[s", 		{ desc = "Previous spelling error" })
-    km("n", "z<leader>", "z=", 	{ desc = "Suggest spelling correction" })
+	km("n", "z,", "[s", 		{ desc = "Previous spelling error" })
+	km("n", "z<leader>", "z=", 	{ desc = "Suggest spelling correction" })
 end
 
 

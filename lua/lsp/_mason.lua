@@ -1,16 +1,4 @@
 
-local lsp_servers = {
-	"lua_ls",
-	"pyright",
-	"html",
-	"gopls",
-	"tsserver",
-	"bashls",
-	"cssls",
-	"ts_ls",
-	"angularls"
-}
-
 return {
 	'williamboman/mason.nvim',
 	lazy = false,
@@ -21,10 +9,12 @@ return {
 	config = function()
 		require('mason').setup({})
 		require('mason-lspconfig').setup({
-			ensure_installed = lsp_servers,
+			automatic_enable = true,
+			ensure_installed = lsp_settings.mason_lsp_servers,
 			handlers = {
 				function(server_name)
-					require('lspconfig')[server_name].setup({})
+					-- require('lspconfig')[server_name].setup({})
+					vim.lsp.enable(server_name)
 				end,
 			},
 		})
