@@ -20,9 +20,11 @@
 
 #### Android: <a href='https://github.com/termux/termux-app'>termux</a>
 * Some <a href='https://github.com/mason-org/mason.nvim'>Mason</a> LSP servers may not install
-> Most <a href='https://github.com/mason-org/mason.nvim'>Mason</a> LSP server work now
+> Most <a href='https://github.com/mason-org/mason.nvim'>Mason</a> LSP servers work now
 </br>
 * Clipboard does not work out of the box
+
+</br>
 
 ## About GUI clients (Neovide, Nvim-QT, etc)
 - They are all untested
@@ -64,12 +66,13 @@ cd ~/.config/nvim;
 <ul>
     <li><a href='https://www.nerdfonts.com/'>Pacthed Nerd Fonts Font</a> (For Dev-Icons)</li>
     <li><a href='https://alacritty.org/'>Alacritty Terminal Emulator</a> (Can be replaced)</li>
-    <li>npm</li>
     <li>node.js</li>
+    <li>npm</li>
     <li>ripgrep</li>
     <li><a href='https://www.python.org/'>Phyton</a> 
         <ul>
-            <li>PIP module: <a href='https://pypi.org/project/neovim-remote/'>neovim-remote</a> (Required for cmd line autocomplete)</li>
+            <li>PIP module: <a href='https://pypi.org/project/neovim-remote/'>neovim-remote</a> (Required for cmdline autocomplete)</li>
+            <li>Nix package manager: they are already packaged with Neovim</li>
         </ul>    
     </li>
     <li><a href='https://github.com/sharkdp/fd'>fd</a></li>
