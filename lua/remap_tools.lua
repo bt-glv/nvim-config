@@ -123,27 +123,6 @@ function Block_indent(tabstop)
 	-- if tabstop isnt defined
 	tabstop = tabstop or vim.o.tabstop
 
-	local function reach_back(input) -- TODO: improve this
-		if #input == 1 then input = "["..input.."]" end
-		vim.api.nvim_feedkeys(esc..[[:silent g/\v%.l((]]..input..[[)|(^))/]]..cr.."N","xn", false)
-		-- silent g/\v%.l(([(])|(^.))/
-		vim.cmd("noh")
-	end
-
-	local function create_target_col_table() -- bad name
-
-		local out_positions= {}
-		local search = vim.fn.searchcount().total
-
-		for i = 1, search do
-			table.insert( out_positions, {vim.api.nvim_win_get_cursor(0)[1], vim.api.nvim_win_get_cursor(0)[2]})
-			vim.api.nvim_feedkeys(esc.."n","xn", false)
-		end
-
-		return out_positions
-
-	end
-
 
 	local function first_tab(column, tabstop)
 		local tab_size = tabstop-(column%tabstop)
@@ -176,46 +155,85 @@ function Block_indent(tabstop)
 		end
 	end
 
-	vim.api.nvim_feedkeys(esc..[[:silent '<,'>g/\%V.\+/]]..cr..cr.."n","xn",false)
-	local positions = create_target_col_table()
-	local input = vim.fn.input('>')
-	-- vim.api.nvim_feedkeys(esc..[[:silent g/\v%.l((]]..input..[[)|(^))/]]..cr.."N","xn", false)
-
-	for _, cordinates in pairs(positions) do
-
-		vim.api.nvim_win_set_cursor(0,{cordinates[1],cordinates[2]}) -- move the cursor the the col_pivot
-
-		local tabs = ""
-		local col_pivot = cordinates[2]
-		local col_cursor = vim.api.nvim_win_get_cursor(0)[2]
-		local tabs_amount = calc_tabs_amount(col_cursor, col_pivot, tabstop)
-
-		local tab_first = first_tab(col_cursor, tabstop).string
-		local _tab = (
-			function()
-				local out=''
-				for i=1, tabstop do out = out.." " end
-				return out
-			end
-		)()
-
-		reach_back(input) -- use reach back
-
-
-		if tabs_amount > 0 then
-			tabs=tabs..tab_first
-		end
-		if tabs_amount > 1 then
-			for i=2, tabs_amount do
-					tabs=tabs.._tab
-			end
-		end
-
-		vim.api.nvim_feedkeys("i"..tabs..esc.."l","xn", false)
-		vim.api.nvim_feedkeys(''..':s/'.._tab..'/\\t/g'..cr, 'xn', false)
-
+	local function reach_back(input) -- TODO: improve this
+		if #input == 1 then input = "["..input.."]" end
+		vim.api.nvim_feedkeys(esc..[[:silent g/\v%.l((]]..input..[[)|(^))/]]..cr.."N","xn", false)
+		-- vim.cmd("noh")
 	end
 
+	local function create_col_table()
+
+		local out_positions= {}
+		local search = vim.fn.searchcount().total
+		local position
+
+		for i = 1, search do
+			position = {
+				line = vim.api.nvim_win_get_cursor(0)[1],
+				column = vim.api.nvim_win_get_cursor(0)[2],
+			}
+			table.insert( out_positions, position )
+			vim.api.nvim_feedkeys(esc.."n","xn", false)
+		end
+		return out_positions
+	end
+	local function tabs_till_pivot(cursor_pos, pivot_pos, tabstop)
+
+		local function f_tab(column, tabstop)
+			local _mod = column%tabstop
+			if _mod == 0 then return tabstop end
+			return tabstop-_mod
+		end
+
+		if cursor_pos >= pivot_pos then return 0 end
+
+		local first = f_tab(cursor_pos, tabstop)
+		local current_pos = cursor_pos + first
+		local counter_tab = 1
+
+		if current_pos > pivot_pos then return counter_tab end
+
+		counter_tab = 1
+		while current_pos <= pivot_pos do
+			current_pos = current_pos + tabstop
+			counter_tab = counter_tab + 1
+		end
+
+		return counter_tab
+	end
+
+	vim.api.nvim_feedkeys(esc..[[:silent '<,'>g/\%V.\+/]]..cr..cr.."n","xn",false)
+	local col_table = create_col_table()
+	local input = vim.fn.input('>')
+
+	-- local _log = "\n"
+	-- local function logit(input)
+		-- _log = _log..input..'\n'
+	-- end
+
+	local _tab = Parse_termc("<Tab>")
+
+	for _, positions in pairs(col_table) do
+		vim.api.nvim_win_set_cursor(0,{positions.line, positions.column}) -- move the cursor the the pivot_col
+		reach_back(input) -- move the cursor to the key character
+
+		local cursor_col = vim.api.nvim_win_get_cursor(0)[2]
+		local pivot_col = positions.column
+
+		local tabs_amount = tabs_till_pivot(cursor_col, pivot_col, tabstop)
+		local tabs = ""
+		for i=1, tabs_amount do
+			tabs=tabs.._tab
+		end
+		-- logit(cursor_col..' -> '..pivot_col)
+		-- logit(tabs_amount)
+		-- logit('.'..tabs..'.')
+
+
+		vim.api.nvim_feedkeys("i"..tabs..esc, "xn", false)
+	end
+
+	-- Notify(_log)
 	vim.cmd("noh")
 end
 
