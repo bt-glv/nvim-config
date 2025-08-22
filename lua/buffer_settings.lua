@@ -9,23 +9,24 @@ StatusLine = {
 		local buff_path = vim.fn.expand('%:p:h')
 		local working_directory = vim.fn.getcwd()
 
-		if string.find(buff_path, '^'..working_directory) then
+		local function check_prefix(prefix)
+			return string.sub(buff_path, 1, #prefix) == prefix
+		end
+
+		if check_prefix(working_directory) then
 			if buff_file_name == 'NeogitStatus' then return '[Neogit]' end
-
-			local relative_path = string.sub(buff_path, #working_directory + 1)
-			local relative_path_with_file = relative_path..'/'..buff_file_name
-
-			local out = (relative_path == '' or nil) and './'..buff_file_name or '.'..relative_path_with_file
-			return out
+			local relative_path = string.sub(full_path, #working_directory + 2)
+			return (relative_path == '' or nil) and './'..buff_file_name or './'..relative_path
 		end
 
 		if vim.b.current_syntax == 'oil' then
 			local res = vim.fn.substitute(buff_path, [[^oil:[/]\?[/]\?]],"","g") -- I dont think vim regex is needed here
 			res = vim.fn.substitute(res, "^"..vim.fn.expand('~'),'~','g')
+			if res == '' then res = '/' end
 			return res
 		end
 
-		if string.find(buff_path, '^'..'diffview://') then
+		if check_prefix('diffview://') then
 			local res = vim.fn.substitute(full_path, [[^diffview:[/]\?[/]\?]],"","g")
 
 			if string.find(res, '^.panels') then
@@ -42,8 +43,12 @@ StatusLine = {
 			return res
 		end
 
+		if check_prefix('term://') then
+			local res = vim.fn.substitute(full_path, [[^term:.\+\/\([0-9]\+\)[:].\+]],[[\1]],"g")
+			return '[Terminal] PID:'..res
+		end
+
 		return full_path
-		--return buff_file_name
 	end,
 
 	lsp = function()
