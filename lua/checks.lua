@@ -14,15 +14,18 @@ local _os = {
 			end
 		end,
 		dependencies = function()
-			local function check(program, err_message)
-				if not err_message then err_message = program..' not installed' end
+			local function check(program)
 				if type(program) == 'table' then
 					for _, program_name in ipairs(program) do
-						check(program_name, err_message)
+						check(program_name)
 					end
+					return
 				end
-				vim.fn.system(program)
-				if vim.v.shell_error ~= 0 then warn_func(err_message,4, {title='Dependency'}) end
+				vim.fn.system('which '..program)
+				if vim.v.shell_error ~= 0 then
+					local err_message = 'Linux >> "'..program..'" Not Installed'
+					warn_func(err_message,4, {title='Dependency'})
+				end
 			end
 			check({
 				'gcc',
@@ -31,11 +34,14 @@ local _os = {
 				'fd',
 			})
 		end
+	},
+	Windows = {
 	}
 }
 
 local checks = _os[vim.loop.os_uname().sysname]
 if checks ~= nil then
-	for _, func in ipairs(checks) do func() end
+	for _, func in pairs(checks) do
+		func()
+	end
 end
-
