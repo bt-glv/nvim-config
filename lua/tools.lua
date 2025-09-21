@@ -6,6 +6,14 @@ local cr = Parse_termc("<Cr>")
 local cc = Parse_termc("<c-c>")
 local up = Parse_termc("<Up>")
 
+
+-- simple log functions for debugging
+local _log = "\n"
+function _logit(input)
+	_log = _log..input..'\n' end
+function _logprint()
+	Notify(_log) end
+
 -- The command line buffer does not have a name.
 -- This is the best way I found to check if the buffer is the command line buffer
 local function is_commandline_buf()
