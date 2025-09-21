@@ -22,6 +22,7 @@
 * Some <a href='https://github.com/mason-org/mason.nvim'>Mason</a> LSP servers may not install
 > Most <a href='https://github.com/mason-org/mason.nvim'>Mason</a> LSP servers work now
 </br>
+
 * Clipboard does not work out of the box
 
 </br>
@@ -60,6 +61,7 @@ cd ~/.config/nvim;
 
 # Requirements
 
+&nbsp;
 <h2>Neovim</h2>
 <h4>Version: 0.11.x</h4>
 &nbsp;
