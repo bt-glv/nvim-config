@@ -1,24 +1,24 @@
 # To-Start
 
 - Fix: Block_indent()
+- Fix: <leader>Y for "+Y
 
 - Feature: Which key
-- Feature: Configure Neovim LSP integration without lsp0 (its currently deprecated)
-
-- Refactor: treesitter-context: make the plugin's style more distinct
+- Feature: QQ on terminal mode cds to that terminal's path.
+- Feature: add support for lsp actions like lsp rename
 
 - Experiment: nvim-ufo
-- Experiment: LuaSnip
-    - https://www.youtube.com/watch?v=FmHhonPjvvA
-
+- Experiment: Replace cmp.nvim with blink.cmp
 
 ------
 # In-progress
-- Fix: <leader>Y for "+Y
 
+- Experiment: Luasnip
 
 ------
 # Done
+- Feature: Configure Neovim LSP integration without lsp0 (its currently deprecated)
+- Feature: LuaSnip
 - Fix: Lua lsp on nixos
     - more about it (3rd answer): https://stackoverflow.com/questions/75880481/cant-use-lua-lsp-in-neovim
     - perhaps find a way to use system-installed lsp servers together with mason?
