@@ -24,8 +24,8 @@
 </br>
 * Clipboard does not work out of the box
 
-
 </br>
+
 # Installation
 
 - Clone this repo and place its files at the neovim folder. (Linux: ~/.config/nvim)
@@ -44,17 +44,20 @@ cd ~/.config/nvim;
 
 
 </br>
+
 # LSP (autocomplete) support
 
 - By default, this config is configured to use local lsp servers for lua, typescript and nix.
 - To manage them automatically with mason, or add more local lsp servers, see `lsp/settings`.
 
 </br>
+
 # Debuggers
 > Currenty a work in progress
 - So far, only delve (go) is set up and working
 
 </br>
+
 # Requirements
 
 <h2>Neovim</h2>
