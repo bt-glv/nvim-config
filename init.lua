@@ -14,7 +14,7 @@ end
 km 	= vim.keymap.set
 cmd = vim.cmd
 
-lsp_settings = require('lsp.lsp_settings')
+lsp_settings = require('lsp.settings')
 require('buffer_settings')
 require('remap_tools')
 require('remaps')
@@ -23,9 +23,10 @@ require("lazy_bootstrap")
 require("lazy").setup({
 	require('colorscheme.catppuccin'),
 	require('ui.treesitter'),
-	require('lsp.lsp_config'),
+	require('lsp._lspconfig'),
 	require('lsp._mason'),
-	require('lsp.lsp0'),
+	require('lsp.nvim_cmp'),
+	-- require('lsp.lsp0'),
 	require('lsp._lazydev'),
 	require('ui._treesitter_context'),
 	require('ui._tabby'),
@@ -47,7 +48,7 @@ require("lazy").setup({
 	require('plugin.treesitter_textobjects'),
 	require('plugin.trouble'),
 	require('debug.nvim-dap'),
+	require('snippets.lua_snip'),
 })
-
 require('checks')
 
