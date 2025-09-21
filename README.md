@@ -2,7 +2,7 @@
 
 > This config is a work in progress.
 
-> Made for Linux; other platforms might not work out of the box or may be incompatible.
+> Made for Linux; other platforms might not work as intended out of the box or may be incompatible.
 </br>
 
 
@@ -24,13 +24,8 @@
 </br>
 * Clipboard does not work out of the box
 
-</br>
-
-## About GUI clients (Neovide, Nvim-QT, etc)
-- They are all untested
 
 </br>
-
 # Installation
 
 - Clone this repo and place its files at the neovim folder. (Linux: ~/.config/nvim)
@@ -47,16 +42,19 @@ cd ~/.config/nvim;
 
 - Open Neovim; open the Lazy.nvim dashboard ```:Lazy``` and press ```S```.
 
-</br>
 
+</br>
 # LSP (autocomplete) support
 
-- Install language servers locally or have them automatically installed and managed by mason.nvim.
-- Define with LSPs to install and/or use in: `lsp/lsp_settings.lua`.
-
+- By default, this config is configured to use local lsp servers for lua, typescript and nix.
+- To manage them automatically with mason, or add more local lsp servers, see `lsp/settings`.
 
 </br>
+# Debuggers
+> Currenty a work in progress
+- So far, only delve (go) is set up and working
 
+</br>
 # Requirements
 
 <h2>Neovim</h2>
