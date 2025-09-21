@@ -2,23 +2,24 @@ return {
 	-- :Mason
 	-- the name to the right of the lsp server name
 	mason_lsp_servers = {
-		-- "lua_ls",
+		-- "lua_ls", 	-- better if installed locally
+		-- "ts_ls", 	-- better if installed locallly
+		-- "angularls",
 		"pyright",
 		"html",
 		"gopls",
 		"bashls",
 		"cssls",
-		"angularls",
-		"ts_ls", -- Javascript & typescript
 		"jdtls", -- Java
+		'kotlin_language_server',
 	},
 
-	-- i'm not sure about the names used in vim.lsp.enable()
-	-- they might be the same as mason
-	-- This might help
+	-- accepted lsp names:
 	-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
 	local_lsp_servers = {
-		'lua_ls',
+		"lua_ls",
+		"ts_ls", 	-- Javascript & typescript
+		"nixd", 	-- Nixos nix lsp
 	},
 
 	setup = function(self)
