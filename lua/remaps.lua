@@ -90,23 +90,29 @@ local function terminal_mode_related()
 	km('t', '<C-l><C-l>', [[<C-\><C-N>:lua ClearTerm(0)<CR>]],
 	{ desc = "Clear terminal screen" })
 end
-local function quality_of_life()
 
-	-- Disables jumps after searching with *
-	km('n', '*', '*N', { noremap = true })
-	km('v', '*', 'y/\\V<C-r>"<Cr>N', { noremap = true }) -- "*N" does not work directly
 
+local function search_and_replace()
 	-- Search and replace last search
 	-- This "nests" search groups if used more than once; not sure if this will be a problem or not
 	km({'v'}, '<leader>/', [[q:is/\(<C-r>/\)//g<Esc>F/i]])
 	km({'n'}, '<leader>/', [[q:i%s/\(<C-r>/\)//g<Esc>F/i]])
 
-	-- This substitutes a vim feature that shows the hex to the character under the cursor
-	km({'v','n'},'ga','<Esc>ggVG')
-
 	-- Gets rid of "line with trailing spaces"
 	km("n","<leader>rr",[[:%s/\v(^[ \t]+$)|([ \t]+$)//g|noh]])
 	km("v","<leader>rr",[[<Esc>:'<,'>s/[ \t]\+$//g|noh]])
+
+end
+
+local function quality_of_life()
+
+	km('n', '<A-e>', ':e<Cr>', {desc = 'Updates local file'})
+	-- Disables jumps after searching with *
+	km('n', '*', '*N', { noremap = true })
+	km('v', '*', 'y/\\V<C-r>"<Cr>N', { noremap = true }) -- "*N" does not work directly
+
+	-- This substitutes a vim feature that shows the hex to the character under the cursor
+	km({'v','n'},'ga','<Esc>ggVG')
 
 	-- By using nvim_feedkeys on "t" mode, <A- > now works with every single plugin,
 	-- since the keys are sent as if typed.
@@ -183,6 +189,7 @@ local function clipboard_utilities()
 
 	km("n", "<leader>Y", [[v$"+y]], { desc = "Yank from cursor to end of line to system clipboard" })
 
+	km('n', '<A-r>', '"', 			{ desc = '', noremap = true })
 	km('i', '<A-r>', '<C-r>', 		{ desc = 'Alternate mapping for <C-r>', noremap = true })
 	km("i", "<A-p>", '<C-r>"', 		{ desc = 'Insert mode: paste " register'})
 	km("i", "<A-S-p>", "<C-r>+", 	{ desc = 'Insert mode: paste + register'})
@@ -235,4 +242,5 @@ terminal_mode_related()
 comments()
 surround_basic()
 terminal_and_fileEx()
+search_and_replace()
 
