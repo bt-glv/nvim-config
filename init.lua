@@ -16,7 +16,7 @@ cmd = vim.cmd
 
 lsp_settings = require('lsp.settings')
 require('buffer_settings')
-require('remap_tools')
+require('tools')
 require('remaps')
 
 require("lazy_bootstrap")
