@@ -67,8 +67,8 @@ local function surround_basic()
 	km({"v","n"},"<leader>x", function() Manual_surround() end)
 end
 local function movement()
-	km("v", "J", ":m '>+1<CR>gv=gv")
-	km("v", "K", ":m '<-2<CR>gv=gv")
+	-- km("v", "J", ":m '>+1<CR>gv=gv")
+	-- km("v", "K", ":m '<-2<CR>gv=gv")
 
 	km("n","J", "mzJ`z")
 	km("n","<C-d>", "<C-d>zz")
@@ -106,12 +106,30 @@ end
 
 local function quality_of_life()
 
-	km('n', '<A-e>', ':e<Cr>', {desc = 'Updates local file'})
-	-- Disables jumps after searching with *
-	km('n', '*', '*N', { noremap = true })
-	km('v', '*', 'y/\\V<C-r>"<Cr>N', { noremap = true }) -- "*N" does not work directly
+	km("n", "i", function()
+		local line = vim.api.nvim_get_current_line()
+		if line:match('^%s*$') then
+			return 'cc'
+		end
+		return "i"
+	end,
+	{
+		expr = true,
+		desc = '"i" on empty lines enters insert mode applying the correct indentation'
+	})
 
-	-- This substitutes a vim feature that shows the hex to the character under the cursor
+	km('n', '<A-e>', ':e<Cr>', {desc = 'Updates local file'})
+
+	km('n', '*', '*N', {
+		desc = 'Disables jumps after searching with *',
+		noremap = true
+	})
+	km('v', '*', 'y/\\V<C-r>"<Cr>N', {
+		desc = '"*" in visual mode searches the entire selection',
+		noremap = true
+	})
+
+	-- This substitutes a vim feature that shows the hex of the character under the cursor
 	km({'v','n'},'ga','<Esc>ggVG')
 
 	-- By using nvim_feedkeys on "t" mode, <A- > now works with every single plugin,
