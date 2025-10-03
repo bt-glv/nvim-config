@@ -3,7 +3,7 @@ StatusLine = {
 	path_relative = function()
 
 		local full_path = vim.fn.expand('%:p')
-		if full_path == '' or full_path == nil then return '[Unnamed]' end
+		if full_path == '' or full_path == nil then return '[No Name]:'..vim.api.nvim_get_current_buf() end
 
 		local buff_file_name = vim.fn.expand('%:t')
 		local buff_path = vim.fn.expand('%:p:h')

@@ -62,6 +62,7 @@ return {
 					gitsigns = true,
 					nvimtree = true,
 					treesitter = true,
+					ufo = true,
 
 					notify = true,
 					diffview = true,

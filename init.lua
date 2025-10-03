@@ -2,7 +2,6 @@
 function openTerminal(path)
 	vim.cmd('silent! !alacritty --working-directory "'..path..'" & disown')
 end
-
 function openNeovim(path)
 	vim.cmd('silent! !alacritty --working-directory "'..path..'" -e bash -c "nvim ." & disown')
 end
@@ -26,7 +25,6 @@ require("lazy").setup({
 	require('lsp._lspconfig'),
 	require('lsp._mason'),
 	require('lsp.nvim_cmp'),
-	-- require('lsp.lsp0'),
 	require('lsp._lazydev'),
 	require('ui._treesitter_context'),
 	require('ui._tabby'),
@@ -49,6 +47,8 @@ require("lazy").setup({
 	require('plugin.trouble'),
 	require('debug.nvim-dap'),
 	require('snippets.lua_snip'),
+	require('ui.nvim_autopairs'),
+	require('ui.nvim_ufo'),
 })
 require('checks')
 
