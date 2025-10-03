@@ -33,8 +33,8 @@ return {
     config = function()
 		-- this might be causing some weird treesitter parser errors
 		-- involving parser initialization with 'diff' and 'golang'
-		--vim.o.foldmethod = 'expr'
-		--vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
-		--vim.o.foldlevelstart = 99
+		vim.o.foldmethod = 'expr'
+		vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
+		vim.o.foldlevelstart = 99
 	end,
 }
