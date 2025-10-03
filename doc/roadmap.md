@@ -7,16 +7,18 @@
 - Feature: QQ on terminal mode cds to that terminal's path.
 - Feature: add support for lsp actions like lsp rename
 
-- Experiment: nvim-ufo
 - Experiment: Replace cmp.nvim with blink.cmp
+- Feature: make a toggleable shell buffer
 
 ------
 # In-progress
 
-- Experiment: Luasnip
+- fine-tune luasnip remaps
 
 ------
 # Done
+- Experiment: nvim-ufo
+- Experiment: Luasnip
 - Feature: Configure Neovim LSP integration without lsp0 (its currently deprecated)
 - Feature: LuaSnip
 - Fix: Lua lsp on nixos

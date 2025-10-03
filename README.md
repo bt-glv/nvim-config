@@ -75,7 +75,7 @@ cd ~/.config/nvim;
     <li><a href='https://www.python.org/'>Phyton</a> 
         <ul>
             <li>PIP module: <a href='https://pypi.org/project/neovim-remote/'>neovim-remote</a> (Required for cmdline autocomplete)</li>
-            <li>Nix package manager: they are already packaged with Neovim</li>
+            <li>Nix Neovim Package: no action necessary</li>
         </ul>    
     </li>
     <li><a href='https://github.com/sharkdp/fd'>fd</a></li>
