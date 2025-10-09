@@ -54,7 +54,7 @@ cd ~/.config/nvim;
 # LSP (autocomplete) support
 
 - By default, this config is configured to use local lsp servers for lua, typescript and nix.
-- That is due to problems running those lsp server with mason on NixOS systems, wich more often than not are used to develop this config.
+- That is due to problems running those lsp servers with mason on NixOS systems, wich more often than not are used to develop this config.
 - To change this behaviour and manage them automatically with mason, or add more local lsp servers, see `lsp/settings`.
 
 </br>
@@ -66,12 +66,10 @@ cd ~/.config/nvim;
 </br>
 
 # Requirements
-
-&nbsp;
-<h2>Neovim</h2>
+## Neovim
 <h4>Version: 0.11.x</h4>
 &nbsp;
-<h2>Dependencies</h2>
+## Dependencies
 <ul>
     <li><a href='https://www.nerdfonts.com/'>Pacthed Nerd Fonts Font</a> (For Dev-Icons)</li>
     <li><a href='https://alacritty.org/'>Alacritty Terminal Emulator</a> (Can be replaced)</li>
