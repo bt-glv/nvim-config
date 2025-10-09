@@ -7,30 +7,27 @@
 
 
 # Current state of things
-#### Linux
-###### Arch/Debian/Fedora/OpenSUSE
+### Linux
+#### Arch/Debian/Fedora/OpenSUSE
 > and most other "normal" distros
 * Everything works as intended
-###### NixOS
+#### NixOS
 * Nixos cannot execute dynamically linked executables by default. This creates a problem when managing lsp servers locally with mason because some of them rely on dynamically linked executables. Mason will install the lsp servers and try to execute them, and it will fail.
 * In cases like this, the solution is to install the lsp server with nix and set Neovim to use it.
 
 &nbsp;
-#### Windows 10/11
+### Windows 10/11
 * WLS: everything works after configuring the clipboard (win32yank)
 * Native: some Linux specific features might not work (embedded shell commands, et cetera)
 
 &nbsp;
-#### MacOS
+### MacOS
 * All mappings that use `Alt` as a modifier key are incompatible and need to be changed
 * LSP servers managed by <a href='https://github.com/mason-org/mason.nvim'>Mason</a> are unstable
 
 &nbsp;
-#### Android: <a href='https://github.com/termux/termux-app'>termux</a>
-* Some <a href='https://github.com/mason-org/mason.nvim'>Mason</a> LSP servers may not install
-> Most <a href='https://github.com/mason-org/mason.nvim'>Mason</a> LSP servers work now
-</br>
-
+### Android: <a href='https://github.com/termux/termux-app'>termux</a>
+* Most <a href='https://github.com/mason-org/mason.nvim'>Mason</a> LSP servers work, some may not install.
 * Clipboard does not work out of the box
 
 </br>
