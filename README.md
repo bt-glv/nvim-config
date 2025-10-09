@@ -68,7 +68,6 @@ cd ~/.config/nvim;
 # Requirements
 ## Neovim
 <h4>Version: 0.11.x</h4>
-&nbsp;
 ## Dependencies
 <ul>
     <li><a href='https://www.nerdfonts.com/'>Pacthed Nerd Fonts Font</a> (For Dev-Icons)</li>
