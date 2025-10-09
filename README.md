@@ -67,8 +67,10 @@ cd ~/.config/nvim;
 
 # Requirements
 ## Neovim
-<h4>Version: 0.11.x</h4>
+- Version: 0.11.x
+
 ## Dependencies
+
 <ul>
     <li><a href='https://www.nerdfonts.com/'>Pacthed Nerd Fonts Font</a> (For Dev-Icons)</li>
     <li><a href='https://alacritty.org/'>Alacritty Terminal Emulator</a> (Can be replaced)</li>
