@@ -10,6 +10,7 @@ Notify = function(string, priority, opts)
 	vim.notify(string)
 end
 
+vim.o.grepprg = 'rg --vimgrep'
 km 	= vim.keymap.set
 cmd = vim.cmd
 
@@ -26,13 +27,17 @@ require("lazy").setup({
 	require('lsp._mason'),
 	require('lsp.nvim_cmp'),
 	require('lsp._lazydev'),
+	require('lsp.trouble'),
+	require('snippets.lua_snip'),
 	require('ui._treesitter_context'),
 	require('ui._tabby'),
 	require('ui._gitsigns'),
 	require('ui.nvim_web_devicons'),
 	require('ui.rainbow_delimiters'),
+	require('ui.nvim_autopairs'),
+	require('ui.nvim_ufo'),
 	require('plugin._snacks'),
-	require('plugin.surround'),
+	-- require('plugin.surround'),
 	require('plugin._leap'),
 	require('plugin._flash'),
 	require('plugin._telescope'),
@@ -44,11 +49,7 @@ require("lazy").setup({
 	require('plugin.diffview'),
 	require('plugin._neogit'),
 	require('plugin.treesitter_textobjects'),
-	require('plugin.trouble'),
 	require('debug.nvim-dap'),
-	require('snippets.lua_snip'),
-	require('ui.nvim_autopairs'),
-	require('ui.nvim_ufo'),
+	require('plugin._mini'),
 })
 require('checks')
-
