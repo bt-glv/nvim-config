@@ -79,14 +79,14 @@ vim.g.netrw_bufsettings='noma nomod nu nobl nowrap ro'
 -- Relative line numbers in netrw
 -- what the hell is this even supposed to mean?
 
-vim.opt.termguicolors=true
-vim.opt.rnu = true
-vim.opt.nu = true
-vim.opt.linebreak = true
-vim.opt.breakindent = true
-vim.opt.signcolumn = "no"
-vim.opt.tabstop = 4 -- Defines indent spacing
-vim.opt.shiftwidth = 4
-vim.opt.scrolloff = 4
-vim.opt.updatetime = 50
+vim.opt.termguicolors = true
+vim.opt.rnu           = true
+vim.opt.nu            = true
+vim.opt.linebreak     = true
+vim.opt.breakindent   = true
+vim.opt.signcolumn    = "no"
+vim.opt.tabstop       = 4 -- Defines indent spacing
+vim.opt.shiftwidth    = 4
+vim.opt.scrolloff     = 4
+vim.opt.updatetime    = 50
 
