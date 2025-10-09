@@ -4,7 +4,7 @@ return {
 	mason_lsp_servers = {
 		-- "lua_ls", 	-- better if installed locally
 		-- "ts_ls", 	-- better if installed locallly
-		-- "angularls",
+		"angularls",
 		"pyright",
 		"html",
 		"gopls",
@@ -32,7 +32,7 @@ return {
 
 		-- keymaps and user commands
 		km('n', "<leader>ll", function() self.toggle_virtual_line(true) end )
-		km('n', "<leader>lsd", function() self.toggle_diagnostics(false) end)
+		km('n', "<leader>l;", function() self.toggle_diagnostics(false) end)
 
 		vim.api.nvim_create_user_command("DiagnosticToggle", function() self.toggle_diagnostics() end, {})
 		vim.api.nvim_create_user_command("VirtualLineToggele", function() self.toggle_virtual_line() end, {})
@@ -47,7 +47,6 @@ return {
 
 	toggle_diagnostics = function(silent)
 		if vim.diagnostic.is_enabled() then
-			lsp_diag_toggle = false
 			vim.diagnostic.enable(false)
 			if not silent then vim.notify('Diagnostics disabled') end
 			return

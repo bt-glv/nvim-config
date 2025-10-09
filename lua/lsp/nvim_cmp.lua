@@ -1,15 +1,22 @@
 
-
 return {
 	'hrsh7th/nvim-cmp',
 	lazy = false,
 	dependencies = {
-		'hrsh7th/cmp-nvim-lsp',
-		'L3MON4D3/LuaSnip',
+		{ -- command mode autocomplete
+			'hrsh7th/cmp-cmdline',
+			commit = "d126061b624e0af6c3a556428712dd4d4194ec6d",
+		},
+		{ -- search mode autocomplete
+			'hrsh7th/cmp-buffer',
+			commit = "b74fab3656eea9de20a9b8116afa3cfc4ec09657",
+		},
 		{ -- this adds luasnip as a completion source for nvim.cmp
 			"saadparwaiz1/cmp_luasnip",
 			commit = '98d9cb5c2c38532bd9bdb481067b20fea8f32e90'
 		},
+		'hrsh7th/cmp-nvim-lsp',
+		'L3MON4D3/LuaSnip',
 	},
 	config = function()
 		local cmp = require('cmp')
@@ -108,19 +115,38 @@ return {
 			sources = cmp.config.sources({
 				{ name = 'nvim_lsp' },
 				{ name = 'luasnip' },
+				-- { name = 'buffer' },
 			},
 			{
 				{ name = 'buffer' },
 			})
 		})
 
-		-- [IDEAS]
-		-- * I could try making this a cmp mapping
-		-- * Create a unstable branch for this config to avoided
-		-- having to deal with this kind of problem at unoportune times
-		--
-		-- [unrelated]
-		-- make a clipboard snippet
+		cmp.setup.cmdline({ '/', '?' }, {
+			mapping = cmp.mapping.preset.cmdline(),
+			sources = {
+				{ name = 'buffer' }
+			},
+			view = {entries = {
+				name = 'wildmenu',
+				separator = "  ",
+			}}
+		})
+
+		-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+		cmp.setup.cmdline(':', {
+			mapping = cmp.mapping.preset.cmdline(),
+			sources = cmp.config.sources({
+				{ name = 'path' }
+			}, {
+				{ name = 'cmdline' }
+			}),
+			matching = { disallow_symbol_nonprefix_matching = false },
+			view = {entries = {
+				name = 'wildmenu',
+				separator = "  ",
+			}}
+		})
 
 		vim.keymap.set('i', '<A- >', function()
 			local cmp = require('cmp')
@@ -131,16 +157,6 @@ return {
 
 			vim.api.nvim_feedkeys("", "t", false)
 		end, {noremap = true})
-
-
-		-- Autopairs related
-		-- local autopairs = require('nvim-autopairs.completion.cmp')
-		-- 	autopairs.on_confirm_done(),
-		-- cmp.event:on(
-		-- 	"confirm_done",
-		-- )
-
-
 
 	end,
 }
