@@ -72,12 +72,6 @@ cd ~/.config/nvim;
     <li>node.js</li>
     <li>npm</li>
     <li>ripgrep</li>
-    <li><a href='https://www.python.org/'>Phyton</a> 
-        <ul>
-            <li>PIP module: <a href='https://pypi.org/project/neovim-remote/'>neovim-remote</a> (Required for cmdline autocomplete)</li>
-            <li>Nix Neovim Package: no action necessary</li>
-        </ul>    
-    </li>
     <li><a href='https://github.com/sharkdp/fd'>fd</a></li>
     <li>C compiler: gcc; clang</li>
 </ul>
