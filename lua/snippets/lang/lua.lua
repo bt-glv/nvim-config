@@ -40,14 +40,18 @@ return {
 		{delimiters = '<>', repeat_duplicates = true}))
 	]=])
 
-	,s("pkglazy", fmt([[
+	,s("lazy plugin", fmt([[
 
 		return {
 			"<>",
 			dependencies = {<>},
-			opts = {}
-			-- keys = {}
-			-- config = function() end
+			opts = {},
+			-- config = function() end,
+			-- init = function() end,
+			-- lazy = false,
+			-- keys = {},
+			-- event = "",
+			-- cmd = "",
 		}
 	]],
 	{i(1), i(2)},
