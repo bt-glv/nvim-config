@@ -1,6 +1,5 @@
 # To-Start
 
-- Fix: Block_indent()
 - Fix: <leader>Y for "+Y
 
 - Feature: Which key
@@ -9,6 +8,9 @@
 
 - Experiment: Replace cmp.nvim with blink.cmp
 - Feature: make a toggleable shell buffer
+
+- Feature: display all active lsp servers on current buffer
+> https://neovim.io/doc/user/lsp.html
 
 ------
 # In-progress
