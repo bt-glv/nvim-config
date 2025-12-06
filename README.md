@@ -83,13 +83,14 @@ cd ~/.config/nvim;
     <li>C compiler: gcc; clang</li>
 </ul>
 
+</br>
 
 -------
 # Attention
+
 </br>
 
-> Avoid running this config with "sudo -E". Specially after starting it for the first time.
-> This can create root owned files all over ~/.npm, ~/.local/share/nvim/; and others.
-> Creating a lot of weird "permission denied" issues that are hard to track down.
+> Avoid running this config with "sudo -E", specially after starting it for the first time.\
+> This will create a lot of root owned files all over ~/.npm, ~/.local/share/nvim/ and other locations, resulting in a lot of weird "permission denied" issues that are hard to track down.
 
 </br>
