@@ -4,7 +4,6 @@
 
 - Feature: Which key
 - Feature: QQ on terminal mode cds to that terminal's path.
-- Feature: add support for lsp actions like lsp rename
 
 - Experiment: Replace cmp.nvim with blink.cmp
 - Feature: make a toggleable shell buffer
@@ -12,13 +11,26 @@
 - Feature: display all active lsp servers on current buffer
 > https://neovim.io/doc/user/lsp.html
 
+- Feature: warn if local lsp servers are not installed
+- FIX: :QQ no longer works
+
 ------
 # In-progress
 
-- fine-tune luasnip remaps
+- feature: change the color of the bar depending on the context
+    - mode
+    - focused pane
+
+- feature:                  Make a shortcut to copy a file's path relative to the project root
+- refactor(oil.nvim):       make <leader>= and <leader>- global shortcuts
+- refactor(luasnip):        fine-tune luasnip remaps
+- fix(treesitter-context):  not working in angular typescript projects for some reason
+- featrue(Cattpucin):       find a way to make non focused panes lower on brightness or smth 
 
 ------
 # Done
+- fix(leap.nvim): make leaps ignore uppercase
+- pwc for buffer files other than oil buffers
 - Experiment: nvim-ufo
 - Experiment: Luasnip
 - Feature: Configure Neovim LSP integration without lsp0 (its currently deprecated)
