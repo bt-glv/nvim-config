@@ -13,7 +13,7 @@ return {
 		- Press <Cr> right after imputing the two characters to go to the nearest match
 		- Do do a one character leap do: ("c" represents the character) sc<Cr>
 
-		> ':help leap' for more usefull stuff
+		> ':help leap' for more useful stuff
 		--]]--
 
 		local leap = require('leap')
