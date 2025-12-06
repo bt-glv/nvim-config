@@ -37,7 +37,6 @@ require("lazy").setup({
 	require('ui.nvim_autopairs'),
 	require('ui.nvim_ufo'),
 	require('plugin._snacks'),
-	-- require('plugin.surround'),
 	require('plugin._leap'),
 	require('plugin._flash'),
 	require('plugin._telescope'),

@@ -86,4 +86,11 @@ function Cmdline_buff_control()
 	end
 end
 
+function Pwc() -- WIP
+	local current_file_path = vim.fn.expand('%:p')
+	-- check if the current file has a path
+	-- current_file_path = vim.fn.substitute(current_file_path, "^oil:[/][/]","","g")
+	vim.fn.setreg('+', current_file_path)
+	print("> File Path Copied to the Clipboard")
+end
 

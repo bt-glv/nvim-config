@@ -23,6 +23,7 @@ local function terminal_and_fileEx()
 	-- Opens terminal emulator and opens neo vim at the current directory
 	km("n","<leader>new", function() openNeovim(vim.fn.getcwd()) end)
 
+	km("n", "<leader>pwc", Pwc)
 	vim.keymap.set("n","<leader>hex", function()
 		local path = vim.fn.expand('%:p:h')
 		path = vim.fn.substitute(path, "^oil:[/][/]","","g")
@@ -35,11 +36,11 @@ local function terminal_and_fileEx()
 	end)
 end
 local function tabs()
-	km("n", "<leader><Right>", ":tabnext<CR>",    { desc = "Next tab" })
+	km("n", "<leader><Right>", ":tabnext<CR>",    { desc = "Next tab"     })
 	km("n", "<leader><Left>", ":tabprevious<CR>", { desc = "Previous tab" })
 
-	km("n", "<leader>tan", ":tabnew<CR>", 	{ desc = "New tab" })
-	km("n", "<leader>tad", ":tabclose<CR>", { desc = "Close tab" })
+	km("n", "<leader>tan", ":tabnew<CR>", 	{ desc = "New tab"     })
+	km("n", "<leader>tad", ":tabclose<CR>", { desc = "Close tab"   })
 	km("n", "<leader>1", "1gt",             { desc = "Go to tab 1" })
 	km("n", "<leader>2", "2gt",             { desc = "Go to tab 2" })
 	km("n", "<leader>3", "3gt",             { desc = "Go to tab 3" })
@@ -71,7 +72,7 @@ local function movement()
 	km("n","<C-o>", "<C-o>zz")
 end
 local function cmd_mode_edit()
-	km({"n","c","i"}, "<c- >", function() Cmdline_buff_control() end )
+	km({"n","c","i"}, "<c- >",  Cmdline_buff_control )
 	km({"n","c"}, "<c-;>", "<c-c><c-c><c-c>q:k")
 	km("v","<c- >", ":")
 end
@@ -169,8 +170,8 @@ local function quality_of_life()
 	-- if oil is active, it will quit at file path
 	vim.api.nvim_create_user_command( 'QA', function() vim.cmd('qa!') end, {})
 	vim.api.nvim_create_user_command( 'Qa', function() vim.cmd('qa!') end, {})
-	vim.api.nvim_create_user_command( 'QQ', function() Exit_to_file_path() end, {})
-	vim.api.nvim_create_user_command( 'Qq', function() Exit_to_file_path() end, {})
+	vim.api.nvim_create_user_command( 'QQ',  function() Exit_to_file_path() end , {})
+	vim.api.nvim_create_user_command( 'Qq',  function() Exit_to_file_path() end , {})
 end
 local function split_window_controls()
 	km("n", "<c-w>,", "<c-w>7<", { desc = "Decrease window width" })

@@ -89,4 +89,5 @@ vim.opt.tabstop       = 4 -- Defines indent spacing
 vim.opt.shiftwidth    = 4
 vim.opt.scrolloff     = 4
 vim.opt.updatetime    = 50
-
+vim.opt.cursorline    = true
+-- vim.go.cursorline    = true -- does not set it for some plugin buffers

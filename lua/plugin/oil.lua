@@ -5,7 +5,6 @@ return {
     dependencies = {'nvim-lua/plenary.nvim'},
     config = function()
 
-
         Exit_to_file_path = function()
             local current_file_path = vim.fn.expand('%:p:h')
 
@@ -32,7 +31,7 @@ return {
 			local current_file_path = vim.fn.expand('%:p:h')
 			current_file_path = vim.fn.substitute(current_file_path, "^oil:[/][/]","","g")
 			vim.fn.setreg('+', current_file_path)
-			print("Current path copied to clipboard")
+			print("> ⇈ Path Copied to the Clipboard")
 		end
 
 		local function pg()
@@ -46,11 +45,11 @@ return {
 
 		local function telescope_goto_folder()
 			local cwd 			= vim.fn.getcwd()
-			local actions 		= require("telescope.actions")
+			local actions 		= require("telescope.actions"      )
 			local action_state 	= require("telescope.actions.state")
-			local pickers 		= require("telescope.pickers")
-			local finders 		= require("telescope.finders")
-			local config 		= require("telescope.config").values
+			local pickers 		= require("telescope.pickers"      )
+			local finders 		= require("telescope.finders"      )
+			local config 		= require("telescope.config"       ).values
 
 
 			pickers.new({}, {
@@ -64,7 +63,6 @@ return {
 						local results = vim.fn.getcwd().."/"..action_state.get_selected_entry()[1]
 						require("oil").open(results)
 					end)
-					print(vim.inspect(action_state.get_selected_entry()))
 					return true
 				end,
 			}):find()
@@ -85,7 +83,6 @@ return {
 				finder = finders.new_oneshot_job({ "fd", "--hidden", "--exclude", ".git" }, { cwd = vim.fn.getcwd() }),
 				sorter = config.generic_sorter({}),
 
-				-- s/[/][^/]\+$//g
 				attach_mappings = function(prompt_bufnr, _)
 					actions.select_default:replace(function()
 						actions.close(prompt_bufnr)
@@ -96,7 +93,6 @@ return {
 						local results = vim.fn.getcwd().."/"..pick
 						require("oil").open(results)
 					end)
-					print(vim.inspect(action_state.get_selected_entry()))
 					return true
 				end,
 			}):find()
@@ -113,7 +109,6 @@ return {
 			end
 			oil.set_columns({ "icon" })
 			vim.g.oil_toggle=false
-
 		end
 
 
@@ -260,10 +255,7 @@ return {
 			},
 		})
 
-
-
-		vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+		vim.keymap.set("n", "-", "<CMD>Oil<CR>",          { desc = "Open parent directory" })
 		vim.keymap.set("n", "<leader>vp", "<CMD>Oil<CR>", { desc = "Open parent directory" })
-
 	end
 }

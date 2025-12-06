@@ -69,11 +69,21 @@ return {
 				-- 	end
 				-- end),
 
+				["<C-Space>"] = cmp.mapping(function(fallback)
+					if cmp.visible() then
+						cmp.abort()
+						return
+					end
+					if luasnip.locally_jumpable(1) then
+						luasnip.jump(1)
+					end
+				end),
+
 				['<Tab>'] = cmp.mapping(function(fallback)
 					if cmp.visible() then
 						cmp.select_next_item()
-					elseif luasnip.locally_jumpable(1) then
-						luasnip.jump(1)
+					-- elseif luasnip.locally_jumpable(1) then
+					-- 	luasnip.jump(1)
 					else
 						fallback()
 						-- cmp.complete() -- generates a lot of slowdown; not sure what its for
@@ -110,7 +120,6 @@ return {
 				-- 		end
 				-- 	end, { 'i', 's' }
 				-- )
-				--
 			}),
 			sources = cmp.config.sources({
 				{ name = 'nvim_lsp' },
@@ -148,15 +157,15 @@ return {
 			}}
 		})
 
-		vim.keymap.set('i', '<A- >', function()
-			local cmp = require('cmp')
-			if cmp.visible() then
-				cmp.abort()
-				return
-			end
-
-			vim.api.nvim_feedkeys("", "t", false)
-		end, {noremap = true})
+		-- vim.keymap.set('i', '<A- >', function()
+		-- 	local cmp = require('cmp')
+		-- 	if cmp.visible() then
+		-- 		cmp.abort()
+		-- 		return
+		-- 	end
+		--
+		-- 	vim.api.nvim_feedkeys("", "t", false)
+		-- end, {noremap = true})
 
 	end,
 }
