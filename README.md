@@ -87,6 +87,7 @@ cd ~/.config/nvim;
 -------
 # Attention
 </br>
+
 > Avoid running this config with "sudo -E". Specially after starting it for the first time.
 > This can create root owned files all over ~/.npm, ~/.local/share/nvim/; and others.
 > Creating a lot of weird "permission denied" issues that are hard to track down.
