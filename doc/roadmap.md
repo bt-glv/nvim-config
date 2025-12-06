@@ -17,18 +17,18 @@
 ------
 # In-progress
 
-- feature: change the color of the bar depending on the context
+- feature(statusbar): change the color of the bar depending on the context
     - mode
     - focused pane
 
-- feature:                  Make a shortcut to copy a file's path relative to the project root
-- refactor(oil.nvim):       make <leader>= and <leader>- global shortcuts
+- feature(remaps):          Make a shortcut to copy a file's path relative to the project root
 - refactor(luasnip):        fine-tune luasnip remaps
 - fix(treesitter-context):  not working in angular typescript projects for some reason
 - featrue(Cattpucin):       find a way to make non focused panes lower on brightness or smth 
 
 ------
 # Done
+- refactor(oil.nvim):       make <leader>= and <leader>- global shortcuts
 - fix(leap.nvim): make leaps ignore uppercase
 - pwc for buffer files other than oil buffers
 - Experiment: nvim-ufo

@@ -111,6 +111,9 @@ return {
 			vim.g.oil_toggle=false
 		end
 
+		km('n', '<leader>-', telescope_goto_file_folder)
+		km('n', '<leader>=', telescope_goto_folder)
+
 
 		require("oil").setup({
 			default_file_explorer = true,
