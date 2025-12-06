@@ -67,8 +67,8 @@ cd ~/.config/nvim;
 
 # Requirements
 ## Neovim
-- Version: 0.11.x
-\
+- Version: 0.11.x\
+
 ## Dependencies
 
 <ul>
