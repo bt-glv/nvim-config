@@ -15,21 +15,25 @@ vim.g.mapleader = " "
 -- << Remaps by topic >> --
 
 local function terminal_and_fileEx()
-	km("n","<leader>tew", function() openTerminal(vim.fn.getcwd()) end)
-
-	-- Opens file explorer (dolphin) at project location
-	km("n","<leader>ex", ':!dolphin "'..vim.fn.getcwd()..'" & disown<cr><cr>')
 
 	-- Opens terminal emulator and opens neo vim at the current directory
 	km("n","<leader>new", function() openNeovim(vim.fn.getcwd()) end)
 
+
+	-- Opens file explorer (dolphin) at project location
+	km("n","<leader>rex", ':!dolphin "'..vim.fn.getcwd()..'" & disown<cr><cr>')
+
 	km("n", "<leader>pwc", Pwc)
-	vim.keymap.set("n","<leader>hex", function()
+	km("n", "<leader>rpwc", Pwc_relative)
+
+	km("n","<leader>ex", function()
 		local path = vim.fn.expand('%:p:h')
 		path = vim.fn.substitute(path, "^oil:[/][/]","","g")
 		vim.cmd('silent! !dolphin "'..path..'" & disown')
 	end)
-	vim.keymap.set("n","<leader>htew", function()
+
+	km("n","<leader>rtew", function() openTerminal(vim.fn.getcwd()) end)
+	km("n","<leader>tew", function()
 		local path = vim.fn.expand('%:p:h')
 		path = vim.fn.substitute(path, "^oil:[/][/]","","g")
 		openTerminal(path)

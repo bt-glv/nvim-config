@@ -17,17 +17,25 @@
 ------
 # In-progress
 
+- featrue(Cattpucin): find a way to make non focused panes lower on brightness or smth 
 - feature(statusbar): change the color of the bar depending on the context
     - mode
     - focused pane
 
-- feature(remaps):          Make a shortcut to copy a file's path relative to the project root
 - refactor(luasnip):        fine-tune luasnip remaps
 - fix(treesitter-context):  not working in angular typescript projects for some reason
-- featrue(Cattpucin):       find a way to make non focused panes lower on brightness or smth 
+
+- refactor: use trouble.nvim quickfix for "grr", other lsp related remaps and anything else that summons the quickfix window.
 
 ------
 # Done
+- feature(remaps): Make a shortcut to copy a file's path relative to the project root
+- feat(remaps): 
+    ex   -> opens explorer relative to the file's path
+    rex  -> opens explorer at the project root
+    tew  -> opens terminal relative to the file's path
+    rtew -> opens terminal at the project root
+
 - refactor(oil.nvim):       make <leader>= and <leader>- global shortcuts
 - fix(leap.nvim): make leaps ignore uppercase
 - pwc for buffer files other than oil buffers

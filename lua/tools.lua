@@ -86,11 +86,21 @@ function Cmdline_buff_control()
 	end
 end
 
-function Pwc() -- WIP
+-- Oil implements its own version of this function
+function Pwc()
 	local current_file_path = vim.fn.expand('%:p')
-	-- check if the current file has a path
-	-- current_file_path = vim.fn.substitute(current_file_path, "^oil:[/][/]","","g")
 	vim.fn.setreg('+', current_file_path)
 	print("> File Path Copied to the Clipboard")
+end
+
+-- TODO: re implement this on oil.nvim
+-- folder only
+function Pwc_relative()
+	local current_file_path = vim.fn.expand('%:p')
+	local cwd = vim.fn.getcwd()
+	current_file_path = vim.fn.substitute(current_file_path, "^"..cwd,"","g")
+
+	vim.fn.setreg('+', current_file_path)
+	print("> <<Relative>> File Path Copied to the Clipboard")
 end
 

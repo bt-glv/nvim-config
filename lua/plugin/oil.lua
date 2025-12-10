@@ -31,7 +31,16 @@ return {
 			local current_file_path = vim.fn.expand('%:p:h')
 			current_file_path = vim.fn.substitute(current_file_path, "^oil:[/][/]","","g")
 			vim.fn.setreg('+', current_file_path)
-			print("> ⇈ Path Copied to the Clipboard")
+			print("> [Oil] Path Copied to the Clipboard")
+		end
+
+		local function pwc_local()
+			local current_file_path = vim.fn.expand('%:p:h')
+			local cwd = vim.fn.getcwd()
+			current_file_path = vim.fn.substitute(current_file_path, "^oil:[/][/]"..cwd,"","g")
+
+			vim.fn.setreg('+', current_file_path)
+			print("> [Oil] <<Relative>> Path Copied to the Clipboard")
 		end
 
 		local function pg()
@@ -132,19 +141,19 @@ return {
 				bufhidden = "hide",
 			},
 			win_options = {
-				wrap = false,
-				signcolumn = "no",
-				cursorcolumn = false,
-				foldcolumn = "0",
-				spell = false,
-				list = false,
-				conceallevel = 3,
+				wrap          = false,
+				signcolumn    = "no",
+				cursorcolumn  = false,
+				foldcolumn    = "0",
+				spell         = false,
+				list          = false,
+				conceallevel  = 3,
 				concealcursor = "nvic",
 			},
-			delete_to_trash = false,
-			skip_confirm_for_simple_edits = false,
+			delete_to_trash                 = false,
+			skip_confirm_for_simple_edits   = false,
 			prompt_save_on_select_new_entry = true,
-			cleanup_delay_ms = 2000,
+			cleanup_delay_ms                = 2000,
 			lsp_file_methods = {
 				enabled = true,
 				timeout_ms = 1000,
@@ -154,13 +163,14 @@ return {
 			-- attention: might cause problems
 			watch_for_changes = true,
 			keymaps = {
-				["<leader>pg"] =  pg ,
-				["<leader>pwc"] =  pwc ,
-				["<leader>="] =  telescope_goto_folder ,
-				["<leader>-"] =  telescope_goto_file_folder ,
-				["<CR>"] = "actions.select",
-				["<C-s>"] =  oil_toggle_full_view ,
-				["<leader>cd"] = working_directory_here,
+				["<leader>pg"]   =  pg ,
+				["<leader>pwc"]  =  pwc ,
+				["<leader>rpwc"] =  pwc_local, -- TODO: copy folder relative to cwd
+				["<leader>="]    =  telescope_goto_folder ,
+				["<leader>-"]    =  telescope_goto_file_folder ,
+				["<CR>"]         =  "actions.select",
+				["<C-s>"]        =  oil_toggle_full_view ,
+				["<leader>cd"]   =  working_directory_here,
 
 				-- Opens the file in a external program (system default for filetype)
 				----- this is huge
@@ -170,19 +180,18 @@ return {
 				--["<C-h>"] = "actions.select_split",
 				--["<C-t>"] = "actions.select_tab",
 				--["<C-p>"] = "actions.preview",
-				["g?"] = "actions.show_help",
+				["g?"]    = "actions.show_help",
 				["<C-c>"] = "actions.close",
 				["<C-l>"] = "actions.refresh",
-				["-"] = "actions.parent",
-				["_"] = "actions.open_cwd", -- Goes to the dir saved by "="
-				["="] = "actions.cd",		-- Saves a dir
-				["+"] = "actions.tcd",
-				["~"] = false,
-				["`"] = false,
-				["gs"] = "actions.change_sort",
+				["-"]     = "actions.parent",
+				["_"]     = "actions.open_cwd", -- Goes to the dir saved by "="
+				["="]     = "actions.cd",		-- Saves a dir
+				["+"]     = "actions.tcd",
+				["~"]     = false,
+				["`"]     = false,
+				["gs"]    = "actions.change_sort",
 
-
-				["g."] = "actions.toggle_hidden",
+				["g."]  = "actions.toggle_hidden",
 				["g\\"] = "actions.toggle_trash",
 			},
 			use_default_keymaps = true,
@@ -213,10 +222,10 @@ return {
 				end,
 			},
 			float = {
-				padding = 2,
-				max_width = 0,
+				padding    = 2,
+				max_width  = 0,
 				max_height = 0,
-				border = "rounded",
+				border     = "rounded",
 				win_options = {
 					winblend = 0,
 				},
@@ -225,26 +234,26 @@ return {
 				end,
 			},
 			preview = {
-				max_width = 0.9,
-				min_width = { 40, 0.4 },
-				width = nil,
+				max_width  = 0.9,
+				min_width  = { 40, 0.4 },
+				width      = nil,
 				max_height = 0.9,
 				min_height = { 5, 0.1 },
-				height = nil,
-				border = "rounded",
+				height     = nil,
+				border     = "rounded",
 				win_options = {
 					winblend = 0,
 				},
 				update_on_cursor_moved = true,
 			},
 			progress = {
-				max_width = 0.9,
-				min_width = { 40, 0.4 },
-				width = nil,
-				max_height = { 10, 0.9 },
-				min_height = { 5, 0.1 },
-				height = nil,
-				border = "rounded",
+				max_width        = 0.9,
+				min_width        = { 40, 0.4 },
+				width            = nil,
+				max_height       = { 10, 0.9 },
+				min_height       = { 5, 0.1 },
+				height           = nil,
+				border           = "rounded",
 				minimized_border = "none",
 				win_options = {
 					winblend = 0,
