@@ -38,11 +38,27 @@ return {
             -- trouble quickfix
             "<leader>q",
             "<cmd>Trouble qflist toggle<cr>",
-            -- function() vim.cmd("Trouble qflist toggle"); vim.api.nvim_feedkeys([[j]],"t",false) end
             desc = "Quickfix List (Trouble)",
-
         },
-    },
+		{
+			"grr",
+			desc = "Opens Lsp references with Trouble.nvim",
+		}
+	},
+	config = function()
+
+		require("trouble").setup({})
+
+		km('n', "grr", function()
+			vim.lsp.buf.references(nil, {
+				on_list = function(options)
+					vim.fn.setqflist({}, ' ', options)
+					cmd("Trouble qflist open")
+				end
+			})
+		end)
+
+	end
 }
 
 

@@ -25,11 +25,11 @@
 - refactor(luasnip):        fine-tune luasnip remaps
 - fix(treesitter-context):  not working in angular typescript projects for some reason
 
-- refactor: use trouble.nvim quickfix for "grr", other lsp related remaps and anything else that summons the quickfix window.
 
 ------
 # Done
-- feature(remaps): Make a shortcut to copy a file's path relative to the project root
+- refactor: use trouble.nvim quickfix for "grr", other lsp related remaps and anything else that summons the quickfix window.
+- feature(remaps): Make a shortcut to copy a file's path relative to the working directory
 - feat(remaps): 
     ex   -> opens explorer relative to the file's path
     rex  -> opens explorer at the project root
