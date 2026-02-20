@@ -45,11 +45,11 @@ require("lazy").setup({
 	require('plugin.neo_tree'),
 	require('plugin.harpoon2'),
 	require('plugin.undotree'),
-	-- require('plugin.wilder'),
 	require('plugin.diffview'),
 	require('plugin._neogit'),
 	require('plugin.treesitter_textobjects'),
 	require('debug.nvim-dap'),
 	require('plugin._mini'),
+	-- require('plugin.wilder'),
 })
 require('checks')
