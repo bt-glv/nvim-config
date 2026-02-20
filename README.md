@@ -1,8 +1,9 @@
 # About
 
-> This config is a work in progress.
+> Work in Progress.
 
-> Made for Linux; other platforms might not work as intended out of the box or may be incompatible.
+> Fully compatible with Linux
+> On other platforms it might not work as intended (MacOS) or not work at all.
 </br>
 
 
@@ -12,8 +13,8 @@
 > and most other "normal" distros
 * Everything works as intended
 #### NixOS
-* Nixos cannot execute dynamically linked executable and Mason (local lsp server manager) relies on them for certain lsp servers. Thus, Mason may fail to install some of them.
-* The solution is to install them with nix (package manager) and use that installation.
+* Nixos cannot execute dynamically linked executables. <a href='https://github.com/mason-org/mason.nvim'>Mason</a> (integrated lsp manager plugin) relies on them to execute certain lsp(s). Thus, Mason may fail to install some of them.
+* The solution is to install them locally with nix (package manager) and use that installation instead.
 
 &nbsp;
 ### Windows 10/11
@@ -54,7 +55,7 @@ cd ~/.config/nvim;
 # LSP (autocomplete) support
 
 - By default, this config is configured to use local lsp servers for lua, typescript and nix.
-- That is due to problems installing those servers with Mason on NixOS systems.
+- That is due to problems installing those servers with <a href='https://github.com/mason-org/mason.nvim'>Mason</a> on NixOS systems.
 - To change this behaviour and manage them automatically with Mason, or add more local lsp servers, see `lsp/settings`.
 
 </br>
