@@ -3,8 +3,8 @@
 -- TODO: add this as a dependency for oil.nvim
 return {
 	'nvim-tree/nvim-web-devicons',
-	lazy = false,
+	lazy         = false,
 	dependencies = {},
-	opts = {},
-	config = function() end
+	opts         = {},
+	config       = function() end
 }

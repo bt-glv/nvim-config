@@ -11,38 +11,38 @@ return {
 				flavour = "mocha", -- latte, frappe, macchiato, mocha, auto
 				background = { -- :h background
 					light = "latte",
-					dark = "mocha",
+					dark  = "mocha",
 				},
 				float = { -- this section directly effects treesitter-context
 
 					-- enable transparent floating windows
 					transparent = true,
-					solid = false, -- use solid styling for floating windows, see |winborder|
+					solid       = false, -- use solid styling for floating windows, see |winborder|
 				},
 				transparent_background = false, -- disables setting the background color.
-				show_end_of_buffer = false, -- shows the '~' characters after the end of buffers
-				term_colors = false, -- sets terminal colors (e.g. `g:terminal_color_0`)
+				show_end_of_buffer     = false, -- shows the '~' characters after the end of buffers
+				term_colors            = false, -- sets terminal colors (e.g. `g:terminal_color_0`)
 				dim_inactive = {
-					enabled = false, -- dims the background color of inactive window
-					shade = "dark",
+					enabled    = false, -- dims the background color of inactive window
+					shade      = "dark",
 					percentage = 0.15, -- percentage of the shade to apply to the inactive window
 				},
-				no_italic = false, -- Force no italic
-				no_bold = false, -- Force no bold
+				no_italic    = false, -- Force no italic
+				no_bold      = false, -- Force no bold
 				no_underline = false, -- Force no underline
 				styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
-					comments = { "italic" }, -- Change the style of comments
+					comments     = { "italic" }, -- Change the style of comments
 					conditionals = { "italic" },
-					loops = {},
-					functions = {},
-					keywords = {},
-					strings = {},
-					variables = {},
-					numbers = {},
-					booleans = {},
-					properties = {},
-					types = {},
-					operators = {},
+					loops        = {},
+					functions    = {},
+					keywords     = {},
+					strings      = {},
+					variables    = {},
+					numbers      = {},
+					booleans     = {},
+					properties   = {},
+					types        = {},
+					operators    = {},
 					-- miscs = {}, -- Uncomment to turn off hard-coded styles
 				},
 				color_overrides = { -- Change theme colors here
@@ -55,27 +55,28 @@ return {
 						base = '#000000',
 					}
 				},
-				custom_highlights = {},
+				custom_highlights    = {},
 				default_integrations = true,
 				integrations = {
-					cmp = true,
-					gitsigns = true,
-					nvimtree = true,
-					treesitter = true,
-					ufo = true,
+					cmp             = true,
+					gitsigns        = true,
+					nvimtree        = true,
+					treesitter      = true,
+					ufo             = true,
+					render_markdown = true,
+					markdown        = true,
+					notify          = true,
+					diffview        = true,
+					harpoon         = true,
+					neogit          = true,
+					neotree         = true,
 
-					notify = true,
-					diffview = true,
-					harpoon = true,
-					neogit = true,
-					neotree = true,
 					snacks = {
-						enabled = true,
+						enabled            = true,
 						indent_scope_color = "",
 					},
-
 					mini = {
-						enabled = false,
+						enabled           = false,
 						indentscope_color = "",
 					},
 					-- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
