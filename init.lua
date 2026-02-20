@@ -35,6 +35,7 @@ require("lazy").setup({
 	require('ui.nvim_web_devicons'),
 	require('ui.rainbow_delimiters'),
 	require('ui.nvim_autopairs'),
+	require('ui.render_markdown'),
 	require('ui.nvim_ufo'),
 	require('plugin._snacks'),
 	require('plugin._leap'),
