@@ -1,8 +1,12 @@
 
 return {
     'stevearc/oil.nvim',
-    lazy = false,
-    dependencies = {'nvim-lua/plenary.nvim'},
+    lazy         = false,
+    dependencies = {
+		'nvim-lua/plenary.nvim',
+		'nvim-tree/nvim-web-devicons',
+	},
+
     config = function()
 
         Exit_to_file_path = function()
@@ -155,8 +159,8 @@ return {
 			prompt_save_on_select_new_entry = true,
 			cleanup_delay_ms                = 2000,
 			lsp_file_methods = {
-				enabled = true,
-				timeout_ms = 1000,
+				enabled          = true,
+				timeout_ms       = 1000,
 				autosave_changes = false,
 			},
 			constrain_cursor = "editable",
