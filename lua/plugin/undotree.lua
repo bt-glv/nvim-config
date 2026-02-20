@@ -10,7 +10,7 @@ return {
 		vim.g.undotree_SplitWidth = 40
 	end,
 	keys = {
-		{'<leader>u', ':UndotreeToggle<CR><CR><CR>'},
+		{'<leader>uu', ':UndotreeToggle<CR><CR><CR>'},
 	},
 	config = function()
 		-- TODO: add an autocmd that sets relative line

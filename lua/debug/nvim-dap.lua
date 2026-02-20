@@ -18,15 +18,11 @@ return {
 
 	-- review this
 	keys = {
-		{'<leader>dt', nil, mode = 'n'},
-		{'<leader>dC', nil, mode = 'n'},
-		{'<leader>db', nil, mode = 'n'},
-		{'<leader>dc', nil, mode = 'n'},
-		{'<leader>dr', nil, mode = 'n'},
+		{'<leader>ui', nil, mode = 'n'},
 	},
 	cmd = {
-		'DapToggleBreakpoint',
-		'DapContinue',
+		-- 'DapToggleBreakpoint',
+		-- 'DapContinue',
 	},
 
 	-- docs to set up debuggers
@@ -34,14 +30,25 @@ return {
 	config = function()
 		require("dap-go").setup()
 		local dapui = require('dapui')
+		local dap = require('dap')
 		dapui.setup()
 
-		-- TODO: add remaps for: stopping
-		-- TODO: dapuitoggle 
-		km('n', '<leader>dt', function() dapui.toggle() end , 	{noremap=true})
-		km('n', '<leader>dC', function() dapui.close() end , 	{noremap=true})
-		km('n', '<leader>db', ':DapToggleBreakpoint<CR>', 		{noremap=true})
-		km('n', '<leader>dc', ':DapContinue<CR>', 				{noremap=true})
-		km('n', '<leader>dr', function() dapui.open({reset = true}) end, {noremap=true})
+		-- TODO: test those remaps
+		km('n', '<leader>ui', function() dapui.toggle() end , 	{noremap=true})
+
+		km('n', '<F5>',     dap.continue, { desc = 'Debug: Start/Continue' })
+		km('n', '<S-F5>',   dap.terminate, { desc = 'Debug: Stop' })
+		km('n', '<C-S-F5>', dap.restart, { desc = 'Debug: Restart' })
+
+		km('n', '<F10>',   dap.step_over, { desc = 'Debug: Step Over' })
+		km('n', '<F11>',   dap.step_into, { desc = 'Debug: Step Into' })
+		km('n', '<S-F11>', dap.step_out, { desc = 'Debug: Step Out' })
+
+		km('n', '<F9>', dap.toggle_breakpoint, { desc = 'Debug: Toggle Breakpoint' })
+
+		km('n', '<S-F9>', function()
+			dap.set_breakpoint(vim.fn.input('Breakpoint condition: '))
+		end, { desc = 'Debug: Conditional Breakpoint' })
+
 	end
 }

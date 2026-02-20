@@ -195,17 +195,18 @@ local function split_window_controls()
 	km("n", "<M-l>", function() vim.cmd.wincmd('l') end, { desc = "Move to window right" })
 end
 local function clipboard_utilities()
-	km("v", "<leader>y", '"+y', 		    { desc = "Yank to system clipboard" })
-	km("v", "<leader>d", '"+d', 		    { desc = "Cut to system clipboard" })
 	km({"v", "n"}, "<leader>p", '"+p', 	    { desc = "Paste from system clipboard" })
 	km({"v", "n"}, "P", '"+p', 			    { desc = "Paste from system clipboard" })
-	km("v", "Y", '"+y', 				    { desc = "Yank to system clipboard" })
-	km("v", "D", '"+d', 				    { desc = "Cut to system clipboard" })
 
-	km("n", "<leader>yy", '"+yy',           { desc = "Yank line to system clipboard" })
-	km("n", "<leader>dd", '"+dd',           { desc = "Cut line to system clipboard" })
-
+	-- km("n", "<leader>C", [[v$"+c]],         { desc = "Yank from cursor to end of line to system clipboard" })
 	km("n", "<leader>Y", [[v$"+y]],         { desc = "Yank from cursor to end of line to system clipboard" })
+	km("n", "<leader>D", [[v$"+d]],         { desc = "Delete and Yank starting from the cursor till the end of the line to system clipboard" })
+	km({"v", "n"} , "<leader>y", '"+y', 		    { desc = "Yank to system clipboard" })
+	km({"v", "n"} , "<leader>d", '"+d', 		    { desc = "delete and copy to system clipboard" })
+	km({"v", "n"} , "<leader>c", '"+c', 		    { desc = "" })
+	-- km("n", "<leader>yy", '"+yy',           { desc = "Yank line to system clipboard" })
+	-- km("n", "<leader>dd", '"+dd',           { desc = "Cut line to system clipboard" })
+
 
 	km('n', '<A-r>', '"', 			        { desc = '', noremap = true })
 	km('i', '<A-r>', '<C-r>', 		        { desc = 'Alternate mapping for <C-r>', noremap = true })
@@ -218,11 +219,6 @@ local function clipboard_utilities()
 	km("v", "<leader>ad", '"ad', 			{ desc = "Cut selection to register 'a'" })
 	km({"v", "n"}, "<leader>ap", '"ap', 	{ desc = "Paste from register 'a'" })
 
-
-	-- km('i', '<A-p>', '<C-r>', { noremap = true })
-	-- this makes a lot more sence than A-p
-	km('i', "<A-S-'>", '<C-r>"')
-	km('i', '<A-S-=>', '<C-r>+')
 end
 local function default_buffer_manipulation()
 	km("n", "<leader>bd", ":bd!<CR>")
