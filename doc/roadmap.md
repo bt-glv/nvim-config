@@ -1,9 +1,10 @@
 
 # TODO
+> 9
 
 - feat: Which key
 - feat: QQ on terminal mode cds to that terminal's path.
-- feat:      make a toggleable shell buffer
+- feat: make a toggleable shell buffer
 - feat: display **all** active lsp servers on current buffer
 - feat: warn if local lsp servers are not installed
 - feat(statusbar): change the color of the bar depending on the context
@@ -12,21 +13,22 @@
 - feat(telescope): support for lsp references
 
 - fix(treesitter-context):  not working in angular typescript projects for some reason
-- fix: <leader>Y for "+Y
 
 - Experiment:   Replace cmp.nvim with blink.cmp
 
 
 ------
 # In-progress
-
-- fix(render-markdown): gitsigns not working if render-markdown is enabled
+> 0 
 
 
 
 ------
 # DONE
+> 39
 
+- fix: <leader>Y for "+Y
+- refator(dapui): change all debug mapping to something similar to vscode
 - feat:                 add render-markdown
 - refactor(luasnip):    fine-tune luasnip remaps
 - feat(lsp):            add markdown lsp support 
