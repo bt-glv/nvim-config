@@ -10,17 +10,22 @@ return {
 		"gopls",
 		"bashls",
 		"cssls",
-		"jdtls", -- Java
 		'kotlin_language_server',
+		"jdtls",         -- Java
+		'clangd',        -- c
+		-- 'markdown_oxide' // does not work on nixos with mason
 	},
+
 
 	-- accepted lsp names:
 	-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
 	local_lsp_servers = {
 		"lua_ls",
-		"ts_ls", 	-- Javascript & typescript
-		"nixd", 	-- Nixos nix lsp
+		"ts_ls", 	     -- Javascript & typescript
+		"nixd", 	     -- Nixos nix lsp
+		'markdown_oxide' -- markdown
 	},
+
 
 	setup = function(self)
 
@@ -31,12 +36,15 @@ return {
 		})
 
 		-- keymaps and user commands
-		km('n', "<leader>ll", function() self.toggle_virtual_line(true) end )
+		km('n', "<leader>ll", function() self.toggle_virtual_line(true) end)
 		km('n', "<leader>l;", function() self.toggle_diagnostics(false) end)
 
-		vim.api.nvim_create_user_command("DiagnosticToggle", function() self.toggle_diagnostics() end, {})
+		-- missing neovim lsp mappings
+		km('n', 'gd',         function() vim.lsp.buf.definition()       end)
+
+		vim.api.nvim_create_user_command("DiagnosticToggle",   function() self.toggle_diagnostics() end,  {})
 		vim.api.nvim_create_user_command("VirtualLineToggele", function() self.toggle_virtual_line() end, {})
-		vim.api.nvim_create_user_command("RestartLspServers", function() self.RestartLspServers() end, {})
+		vim.api.nvim_create_user_command("RestartLspServers",  function() self.RestartLspServers() end,   {})
 	end,
 
 	local_lsp_init = function(self)

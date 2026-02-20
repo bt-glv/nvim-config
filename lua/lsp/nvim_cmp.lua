@@ -48,26 +48,15 @@ return {
 					if cmp.visible() then
 						if luasnip.expandable() then
 							luasnip.expand()
+						elseif cmp.get_selected_entry() then
+							cmp.confirm({ select = false })
 						else
-							cmp.confirm({ select = true, })
+							fallback()
 						end
 					else
 						fallback()
 					end
 				end),
-				--
-
-				-- ['<C-Space>'] = cmp.mapping(function(fallback) -- experimental
-				-- 	if cmp.visible() then
-				-- 		if luasnip.expandable() then
-				-- 			luasnip.expand()
-				-- 		else
-				-- 			cmp.confirm({ select = true, })
-				-- 		end
-				-- 	else
-				-- 		fallback()
-				-- 	end
-				-- end),
 
 				["<C-Space>"] = cmp.mapping(function(fallback)
 					if cmp.visible() then
@@ -103,7 +92,7 @@ return {
 					end
 				end, { "i", "s" }),
 
-				-- experimental
+				-- experimental: snippet jump w/ <A-l> and <A-j>
 				-- ["<A-k>"] = cmp.mapping(
 				-- 	function(fallback)
 				-- 		local luasnip = require('luasnip')
@@ -157,6 +146,8 @@ return {
 			}}
 		})
 
+		-- <A- > to abort completion instead of <C- >
+		--
 		-- vim.keymap.set('i', '<A- >', function()
 		-- 	local cmp = require('cmp')
 		-- 	if cmp.visible() then
