@@ -1,7 +1,15 @@
 
 return {
     'folke/flash.nvim',
-    lazy = false,
+	keys = {
+		{'/', nil, mode = 'n'},
+		{'f', nil, mode = 'n'},
+		{'F', nil, mode = 'n'},
+		{'t', nil, mode = 'n'},
+		{'T', nil, mode = 'n'},
+		{';', nil, mode = 'n'},
+		{',', nil, mode = 'n'},
+	},
     config = function()
         require("flash").setup({
             {

@@ -2,7 +2,15 @@
 return {
 	"nvim-mini/mini.nvim",
 	dependencies = {},
-	version = '*',
+	version      = '*',
+	keys = { -- not sure if those are all the keys used by the plugin
+		{'ga',         nil, mode = { 'n', 'v' } },
+		{'gA',         nil, mode = { 'n', 'v' } },
+		{'<leader>sa', nil, mode = 'n'},
+		{'<leader>sd', nil, mode = 'n'},
+		{'<leader>sr', nil, mode = 'n'},
+	},
+
 	config = function()
 		-- Similar to: https://github.com/junegunn/vim-easy-align
 		require('mini.align').setup( {

@@ -1,7 +1,6 @@
 
 return {
 	'mfussenegger/nvim-dap',
-	event = 'VeryLazy', -- temporary
 	dependencies = {
 		"nvim-neotest/nvim-nio",
 
@@ -15,6 +14,20 @@ return {
 		'leoluz/nvim-dap-go',
 	},
 	opts = {},
+
+
+	-- review this
+	keys = {
+		{'<leader>dt', nil, mode = 'n'},
+		{'<leader>dC', nil, mode = 'n'},
+		{'<leader>db', nil, mode = 'n'},
+		{'<leader>dc', nil, mode = 'n'},
+		{'<leader>dr', nil, mode = 'n'},
+	},
+	cmd = {
+		'DapToggleBreakpoint',
+		'DapContinue',
+	},
 
 	-- docs to set up debuggers
 	-- https://codeberg.org/mfussenegger/nvim-dap/wiki/Debug-Adapter-installation

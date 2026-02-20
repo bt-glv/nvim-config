@@ -1,8 +1,8 @@
 
 return {
     'nanozuki/tabby.nvim',
-    lazy = false,
     dependencies = {},
+	event        = {'TabNew', 'TabEnter'},
     config = function()
 
         local theme = {
@@ -38,5 +38,5 @@ return {
         -- Remaps
         km("n","<leader>tar", ":Tabby rename_tab ")
 
-    end -- END Config function 
+    end
 }
