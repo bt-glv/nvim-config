@@ -1,10 +1,10 @@
 
 return {
 	'HiPhish/rainbow-delimiters.nvim',
-	lazy = false,
+	lazy         = false,
 	dependencies = {},
-	opts = {},
-	config = function() 
+	opts         = {},
+	config       = function()
 		--require('rainbow-delimiters.setup').setup {
 			--strategy = {
 				--[''] = 'rainbow-delimiters.strategy.global',
