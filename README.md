@@ -3,6 +3,7 @@
 > Work in Progress.
 
 > Fully compatible with Linux
+
 > On other platforms it might not work as intended (MacOS) or not work at all.
 </br>
 
