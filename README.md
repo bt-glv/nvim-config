@@ -12,8 +12,8 @@
 > and most other "normal" distros
 * Everything works as intended
 #### NixOS
-* Nixos cannot execute dynamically linked executables by default. This creates a problem when managing lsp servers locally with mason because some of them rely on dynamically linked executables. Mason will install the lsp servers and try to execute them, and it will fail.
-* In cases like this, the solution is to install the lsp server with nix and set Neovim to use it.
+* Nixos cannot execute dynamically linked executable and Mason (local lsp server manager) relies on them for certain lsp servers. Thus, Mason may fail to install some of them.
+* The solution is to install them with nix (package manager) and use that installation.
 
 &nbsp;
 ### Windows 10/11
@@ -27,15 +27,15 @@
 
 &nbsp;
 ### Android: <a href='https://github.com/termux/termux-app'>termux</a>
-* Most <a href='https://github.com/mason-org/mason.nvim'>Mason</a> LSP servers work, some may not install.
+* Most <a href='https://github.com/mason-org/mason.nvim'>Mason</a> LSP servers work, some may not install at all.
 * Clipboard does not work out of the box
 
 </br>
 
 # Installation
 
-- Clone this repo and place its files at the neovim folder. (Linux: ~/.config/nvim)
-- Be sure that the folder is empty beforehand
+- Clone this repo and place its files in the neovim folder. (Linux: ~/.config/nvim)
+- Be sure folder is empty beforehand.
 
 > Linux/MacOS
 ```bash
@@ -54,8 +54,8 @@ cd ~/.config/nvim;
 # LSP (autocomplete) support
 
 - By default, this config is configured to use local lsp servers for lua, typescript and nix.
-- That is due to problems running those lsp servers with mason on NixOS systems, wich more often than not are used to develop this config.
-- To change this behaviour and manage them automatically with mason, or add more local lsp servers, see `lsp/settings`.
+- That is due to problems installing those servers with Mason on NixOS systems.
+- To change this behaviour and manage them automatically with Mason, or add more local lsp servers, see `lsp/settings`.
 
 </br>
 
@@ -91,6 +91,6 @@ cd ~/.config/nvim;
 </br>
 
 > Avoid running this config with "sudo -E", specially after starting it for the first time.\
-> This will create a lot of root owned files all over ~/.npm, ~/.local/share/nvim/ and other locations, resulting in a lot of weird "permission denied" issues that are hard to track down.
+> This will create a lot of root owned files all over ~/.npm, ~/.local/share/nvim/ and other locations. Resulting in a lot of weird "permission denied" issues that are hard to track down.
 
 </br>
