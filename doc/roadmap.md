@@ -1,33 +1,37 @@
-# To-Start
 
-- Fix: <leader>Y for "+Y
+# TODO
 
-- Feature: Which key
-- Feature: QQ on terminal mode cds to that terminal's path.
+- feat: Which key
+- feat: QQ on terminal mode cds to that terminal's path.
+- feat:      make a toggleable shell buffer
+- feat: display **all** active lsp servers on current buffer
+- feat: warn if local lsp servers are not installed
+- feat(statusbar): change the color of the bar depending on the context
+    - mode
+    - focused pane
+- feat(telescope): support for lsp references
 
-- Experiment: Replace cmp.nvim with blink.cmp
-- Feature: make a toggleable shell buffer
+- fix(treesitter-context):  not working in angular typescript projects for some reason
+- fix: <leader>Y for "+Y
 
-- Feature: display all active lsp servers on current buffer
-> https://neovim.io/doc/user/lsp.html
+- Experiment:   Replace cmp.nvim with blink.cmp
 
-- Feature: warn if local lsp servers are not installed
-- FIX: :QQ no longer works
 
 ------
 # In-progress
 
-- featrue(Cattpucin): find a way to make non focused panes lower on brightness or smth 
-- feature(statusbar): change the color of the bar depending on the context
-    - mode
-    - focused pane
+- fix(render-markdown): gitsigns not working if render-markdown is enabled
 
-- refactor(luasnip):        fine-tune luasnip remaps
-- fix(treesitter-context):  not working in angular typescript projects for some reason
 
 
 ------
-# Done
+# DONE
+
+- feat:                 add render-markdown
+- refactor(luasnip):    fine-tune luasnip remaps
+- feat(lsp):            add markdown lsp support 
+- refactor(comp):       <Cr> does not autocomplete if there is no selection
+- fix(treesitter):      add syntax highlight for markdown code boxes
 - refactor: use trouble.nvim quickfix for "grr", other lsp related remaps and anything else that summons the quickfix window.
 - feature(remaps): Make a shortcut to copy a file's path relative to the working directory
 - feat(remaps): 
