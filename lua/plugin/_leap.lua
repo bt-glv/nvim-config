@@ -1,11 +1,11 @@
 
 return {
-    'ggandor/leap.nvim',
-    dependencies = {
-		'tpope/vim-repeat',
-	},
 
-    config = function()
+	-- The maintainer moved the repo from github to codeberg
+	url          = "https://codeberg.org/andyg/leap.nvim",
+	dependencies = { 'tpope/vim-repeat', },
+
+	config = function()
 		--[[
 		TIPS & HINTS:
 
@@ -17,22 +17,22 @@ return {
 		--]]--
 
 		local leap = require('leap')
-        leap.create_default_mappings()
 		leap.opts.vim_opts['go.ignorecase'] = true
 
-        km("v","s",      "<Plug>(leap-forward-till)")
-        km("v","S",      "<Plug>(leap-backward-till)")
-		km("n", "<A-s>", "<Plug>(leap-from-window)")
+		km({'n', 'x', 'o'}, 's', '<Plug>(leap-forward)')
+		km('n',             'S', '<Plug>(leap-backward)')
+
+		km("v","s",      "<Plug>(leap-forward-till)")
+		km("v","S",      "<Plug>(leap-backward-till)")
+		km("n","<A-s>",  "<Plug>(leap-from-window)")
 
 		-- km("n", "<A-s>", "<Plug>(leap-anywhere)") -- leaps to any pane
 		km("n", "<A-d>", "<Plug>(leap-forward-till)") -- one character behind selection
 		km("n", "<A-D>", "<Plug>(leap-backward-till)") -- one character behind selection
-        -- km("v","s",      "<Plug>(leap-forward)")
-        -- km("v","S",      "<Plug>(leap-backward)")
 
-		-- require('leap.user').set_repeat_keys('<enter>', '<backspace>')
 		-- repeats the previous motion without invoking leap
 		-- i cant figure out a good set of keys to map this to
+		-- require('leap.user').set_repeat_keys('<enter>', '<backspace>')
 	end,
 
 	keys = {
