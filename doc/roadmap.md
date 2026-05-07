@@ -2,47 +2,44 @@
 # TODO
 > 9
 
-- feat: Which key
-- feat: QQ on terminal mode cds to that terminal's path.
-- feat: make a toggleable shell buffer
-- feat: display **all** active lsp servers on current buffer
-- feat: warn if local lsp servers are not installed
+- Experiment:      Replace cmp.nvim with blink.cmp
+- feat:            Which key
+- feat:            QQ on terminal mode cds to that terminal's path
+- feat:            make a toggleable shell buffer
+- feat:            display **all** active lsp servers on current buffer
+- feat:            warn if local lsp servers are not installed
 - feat(statusbar): change the color of the bar depending on the context
     - mode
     - focused pane
-- feat(telescope): support for lsp references
 
+- feat(telescope):          support for lsp references
 - fix(treesitter-context):  not working in angular typescript projects for some reason
 
-- Experiment:   Replace cmp.nvim with blink.cmp
 
-- feat: add a way to toggle treesitter context
-
-- feat(lsp): change the hover window's background color or add borders
 
 
 ------
 # In-progress
-> 3
+> 4
 
-- mini.surround
+- fix(mini.surround):
     - not working as expected; maybe change back to surround.vim
 
-- add a nix flake w/ a devshell to run this confing
+- feat: add a nix flake with a devshell to run this confing
     - maybe even manage all files with home manager?
 
-- feat
-    - <leader-/> make it a snippet
+- feat: <leader-/> make it a snippet
     - make a snippet that automatically creates a search and replace command
 
-- feat
-    - add vim lsp and enable it in command line edit buffer
+- feat: add vim lsp and enable it in command line edit buffer
 
 
 ------
 # DONE
-> 39
+> 41
 
+- feat: add a way to toggle treesitter context
+- feat(lsp): change the hover window's background color or add borders
 - fix: <leader>Y for "+Y
 - refator(dapui): change all debug mapping to something similar to vscode
 - feat:                 add render-markdown
