@@ -57,7 +57,7 @@ Exit_to_file_path = function() vim.cmd('qa!') end
 
 -- still not completely sure of why i created this
 local cmdline_toggle = false
-function Cmdline_buff_control()
+function CmdlineConditionalToggle()
 	local is_commandline 	= is_commandline_buf()
 	local mode 				= vim.api.nvim_get_mode().mode
 
@@ -84,6 +84,27 @@ function Cmdline_buff_control()
 		vim.api.nvim_feedkeys(cc..cc,"t",false)
 		return
 	end
+end
+
+-- add vim lsp support and link it to the command line buffer
+-- add support for selection mode
+function LeaderColon()
+	local is_commandline 	= is_commandline_buf()
+	local mode 				= vim.api.nvim_get_mode().mode
+
+	if(not is_commandline) then
+		if(mode == "n") then
+			vim.api.nvim_feedkeys("q:i","t",false)
+			return
+		end
+		return
+	end
+
+	if (mode == "i" or mode == "n") then
+		vim.api.nvim_feedkeys(cc..cc,"t",false)
+		return
+	end
+
 end
 
 -- Oil implements its own version of this function

@@ -76,9 +76,12 @@ local function movement()
 	km("n","<C-o>", "<C-o>zz")
 end
 local function cmd_mode_edit()
-	km({"n","c","i"}, "<c- >",  Cmdline_buff_control )
-	km({"n","c"}, "<c-;>", "<c-c><c-c><c-c>q:k")
+	km({"n","c","i"}, "<c- >",  CmdlineConditionalToggle )
 	km("v","<c- >", ":")
+	-- km({"n","c"}, "<c-;>", "<c-c><c-c><c-c>q:k")
+	--
+	km({"n"}, "<leader>;", LeaderColon)
+	km({"n", "i"}, "<c-;>", LeaderColon)
 end
 local function terminal_mode_related()
 	km("t", "<C- >", "<C-\\><C-n>",
@@ -222,6 +225,7 @@ local function clipboard_utilities()
 end
 local function default_buffer_manipulation()
 	km("n", "<leader>bd", ":bd!<CR>")
+	km("n", "<leader>ee", ":e<CR>")
 end
 local function scripting()
 	km('n', "<leader><F5>", ":!%:p<cr>",	{ desc = "Execute current script" })
