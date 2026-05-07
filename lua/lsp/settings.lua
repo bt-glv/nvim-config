@@ -11,9 +11,10 @@ return {
 		"bashls",
 		"cssls",
 		'kotlin_language_server',
-		"jdtls",         -- Java
-		'clangd',        -- c
-		-- 'markdown_oxide' // does not work on nixos with mason
+		"jdtls",         	-- Java
+		"vimls",
+		-- 'clangd',        -- c        // doesn't work on nixos w/ mason
+		-- 'markdown_oxide' -- markdown // doesn't work on nixos with mason
 	},
 
 
@@ -21,9 +22,10 @@ return {
 	-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
 	local_lsp_servers = {
 		"lua_ls",
-		"ts_ls", 	     -- Javascript & typescript
-		"nixd", 	     -- Nixos nix lsp
-		'markdown_oxide' -- markdown
+		"ts_ls", 	        -- Javascript & typescript
+		"nixd", 	        -- Nixos nix lsp
+		'markdown_oxide',   -- markdown
+		'clangd',			-- c
 	},
 
 
@@ -31,8 +33,8 @@ return {
 
 		vim.diagnostic.enable()
 		vim.diagnostic.config({
-			virtual_lines=false,
-			signs=false,
+			virtual_lines = false,
+			signs         = false,
 		})
 
 		-- keymaps and user commands
