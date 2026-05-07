@@ -8,8 +8,6 @@ return {
 
 	ft = { "markdown","vimwiki", "pandoc" },
 
-	-- TODO: make codeblocks styling work
-
 	---@module 'render-markdown'
 	---@type render.md.UserConfig
 	opts = {
