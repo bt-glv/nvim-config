@@ -85,5 +85,10 @@ return {
 
 			cmd([[colorscheme catppuccin]])
 			cmd([[highlight LineNr term=bold cterm=NONE ctermfg=NONE ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE]])
-		end -- config function END
+
+			vim.api.nvim_set_hl(0, "LspHoverWindow", { bg = "#181825" })
+			vim.api.nvim_set_hl(0, "LspHoverBorder", { bg = "#181825", fg = "#7aa2f7" })
+			km("n", "K", function() vim.lsp.buf.hover({border = "rounded", winhighlight = "Normal:LspHoverWindow,FloatBorder:LspHoverBorder"}) end)
+
+		end
 	}
