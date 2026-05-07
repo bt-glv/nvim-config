@@ -28,6 +28,7 @@ require("lazy").setup({
 	require('lsp.nvim_cmp'),
 	require('lsp._lazydev'),
 	require('lsp.trouble'),
+	require('lsp.nvim-jdtls'),
 	require('snippets.lua_snip'),
 	require('ui._treesitter_context'),
 	require('ui._tabby'),
