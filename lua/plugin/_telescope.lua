@@ -1,9 +1,20 @@
 return {
     'nvim-telescope/telescope.nvim',
-    branch = '0.1.x',
-    lazy =  false,
-    priority = 100,
+    branch       = '0.1.x',
     dependencies = { 'nvim-lua/plenary.nvim' },
+
+	keys = {
+		{ "<leader>ff",nil, mode = "n"},
+		{ "<leader>fl",nil, mode = "n"},
+		{ "<leader>fm",nil, mode = "n"},
+		{ "<leader>fr",nil, mode = "n"},
+		{ "<leader>fb",nil, mode = "n"},
+		{ "<leader>fh",nil, mode = "n"},
+	},
+	cmd = {
+		"Telescope"
+	},
+
     config = function()
 
         local actions = require('telescope.actions')
