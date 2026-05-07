@@ -31,6 +31,7 @@ return {
 			Notify("New Working Directory:\n"..path, 3)
 		end
 
+		--- Copies oil buffer's path to the clipboard
 		local function pwc()
 			local current_file_path = vim.fn.expand('%:p:h')
 			current_file_path = vim.fn.substitute(current_file_path, "^oil:[/][/]","","g")
@@ -47,15 +48,16 @@ return {
 			print("> [Oil] <<Relative>> Path Copied to the Clipboard")
 		end
 
+		--- CDs to the clipboard path
+		--- [!Attention] no input sanitization
 		local function pg()
-			-- get current clipboard contents
-			-- oil cd to that directory if on oil buffer
 			local clipboard = vim.fn.getreg('+')
 			clipboard = vim.fn.substitute(clipboard, [[\_s$]],"","g")
 			require("oil").open(clipboard)
 		end
 
 
+		--- Searches for a folder and CDs into it
 		local function telescope_goto_folder()
 			local cwd 			= vim.fn.getcwd()
 			local actions 		= require("telescope.actions"      )
@@ -82,6 +84,7 @@ return {
 		end
 
 
+		--- Searches for a file and CDs into its folder
 		local function telescope_goto_file_folder()
 			local cwd 			= vim.fn.getcwd()
 			local actions 		= require("telescope.actions")
