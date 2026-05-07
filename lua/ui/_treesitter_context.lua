@@ -1,10 +1,11 @@
 
 return {
     'nvim-treesitter/nvim-treesitter-context',
-    lazy = false,
+    lazy         = false,
     dependencies = {'nvim-treesitter/nvim-treesitter'},
+
 	config = function()
-		require('treesitter-context').setup{
+		require('treesitter-context').setup {
 			enable = true,
 			-- Enable this plugin (Can be enabled/disabled later via commands)
 
@@ -32,5 +33,7 @@ return {
 			--       zindex = 20, -- The Z-index of the context window
 			--         on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
 		}
+
+		km("n", "<leader>lc", ":TSContext toggle<Cr>")
 	end
 }
