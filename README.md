@@ -1,6 +1,6 @@
 # About
 
-> Work in Progress.
+> Work in Progress
 
 > Fully compatible with Linux
 
@@ -14,7 +14,7 @@
 > and most other "normal" distros
 * Everything works as intended
 #### NixOS
-* Nixos cannot execute dynamically linked executables. <a href='https://github.com/mason-org/mason.nvim'>Mason</a> (integrated lsp manager plugin) relies on them to execute certain lsp(s). Thus, Mason may fail to install some of them.
+* Nixos cannot execute dynamically linked executables. <a href='https://github.com/mason-org/mason.nvim'>Mason</a> (integrated lsp manager plugin) relies on them to execute certain lsp(s). Thus, Mason may fail to run some of them.
 * The solution is to install them locally with nix (package manager) and use that installation instead.
 
 &nbsp;

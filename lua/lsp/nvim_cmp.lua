@@ -48,12 +48,23 @@ return {
 				end,
 			},
 			window = {
-				-- completion = cmp.config.window.bordered(),
-				documentation = cmp.config.window.bordered(),
+				completion    = cmp.config.window.bordered(),
+				documentation = {
+					border = {
+						{ "╭", "Comment" },
+						{ "─", "Comment" },
+						{ "╮", "Comment" },
+						{ "│", "Comment" },
+						{ "╯", "Comment" },
+						{ "─", "Comment" },
+						{ "╰", "Comment" },
+						{ "│", "Comment" },
+					}
+				}
 			},
 			mapping = cmp.mapping.preset.insert({
-				['<C-j>'] = cmp.mapping.scroll_docs(-4),
-				['<C-k>'] = cmp.mapping.scroll_docs(4),
+				['<C-k>'] = cmp.mapping.scroll_docs(-4),
+				['<C-j>'] = cmp.mapping.scroll_docs(4),
 
 
 				-- default autocomplete selection commands

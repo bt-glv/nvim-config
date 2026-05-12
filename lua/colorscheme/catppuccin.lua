@@ -86,8 +86,14 @@ return {
 			cmd([[colorscheme catppuccin]])
 			cmd([[highlight LineNr term=bold cterm=NONE ctermfg=NONE ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE]])
 
-			vim.api.nvim_set_hl(0, "LspHoverWindow", { bg = "#181825" })
-			vim.api.nvim_set_hl(0, "LspHoverBorder", { bg = "#181825", fg = "#7aa2f7" })
+			-- TODO: try to make this work
+			-- // all vim.api.nvim_set_hl calls dont do anything
+			-- vim.api.nvim_set_hl(0, "LspHoverWindow", { bg = "#181825" })
+			-- vim.api.nvim_set_hl(0, "LspHoverBorder", { bg = "#181825", fg = "#7aa2f7" })
+			-- border color for comp autocomplete window 
+			-- vim.api.nvim_set_hl(0, "CmpDocBorder", { fg = "#ffffff" })
+			-- vim.api.nvim_set_hl(0, "CmpBorder", { fg = "#ffffff" })
+
 			km("n", "K", function() vim.lsp.buf.hover({border = "rounded", winhighlight = "Normal:LspHoverWindow,FloatBorder:LspHoverBorder"}) end)
 
 		end
