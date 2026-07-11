@@ -22,7 +22,6 @@ require('remaps')
 require("lazy_bootstrap")
 require("lazy").setup({
 	require('colorscheme.catppuccin'),
-	require('ui.treesitter'),
 	require('lsp._lspconfig'),
 	require('lsp._mason'),
 	require('lsp.nvim_cmp'),
@@ -30,13 +29,11 @@ require("lazy").setup({
 	require('lsp.trouble'),
 	require('lsp.nvim-jdtls'),
 	require('snippets.lua_snip'),
-	require('ui._treesitter_context'),
 	require('ui._tabby'),
 	require('ui._gitsigns'),
 	require('ui.nvim_web_devicons'),
 	require('ui.rainbow_delimiters'),
 	require('ui.nvim_autopairs'),
-	require('ui.render_markdown'),
 	require('ui.nvim_ufo'),
 	require('plugin._snacks'),
 	require('plugin._leap'),
@@ -48,9 +45,16 @@ require("lazy").setup({
 	require('plugin.undotree'),
 	require('plugin.diffview'),
 	require('plugin._neogit'),
-	require('plugin.treesitter_textobjects'),
 	require('debug.nvim-dap'),
 	require('plugin._mini'),
+
+	-- << problematic plugins >> -- 
+	--
+	-- require('ui.nvim-treesitter'), -- should go after catppuccin
+	--
+	-- require('ui._treesitter_context'),
+	-- require('ui.render_markdown'),
+	-- require('plugin.treesitter_textobjects'),
 	-- require('plugin.wilder'),
 })
 require('checks')
