@@ -1,6 +1,9 @@
 # About
 
-> Work in Progress
+> [!info] This branch is a work in progress
+
+> [!attention] Currently Markdown highlighting and rendering is broken
+
 
 > Fully compatible with Linux
 
@@ -10,12 +13,12 @@
 
 # Current state of things
 ### Linux
-#### Arch/Debian/Fedora/OpenSUSE
-> and most other "normal" distros
+#### Arch Debian Fedora OpenSUSE
 * Everything works as intended
+
 #### NixOS
-* Nixos cannot execute dynamically linked executables. <a href='https://github.com/mason-org/mason.nvim'>Mason</a> (integrated lsp manager plugin) relies on them to execute certain lsp(s). Thus, Mason may fail to run some of them.
-* The solution is to install them locally with nix (package manager) and use that installation instead.
+* If an lsp server requires a dynamically linked executable if won't work. 
+* The solution is to use nix-ld to expose the .so file globally, or install them locally with nix.
 
 &nbsp;
 ### Windows 10/11
@@ -24,13 +27,12 @@
 
 &nbsp;
 ### MacOS
-* All mappings that use `Alt` as a modifier key are incompatible and need to be changed
-* LSP servers managed by <a href='https://github.com/mason-org/mason.nvim'>Mason</a> are unstable
+* All mappings that use `Alt` may cause some problems due to the behaviour of the "opt" key
 
 &nbsp;
 ### Android: <a href='https://github.com/termux/termux-app'>termux</a>
-* Most <a href='https://github.com/mason-org/mason.nvim'>Mason</a> LSP servers work, some may not install at all.
-* Clipboard does not work out of the box
+* Most <a href='https://github.com/mason-org/mason.nvim'>Mason</a> LSP servers work.
+* Clipboard needs to be set up
 
 </br>
 
@@ -47,11 +49,10 @@ mkdir -p ~/.config/nvim;
 mv .* ~/.config/nvim;
 cd ~/.config/nvim;
 ```
-
 - Open Neovim; open the Lazy.nvim dashboard ```:Lazy``` and press ```S```.
 
-
 </br>
+
 
 # LSP (autocomplete) support
 
@@ -69,7 +70,7 @@ cd ~/.config/nvim;
 
 # Requirements
 ## Neovim
-- Version: 0.11.x\
+- Version: 0.12.x\
 
 ## Dependencies
 
@@ -81,6 +82,7 @@ cd ~/.config/nvim;
     <li>ripgrep</li>
     <li>wget</li>
     <li>unzip</li>
+    <li>treesitter-cli</li>
     <li><a href='https://github.com/sharkdp/fd'>fd</a></li>
     <li>C compiler: gcc; clang</li>
 </ul>
@@ -92,7 +94,8 @@ cd ~/.config/nvim;
 
 </br>
 
-> Avoid running this config with "sudo -E", specially after starting it for the first time.\
-> This will create a lot of root owned files all over ~/.npm, ~/.local/share/nvim/ and other locations. Resulting in a lot of weird "permission denied" issues that are hard to track down.
+> [!attention] Avoid running this config with "sudo -E". \
+> Specially after starting it for the first time.\
+> Running it with sudo will create a lot of root owned files all over ~/.npm, ~/.local/share/nvim/ and other locations, resulting in a lot of weird "permission denied" issues that are hard to track.
 
 </br>

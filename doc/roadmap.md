@@ -14,6 +14,7 @@
 
 - feat(telescope):          support for lsp references
 - fix(treesitter-context):  not working in angular typescript projects for some reason
+- Experiment: lspkind.nvim
 
 
 
@@ -32,6 +33,8 @@
     - make a snippet that automatically creates a search and replace command
 
 - feat: add vim lsp and enable it in command line edit buffer
+
+- feat: add toggleterm.nvim
 
 
 ------
