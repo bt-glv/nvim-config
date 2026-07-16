@@ -64,7 +64,7 @@ git clone https://github.com/bt-glv/nvim-config.git ~/.config/nvim;
 
 # Requirements
 ## Neovim
-- Version: 0.12.x\
+- Version: 0.12.x
 
 ## Dependencies
 
