@@ -11,14 +11,19 @@
 
 return {
     'nvim-treesitter/nvim-treesitter-textobjects',
-    lazy = false,
-    dependencies = {"nvim-treesitter/nvim-treesitter"},
-    priority = 100,
+
+	dependencies = {"nvim-treesitter/nvim-treesitter"},
+    lazy         = false,
+    priority     = 100,
+	branch       = "main",
+	build        = ":TSUpdate",
+
     config = function()
-        require'nvim-treesitter.configs'.setup {
+
+        require('nvim-treesitter-textobjects').setup {
             textobjects = {
                 select = {
-                    enable = true,
+                    enable    = true,
                     lookahead = true,
                     keymaps = {
                         ['ap'] = '@parameter.outer',

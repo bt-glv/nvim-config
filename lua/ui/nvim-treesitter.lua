@@ -6,41 +6,34 @@ return {
     dependencies = {},
     priority     = 100,
 	branch       = "main",
+	main         = "nvim-treesitter",
 
-	main = "nvim-treesitter",
-	opts = {
-		-- ensure_installed = {
-		-- 	'lua',
-		-- 	'vim',
-		-- 	'vimdoc',
-		--
-		-- 	'javascript',
-		-- 	'html',
-		-- 	'css',
-		-- 	'typescript',
-		--
-		-- 	'markdown_inline',
-		-- 	'markdown',
-		-- 	'latex',
-		--
-		-- 	'java',
-		-- 	'python',
-		-- 	'go',
-		-- 	'c',
-		-- 	'bash',
-		-- 	'diff',
-		-- 	'query',
-		--
-		-- 	'json',
-		-- 	'xml',
-		-- 	'yaml'
-		-- },
-		-- highlight = {
-		-- 	enable                            = true,
-		-- 	additional_vim_regex_highlighting = false,
-		-- },
-		-- sync_install   = false,
-		-- auto_install   = true,
-		-- ignore_install = {},
-	},
+	config = function()
+
+		local required_parsers = {
+			'lua',
+			'vim',
+			'vimdoc',
+			'javascript',
+			'html',
+			'css',
+			'typescript',
+			'markdown_inline',
+			'markdown',
+			'latex',
+			'java',
+			'python',
+			'go',
+			'c',
+			'bash',
+			'diff',
+			'query',
+			'json',
+			'xml',
+			'yaml'
+		}
+		require('nvim-treesitter').install(required_parsers)
+
+	end
+
 }

@@ -1,18 +1,24 @@
 
-function Parse_termc(key) return vim.api.nvim_replace_termcodes(key, true, false, true) end
-local tab = Parse_termc("<Tab>")
-local esc = Parse_termc("<Esc>")
-local cr = Parse_termc("<Cr>")
-local cc = Parse_termc("<c-c>")
-local up = Parse_termc("<Up>")
-
-
 -- simple log functions for debugging
 local _log = "\n"
-function _logit(input)
-	_log = _log..input..'\n' end
-function _logprint()
-	Notify(_log) end
+function _logit(input) _log = _log..input..'\n' end
+function _logprint() Notify(_log) end
+function Parse_termc(key) return vim.api.nvim_replace_termcodes(key, true, false, true) end
+
+local tab = Parse_termc("<Tab>")
+local esc = Parse_termc("<Esc>")
+local cr  = Parse_termc("<Cr>")
+local cc  = Parse_termc("<c-c>")
+local up  = Parse_termc("<Up>")
+
+OpenTerminal = function(path)
+	vim.cmd('silent! !alacritty --working-directory "'..path..'" & disown')
+end
+OpenNeovim = function(path)
+	vim.cmd('silent! !alacritty --working-directory "'..path..'" -e bash -c "nvim ." & disown')
+end
+
+Notify = function(string, priority, opts) vim.notify(string) end
 
 -- The command line buffer does not have a name.
 -- This is the best way I found to check if the buffer is the command line buffer
@@ -86,8 +92,8 @@ function CmdlineConditionalToggle()
 	end
 end
 
--- add vim lsp support and link it to the command line buffer
--- add support for selection mode
+--- TODO: add vim lsp support and link it to the command line buffer
+--- TODO: add support for selection mode
 function LeaderColon()
 	local is_commandline 	= is_commandline_buf()
 	local mode 				= vim.api.nvim_get_mode().mode
@@ -114,8 +120,7 @@ function Pwc()
 	print("> File Path Copied to the Clipboard")
 end
 
--- TODO: re implement this on oil.nvim
--- folder only
+--- TODO: re implement this on oil.nvim
 function Pwc_relative()
 	local current_file_path = vim.fn.expand('%:p')
 	local cwd = vim.fn.getcwd()

@@ -17,7 +17,7 @@ vim.g.mapleader = " "
 local function terminal_and_fileEx()
 
 	-- Opens terminal emulator and opens neo vim at the current directory
-	km("n","<leader>new", function() openNeovim(vim.fn.getcwd()) end)
+	km("n","<leader>new", function() OpenNeovim(vim.fn.getcwd()) end)
 
 
 	-- Opens file explorer (dolphin) at project location
@@ -32,11 +32,11 @@ local function terminal_and_fileEx()
 		vim.cmd('silent! !dolphin "'..path..'" & disown')
 	end)
 
-	km("n","<leader>rtew", function() openTerminal(vim.fn.getcwd()) end)
+	km("n","<leader>rtew", function() OpenTerminal(vim.fn.getcwd()) end)
 	km("n","<leader>tew", function()
 		local path = vim.fn.expand('%:p:h')
 		path = vim.fn.substitute(path, "^oil:[/][/]","","g")
-		openTerminal(path)
+		OpenTerminal(path)
 	end)
 end
 local function tabs()
@@ -211,10 +211,10 @@ local function clipboard_utilities()
 	-- km("n", "<leader>dd", '"+dd',           { desc = "Cut line to system clipboard" })
 
 
-	km('n', '<A-r>', '"', 			        { desc = '', noremap = true })
-	km('i', '<A-r>', '<C-r>', 		        { desc = 'Alternate mapping for <C-r>', noremap = true })
-	km("i", "<A-p>", '<C-r>"', 		        { desc = 'Insert mode: paste " register'})
-	km("i", "<A-S-p>", "<C-r>+", 	        { desc = 'Insert mode: paste + register'})
+	km('n', '<A-r>', '"', 			                { desc = '', noremap = true })
+	km({'i', 'c'}, '<A-r>', '<C-r>', 		        { desc = 'Alternate mapping for <C-r>', noremap = true })
+	km("i", "<A-p>", '<C-r>"', 		                { desc = 'Insert mode: paste " register'})
+	km("i", "<A-S-p>", "<C-r>+", 	                { desc = 'Insert mode: paste + register'})
 
 	km("n", "<leader>ayy", '"ayy', 			{ desc = "Yank line to register 'a'" })
 	km("n", "<leader>add", '"add', 			{ desc = "Cut line to register 'a'" })

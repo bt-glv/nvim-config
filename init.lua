@@ -1,27 +1,24 @@
 
-function openTerminal(path)
-	vim.cmd('silent! !alacritty --working-directory "'..path..'" & disown')
-end
-function openNeovim(path)
-	vim.cmd('silent! !alacritty --working-directory "'..path..'" -e bash -c "nvim ." & disown')
-end
-
-Notify = function(string, priority, opts)
-	vim.notify(string)
-end
-
 vim.o.grepprg = 'rg --vimgrep'
-km 	= vim.keymap.set
-cmd = vim.cmd
+km            = vim.keymap.set
+cmd           = vim.cmd
 
-lsp_settings = require('lsp.settings')
-require('buffer_settings')
 require('tools')
+require('buffer_settings')
 require('remaps')
+
+lsp_settings     = require('lsp.settings')
+treesitter_tools = require('treesitter_tools')
 
 require("lazy_bootstrap")
 require("lazy").setup({
 	require('colorscheme.catppuccin'),
+
+	require('ui.nvim-treesitter'), -- should go after catppuccin
+	require('ui._treesitter_context'),
+	require('ui.render_markdown'),
+	require('plugin.treesitter_textobjects'),
+
 	require('lsp._lspconfig'),
 	require('lsp._mason'),
 	require('lsp.nvim_cmp'),
@@ -48,13 +45,8 @@ require("lazy").setup({
 	require('debug.nvim-dap'),
 	require('plugin._mini'),
 
-	-- << problematic plugins >> -- 
-	--
-	-- require('ui.nvim-treesitter'), -- should go after catppuccin
-	--
-	-- require('ui._treesitter_context'),
-	-- require('ui.render_markdown'),
-	-- require('plugin.treesitter_textobjects'),
-	-- require('plugin.wilder'),
 })
 require('checks')
+
+treesitter_tools.init() -- not sure where this should go
+
