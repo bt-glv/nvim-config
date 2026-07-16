@@ -1,11 +1,8 @@
 # About
 
-> [!info] This branch is a work in progress
+> [!info] 
+> - This branch is a work in progress
 
-
-> Fully compatible with Linux
-
-> On other platforms it might not work as intended (MacOS) or not work at all.
 </br>
 
 
@@ -91,7 +88,8 @@ git clone https://github.com/bt-glv/nvim-config.git ~/.config/nvim;
 
 </br>
 
-> [!attention] Avoid running this config with "sudo -E". \
+> [!attention] 
+> Avoid running this config with "sudo -E". \
 > Specially after starting it for the first time.\
 > Running it with sudo will create a lot of root owned files all over ~/.npm, ~/.local/share/nvim/ and other locations, resulting in a lot of weird "permission denied" issues that are hard to track.
 
