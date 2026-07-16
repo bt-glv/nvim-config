@@ -2,8 +2,6 @@
 
 > [!info] This branch is a work in progress
 
-> [!attention] Currently Markdown highlighting and rendering is broken
-
 
 > Fully compatible with Linux
 
@@ -17,17 +15,17 @@
 * Everything works as intended
 
 #### NixOS
-* If an lsp server requires a dynamically linked executable if won't work. 
-* The solution is to use nix-ld to expose the .so file globally, or install them locally with nix.
+* If an lsp server requires a dynamically linked executable, it won't work. 
+* The solution is to use nix-ld to expose the .so file system wide, or install all lsp servers with nix.
 
 &nbsp;
 ### Windows 10/11
-* WLS: everything works after configuring the clipboard (win32yank)
-* Native: some Linux specific features might not work (embedded shell commands, et cetera)
+* WLS: everything works after configuring the clipboard (win32yank).
+* Native: some Linux specific features might not work (embedded shell commands, et cetera).
 
 &nbsp;
 ### MacOS
-* All mappings that use `Alt` may cause some problems due to the behaviour of the "opt" key
+* Mappings that use `Alt` may cause some problems due to the behaviour of the "opt" key
 
 &nbsp;
 ### Android: <a href='https://github.com/termux/termux-app'>termux</a>
@@ -42,13 +40,12 @@
 - Be sure folder is empty beforehand.
 
 > Linux/MacOS
+
 ```bash
-git clone https://github.com/bt-glv/nvim-config.git;
-cd nvim-config;
-mkdir -p ~/.config/nvim;
-mv .* ~/.config/nvim;
-cd ~/.config/nvim;
+[ -d ~/.config/nvim ] && mv ~/.config/nvim ~/.config/nvim.backup.$(date +%F_%T);
+git clone https://github.com/bt-glv/nvim-config.git ~/.config/nvim;
 ```
+
 - Open Neovim; open the Lazy.nvim dashboard ```:Lazy``` and press ```S```.
 
 </br>
