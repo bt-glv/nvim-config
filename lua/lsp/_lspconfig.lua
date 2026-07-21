@@ -4,7 +4,7 @@ return {
 	dependencies = {},
 	opts = {},
 	config = function()
-		lsp_settings:setup()
-		lsp_settings:local_lsp_init()
+		Lsp_settings:setup()
+		Lsp_settings:local_lsp_init()
 	end
 }

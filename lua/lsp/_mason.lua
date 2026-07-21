@@ -10,7 +10,7 @@ return {
 		require('mason').setup({})
 		require('mason-lspconfig').setup({
 			automatic_enable = true,
-			ensure_installed = lsp_settings.mason_lsp_servers,
+			ensure_installed = Lsp_settings.mason_lsp_servers,
 			handlers = {
 				function(server_name)
 					-- require('lspconfig')[server_name].setup({})

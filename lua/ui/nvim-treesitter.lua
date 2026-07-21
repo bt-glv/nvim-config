@@ -30,8 +30,14 @@ return {
 			'query',
 			'json',
 			'xml',
-			'yaml'
+			'yaml',
+			'nix'
 		}
+
+		-- local parser_dir = vim.fn.stdpath("data") .. "/treesitter-parsers"
+		-- vim.fn.mkdir(parser_dir, "p")
+		-- vim.opt.runtimepath:prepend(parser_dir)
+
 		require('nvim-treesitter').install(required_parsers)
 
 	end

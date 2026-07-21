@@ -2,13 +2,14 @@
 vim.o.grepprg = 'rg --vimgrep'
 km            = vim.keymap.set
 cmd           = vim.cmd
+SystemOS      = vim.loop.os_uname().sysname
 
 require('tools')
 require('buffer_settings')
 require('remaps')
 
-lsp_settings     = require('lsp.settings')
-treesitter_tools = require('treesitter_tools')
+Lsp_settings     = require('lsp.settings')
+Treesitter_tools = require('treesitter_tools')
 
 require("lazy_bootstrap")
 require("lazy").setup({
@@ -49,5 +50,5 @@ require("lazy").setup({
 
 require('checks')
 
-treesitter_tools.init() -- not sure where this should go
+Treesitter_tools.init() -- not sure where this should go
 
