@@ -46,6 +46,7 @@ require("lazy").setup({
 	require('plugin._mini'),
 
 })
+
 require('checks')
 
 treesitter_tools.init() -- not sure where this should go
