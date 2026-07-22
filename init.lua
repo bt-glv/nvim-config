@@ -5,6 +5,7 @@ cmd           = vim.cmd
 SystemOS      = vim.loop.os_uname().sysname
 
 require('tools')
+require('terminal')
 require('buffer_settings')
 require('remaps')
 

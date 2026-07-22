@@ -1,8 +1,8 @@
 
 -- simple log functions for debugging
 local _log = "\n"
-function _logit(input) _log = _log..input..'\n' end
-function _logprint() Notify(_log) end
+function Logit(input) _log = _log..input..'\n' end
+function Logprint() Notify(_log) end
 function Parse_termc(key) return vim.api.nvim_replace_termcodes(key, true, false, true) end
 
 local tab = Parse_termc("<Tab>")
@@ -11,12 +11,6 @@ local cr  = Parse_termc("<Cr>")
 local cc  = Parse_termc("<c-c>")
 local up  = Parse_termc("<Up>")
 
-OpenTerminal = function(path)
-	vim.cmd('silent! !alacritty --working-directory "'..path..'" & disown')
-end
-OpenNeovim = function(path)
-	vim.cmd('silent! !alacritty --working-directory "'..path..'" -e bash -c "nvim ." & disown')
-end
 
 Notify = function(string, priority, opts) vim.notify(string) end
 
