@@ -67,9 +67,19 @@ StatusLine = {
 
 		return ''
 	end,
+
+	tree_sitter_parser = function() 
+		local parser = vim.treesitter.get_parser(0)
+
+		if parser then
+			return parser:lang()
+		end
+
+		return ""
+	end,
 }
 --:help statusline
-vim.opt.statusline = "%{v:lua.StatusLine.path_relative()} %w%h%m%r%= %{v:lua.StatusLine.lsp()} %l:%c %P "
+vim.opt.statusline = "%{v:lua.StatusLine.path_relative()} %w%h%m%r%= %{v:lua.StatusLine.tree_sitter_parser()} %{v:lua.StatusLine.lsp()} %l:%c %P "
 
 --
 -- # Buffer Settings
