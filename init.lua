@@ -19,8 +19,9 @@ require("lazy").setup({
 	require('ui.nvim-treesitter'), -- should go after catppuccin
 	require('ui._treesitter_context'),
 	require('ui.render_markdown'),
-	require('plugin.treesitter_textobjects'),
+	-- require('plugin.treesitter_textobjects'),
 
+	require('plugin._mini'),
 	require('lsp._lspconfig'),
 	require('lsp._mason'),
 	require('lsp.nvim_cmp'),
@@ -45,8 +46,6 @@ require("lazy").setup({
 	require('plugin.diffview'),
 	require('plugin._neogit'),
 	require('debug.nvim-dap'),
-	require('plugin._mini'),
-
 })
 
 require('checks')

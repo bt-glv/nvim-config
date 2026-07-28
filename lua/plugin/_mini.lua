@@ -1,28 +1,24 @@
 
 return {
 	"nvim-mini/mini.nvim",
-	dependencies = {},
-	version      = '*',
-	keys = { -- not sure if those are all the keys used by the plugin
-		{'ga',         nil, mode = { 'n', 'v' } },
-		{'gA',         nil, mode = { 'n', 'v' } },
-		{'<leader>sa', nil, mode = 'n'},
-		{'<leader>sd', nil, mode = 'n'},
-		{'<leader>sr', nil, mode = 'n'},
+	dependencies = {
+		'nvim-treesitter/nvim-treesitter-textobjects'
 	},
+	version      = '*',
+	lazy         = false,
 
 	config = function()
+
 		-- Similar to: https://github.com/junegunn/vim-easy-align
 		require('mini.align').setup( {
 			mappings = {
-				start = 'ga',
+				start              = 'ga',
 				start_with_preview = 'gA',
 			},
 		})
 
-		require('mini.surround').setup(
 			-- No need to copy this inside `setup()`. Will be used automatically.
-			{
+		require('mini.surround').setup({
 				-- Add custom surroundings to be used on top of builtin ones. For more
 				-- information with examples, see `:h MiniSurround.config`.
 				custom_surroundings = nil,
@@ -62,9 +58,40 @@ return {
 				-- This also affects (purely informational) helper messages shown after
 				-- idle time if user input is required.
 				silent = false,
-			}
+		})
 
-		)
+		require"mini.indentscope".setup({
+			draw = { predicate = function() return false end, },
+
+			mappings = {
+				object_scope             = "ii",
+				object_scope_with_border = "ai",
+				goto_top                 = "[i",
+				goto_bottom              = "]i",
+			},
+			options = {
+				border           = "both",
+				n_lines          = 10000,
+				indent_at_cursor = true,
+				try_as_border    = false,
+			},
+		})
+
+		-- mini.ai is unreliable for treesitter queries
+		local ai = require"mini.ai"
+		ai.setup({
+			n_lines = 500,
+			custom_textobjects = {
+				-- Wire Tree-sitter AST queries into mini.ai text objects!
+				o = ai.gen_spec.treesitter({
+					a = { "@block.outer", "@conditional.outer", "@loop.outer" },
+					i = { "@block.inner", "@conditional.inner", "@loop.inner" },
+				}),
+				f = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }),
+				c = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }),
+				t = ai.gen_spec.treesitter({ a = "@comment.outer", i = "@comment.outer" }),
+			},
+		})
 
 
 	end,

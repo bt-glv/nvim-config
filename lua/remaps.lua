@@ -11,7 +11,6 @@
 --  << Leader Key Definition >> --
 vim.g.mapleader = " "
 
-
 -- << Remaps by topic >> --
 
 local function terminal_and_fileEx()
@@ -216,11 +215,12 @@ local function clipboard_utilities()
 	km("i", "<A-p>", '<C-r>"', 		                { desc = 'Insert mode: paste " register'})
 	km("i", "<A-S-p>", "<C-r>+", 	                { desc = 'Insert mode: paste + register'})
 
-	km("n", "<leader>ayy", '"ayy', 			{ desc = "Yank line to register 'a'" })
-	km("n", "<leader>add", '"add', 			{ desc = "Cut line to register 'a'" })
-	km("v", "<leader>ay", '"ay', 			{ desc = "Yank selection to register 'a'" })
-	km("v", "<leader>ad", '"ad', 			{ desc = "Cut selection to register 'a'" })
-	km({"v", "n"}, "<leader>ap", '"ap', 	{ desc = "Paste from register 'a'" })
+	-- deprecated - haven't used this for ages
+	-- km("n", "<leader>ayy", '"ayy', 			{ desc = "Yank line to register 'a'" })
+	-- km("n", "<leader>add", '"add', 			{ desc = "Cut line to register 'a'" })
+	-- km("v", "<leader>ay", '"ay', 			{ desc = "Yank selection to register 'a'" })
+	-- km("v", "<leader>ad", '"ad', 			{ desc = "Cut selection to register 'a'" })
+	-- km({"v", "n"}, "<leader>ap", '"ap', 	{ desc = "Paste from register 'a'" })
 
 end
 local function default_buffer_manipulation()

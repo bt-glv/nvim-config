@@ -47,14 +47,6 @@ vim.api.nvim_create_autocmd(
                         total = 500, -- maximum duration
                     },
                 },
-                scope = {
-                    enabled = true, -- enable highlighting the current scope
-                    priority = 200,
-                    char = "▏",
-                    underline = false, -- underline the start of the scope
-                    only_current = false, -- only show scope in the current window
-                    hl = "SnacksIndentScope", ---@type string|string[] hl group for scopes
-                },
                 chunk = {
                     enabled = false,
                     only_current = false,
@@ -86,8 +78,11 @@ vim.api.nvim_create_autocmd(
                 },
             })
 
-            -- Replaces global Notify function
-            -- check out how to add a title to those messages
+			---@param string string Notification Body
+			---@param priority number Priority 1 - 6; 4:error, 6:bug
+			---@param opts {title: string} Aditional parameters, such as Title
+            -- This is a replacemnt for the original notify funciton.
+            -- Snacks notify module.
             Notify = function(string, priority, opts)
                 opts = (type(opts)=='table') and opts or {}
                 priority = priority or 6
