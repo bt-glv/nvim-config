@@ -1,5 +1,6 @@
 
 return {
+
     'nvim-treesitter/nvim-treesitter',
     run          = ":TSUpdate",
     lazy         = false,
@@ -39,7 +40,5 @@ return {
 		-- vim.opt.runtimepath:prepend(parser_dir)
 
 		require('nvim-treesitter').install(required_parsers)
-
 	end
-
 }
