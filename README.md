@@ -1,24 +1,21 @@
 # About
 
-> [!info] 
-> - This branch is a work in progress
-
 </br>
 
 
 # Current state of things
 ### Linux
 #### Arch Debian Fedora OpenSUSE
-* Everything works as intended
+* Everything works as intended.
 
 #### NixOS
 * If an lsp server requires a dynamically linked executable, it won't work. 
-* The solution is to use nix-ld to expose the .so file system wide, or install all lsp servers with nix.
+* Use nix-ld to expose the .so file system wide, or install all lsp servers with nix.
 
 &nbsp;
 ### Windows 10/11
 * WLS: everything works after configuring the clipboard (win32yank).
-* Native: some Linux specific features might not work (embedded shell commands, et cetera).
+* Native: some Linux specific features might not work (shell commands, etc).
 
 &nbsp;
 ### MacOS
@@ -26,33 +23,53 @@
 
 &nbsp;
 ### Android: <a href='https://github.com/termux/termux-app'>termux</a>
-* Most <a href='https://github.com/mason-org/mason.nvim'>Mason</a> LSP servers work.
-* Clipboard needs to be set up
+* Most <a href='https://github.com/mason-org/mason.nvim'>Mason</a> LSP servers work out of the box.
+* Clipboard needs to be set up.
 
 </br>
 
 # Installation
 
-- Clone this repo and place its files in the neovim folder. (Linux: ~/.config/nvim)
-- Be sure folder is empty beforehand.
+- Install GIT.
+- Install all other dependencies.
+- Clone this repository at the neovim config folder. 
+- Open the Lazy.nvim dashboard ```:Lazy``` and press ```S```.
 
-> Linux/MacOS
-
+## Install Scripts (w/ backup)
+###  Linux/MacOS
 ```bash
 [ -d ~/.config/nvim ] && mv ~/.config/nvim ~/.config/nvim.backup.$(date +%F_%T);
 git clone https://github.com/bt-glv/nvim-config.git ~/.config/nvim;
 ```
 
-- Open Neovim; open the Lazy.nvim dashboard ```:Lazy``` and press ```S```.
+### Windows
+```powershell
+$nvimPath = "$HOME\AppData\Local\nvim"
+if (Test-Path $nvimPath) {
+    $timestamp = Get-Date -Format "yyyy-MM-dd_HH-mm-ss"
+    Move-Item -Path $nvimPath -Destination "$nvimPath.backup.$timestamp"
+}
+git clone https://github.com/bt-glv/nvim-config.git $nvimPath
+```
 
 </br>
 
-
-# LSP (autocomplete) support
+# LSP support
+> (autocomplete)
 
 - By default, this config is configured to use local lsp servers for lua, typescript and nix.
 - That is due to problems installing those servers with <a href='https://github.com/mason-org/mason.nvim'>Mason</a> on NixOS systems.
 - To change this behaviour and manage them automatically with Mason, or add more local lsp servers, see `lsp/settings`.
+
+</br>
+
+# Treesitter
+> (Per language styling and textobjects)
+
+Parsers are installed with <a href="https://github.com/nvim-treesitter/nvim-treesitter">nvim-treesitter</a>.
+
+Configured parsers in this config: `lua, vim, vimdoc, javascript, html, css, typescript, markdown_inline, markdown, latex, java, python, go, c, bash, diff, query, json, xml, yaml, nix`
+
 
 </br>
 
@@ -69,8 +86,8 @@ git clone https://github.com/bt-glv/nvim-config.git ~/.config/nvim;
 ## Dependencies
 
 <ul>
-    <li><a href='https://www.nerdfonts.com/'>Pacthed Nerd Fonts Font</a> (For Dev-Icons)</li>
-    <li><a href='https://alacritty.org/'>Alacritty Terminal Emulator</a> (Can be replaced)</li>
+    <li><a href='https://www.nerdfonts.com/'>Pacthed Nerd Fonts Font</a> (Optional)</li>
+    <li><a href='https://alacritty.org/'>Alacritty Terminal Emulator</a> (Optional) (Can be replaced)</li>
     <li>node.js</li>
     <li>npm</li>
     <li>ripgrep</li>
@@ -83,14 +100,3 @@ git clone https://github.com/bt-glv/nvim-config.git ~/.config/nvim;
 
 </br>
 
--------
-# Attention
-
-</br>
-
-> [!attention] 
-> Avoid running this config with "sudo -E". \
-> Specially after starting it for the first time.\
-> Running it with sudo will create a lot of root owned files all over ~/.npm, ~/.local/share/nvim/ and other locations, resulting in a lot of weird "permission denied" issues that are hard to track.
-
-</br>
