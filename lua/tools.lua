@@ -12,6 +12,9 @@ local cc  = Parse_termc("<c-c>")
 local up  = Parse_termc("<Up>")
 
 
+---@param string string Notification Body
+---@param priority number Priority 1 - 6; 4:error, 6:bug
+---@param opts {title: string} Aditional parameters, such as Title
 Notify = function(string, priority, opts) vim.notify(string) end
 
 -- The command line buffer does not have a name.
