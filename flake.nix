@@ -26,6 +26,9 @@
 							unzip
 							curl
 							gnumake
+							glib
+							gtk3
+							file
             ];
 
             # 3. Wire up the isolated environment and launch Neovim
