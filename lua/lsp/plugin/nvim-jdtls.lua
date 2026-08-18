@@ -1,4 +1,5 @@
 return {
+	enabled = function() return not Disable_lsp end,
 	"mfussenegger/nvim-jdtls",
 	dependencies = {'hrsh7th/nvim-cmp'},
 	ft           = { 'java' },

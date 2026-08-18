@@ -11,6 +11,8 @@ return {
 
 	config = function()
 
+		if Disable_treesitter == true then return end
+
 		local required_parsers = {
 			'lua',
 			'vim',
@@ -32,7 +34,7 @@ return {
 			'json',
 			'xml',
 			'yaml',
-			'nix'
+			'nix',
 		}
 
 		-- local parser_dir = vim.fn.stdpath("data") .. "/treesitter-parsers"

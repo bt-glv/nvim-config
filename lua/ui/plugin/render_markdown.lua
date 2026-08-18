@@ -19,6 +19,12 @@ return {
 		completions = {
 			lsp = { enabled = true }
 		},
+		latex = {
+			enabled   = true,
+			converter = 'latex2text',
+			highlight = 'RenderMarkdownMath',
+			position  = 'center',
+		}
 	},
 
 	-- config = function()

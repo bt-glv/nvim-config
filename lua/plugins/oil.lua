@@ -9,7 +9,7 @@ return {
 
     config = function()
 
-        Exit_to_file_path = function()
+        Tools.Global.exit_to_file_path = function()
             local current_file_path = vim.fn.expand('%:p:h')
 
             if current_file_path == '' or current_file_path == nil then return end
@@ -28,29 +28,40 @@ return {
 			if not vim.b.current_syntax == 'oil' then return end
 			local path = vim.fn.substitute(vim.fn.expand("%:h"), [[^oil:[/]\?[/]\?]],"","g")
 			vim.fn.chdir(path)
-			Notify("New Working Directory:\n"..path, 3)
+			Notify("New Working Directory:\n"..path, 3, {Title = "[Oil]"})
 		end
 
 		--- Copies oil buffer's path to the clipboard
-		local function pwc()
-			local current_file_path = vim.fn.expand('%:p:h')
-			current_file_path = vim.fn.substitute(current_file_path, "^oil:[/][/]","","g")
+		local function path_buffer()
+			local current_file_path = require'oil'.get_current_dir()
 			vim.fn.setreg('+', current_file_path)
-			print("> [Oil] Path Copied to the Clipboard")
+			print("[Oil] BUFFER path copied to the Clipboard")
 		end
 
-		local function pwc_local()
+		local function path_entry_under_cursor()
+			local oil   = require("oil")
+			local entry = oil.get_cursor_entry()
+			local path  = oil.get_current_dir()
+
+			if not entry or not path then return end
+
+			local full_path = path .. entry.name
+			vim.fn.setreg("+", full_path)
+			print("[Oil] ENTRY path copied to the Clipboard")
+		end
+
+		local function path_buffer_relative_to_project()
 			local current_file_path = vim.fn.expand('%:p:h')
 			local cwd = vim.fn.getcwd()
 			current_file_path = vim.fn.substitute(current_file_path, "^oil:[/][/]"..cwd,"","g")
 
 			vim.fn.setreg('+', current_file_path)
-			print("> [Oil] <<Relative>> Path Copied to the Clipboard")
+			print("[Oil] RELATIVE PATH copied to the Clipboard")
 		end
 
 		--- CDs to the clipboard path
 		--- [!Attention] no input sanitization
-		local function pg()
+		local function path_goto()
 			local clipboard = vim.fn.getreg('+')
 			clipboard = vim.fn.substitute(clipboard, [[\_s$]],"","g")
 			require("oil").open(clipboard)
@@ -114,6 +125,81 @@ return {
 			}):find()
 		end
 
+		-- TODO
+		local function telescope_open_in_external_program()
+			if (SystemOS ~= "Linux") then return end
+
+			local oil   = require("oil")
+			local entry = oil.get_cursor_entry()
+			local dir   = oil.get_current_dir()
+
+			if not entry or not dir then
+				Notiy("No file selected", vim.log.levels.WARN)
+				return
+			end
+
+			local file_path = dir .. entry.name
+			local apps      = Tools.Linux.get_apps(file_path)
+
+			local pickers      = require("telescope.pickers")
+			local finders      = require("telescope.finders")
+			local conf         = require("telescope.config").values
+			local actions      = require("telescope.actions")
+			local action_state = require("telescope.actions.state")
+
+			pickers.new({}, {
+				prompt_title = "Open With (Linux Apps)",
+
+				finder = finders.new_table({
+					results     = apps,
+					entry_maker = function(item)
+						return {
+							value   = item,
+							display = item.name,
+							ordinal = item.name,
+						}
+					end,
+				}),
+
+				sorter = conf.generic_sorter({}),
+
+				attach_mappings = function(prompt_bufnr, _)
+					actions.select_default:replace(function()
+
+						actions.close(prompt_bufnr)
+						local selection = action_state.get_selected_entry()
+						if not selection then return end
+
+						local item = selection.value
+						local spawn_cmd
+
+						if item.desktop then
+							if vim.fn.executable("gtk-launch") == 1 then
+								spawn_cmd = { "gtk-launch", item.desktop, file_path }
+							else
+								spawn_cmd = { "gio", "launch", item.desktop, file_path }
+							end
+						else
+							spawn_cmd = item.cmd
+						end
+
+						-- non blocking erro message
+						vim.system(spawn_cmd, { detach = true }, function(obj)
+							if obj.code ~= 0 and obj.stderr and #obj.stderr > 0 then
+								vim.schedule(function()
+									vim.notify("Error: " .. obj.stderr, vim.log.levels.ERROR)
+								end)
+							end
+						end)
+
+						vim.notify("Opening with " .. item.name .. "...")
+					end)
+					return true
+				end,
+			}):find()
+
+		end
+
 		vim.g.oil_toggle = false
 		local function oil_toggle_full_view()
 
@@ -170,17 +256,40 @@ return {
 			-- attention: might cause problems
 			watch_for_changes = true,
 			keymaps = {
-				["<leader>pg"]   =  pg ,
-				["<leader>pwc"]  =  pwc ,
-				["<leader>rpwc"] =  pwc_local, -- TODO: copy folder relative to cwd
-				["<leader>="]    =  telescope_goto_folder ,
-				["<leader>-"]    =  telescope_goto_file_folder ,
+				["<leader>pg"]   =  {
+					callback = path_goto ,
+					desc = "CDs do the path in clipbard.",
+				},
+				["<leader>pwc"]  =  {
+					callback = path_buffer ,
+					desc = "Copy current buffer's path to the clipboard.",
+				},
+				["<leader>epwc"] =  {
+					callback = path_entry_under_cursor,
+					desc = "Copy the path of the entry under the cursor to the clipboard.",
+				},
+				["<leader>rpwc"] =  {
+					callback = path_buffer_relative_to_project,
+					desc = "Copy the buffer's path relative to the project folder.",
+				},
+				["<leader>="]    =  {
+					callback = telescope_goto_folder ,
+					desc = "Telescope: CDs into the selected folder.",
+				},
+				["<leader>-"]    =  {
+					callback = telescope_goto_file_folder ,
+					desc = "Telescope: CDs into the selected file's folder.",
+				},
 				["<CR>"]         =  "actions.select",
-				["<C-s>"]        =  oil_toggle_full_view ,
 				["<leader>cd"]   =  working_directory_here,
-
-				-- Opens the file in a external program (system default for filetype)
-				----- this is huge
+				["<C-s>"]        =  {
+					callback = oil_toggle_full_view ,
+					desc = "Toggle details.",
+				},
+				["<A-CR>"] = {
+					callback = telescope_open_in_external_program,
+					desc = "Telescope: pick external program to open file.",
+				},
 				["<C-CR>"] = "actions.open_external",
 
 				--["<C-s>"] = "actions.select_vsplit",

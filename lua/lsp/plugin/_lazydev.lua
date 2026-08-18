@@ -1,5 +1,6 @@
 
 return {
+	enabled = function() return not Disable_lsp end,
 	"folke/lazydev.nvim",
 	dependencies = {'hrsh7th/nvim-cmp'},
 	ft = "lua", -- only load on lua files

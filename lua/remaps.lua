@@ -22,8 +22,8 @@ local function terminal_and_fileEx()
 	-- Opens file explorer (dolphin) at project location
 	km("n","<leader>rex", ':!dolphin "'..vim.fn.getcwd()..'" & disown<cr><cr>')
 
-	km("n", "<leader>pwc", Pwc)
-	km("n", "<leader>rpwc", Pwc_relative)
+	km("n", "<leader>pwc", Tools.Global.pwc)
+	km("n", "<leader>rpwc", Tools.Global.pwc_relative)
 
 	km("n","<leader>ex", function()
 		local path = vim.fn.expand('%:p:h')
@@ -75,12 +75,12 @@ local function movement()
 	km("n","<C-o>", "<C-o>zz")
 end
 local function cmd_mode_edit()
-	km({"n","c","i"}, "<c- >",  CmdlineConditionalToggle )
+	km({"n","c","i"}, "<c- >",  function() Tools.Global:cmd_line_conditional_toggle() end )
 	km("v","<c- >", ":")
 	-- km({"n","c"}, "<c-;>", "<c-c><c-c><c-c>q:k")
 	--
-	km({"n"}, "<leader>;", LeaderColon)
-	km({"n", "i"}, "<c-;>", LeaderColon)
+	km({"n"}, "<leader>;",  Tools.Global.leader_colon)
+	km({"n", "i"}, "<c-;>", Tools.Global.leader_colon)
 end
 local function terminal_mode_related()
 	km("t", "<C- >", "<C-\\><C-n>",
@@ -89,7 +89,7 @@ local function terminal_mode_related()
 	km("n", "<leader>ter", "<c-w>v<c-w>l:term<CR><c-w>h",
 	{ desc = "Open terminal in vertical split" })
 
-	km('t', '<C-l><C-l>', [[<C-\><C-N>:lua ClearTerm(0)<CR>]],
+	km('t', '<C-l><C-l>', [[<C-\><C-N>:lua Tools.Global.clear_term(0)<CR>]],
 	{ desc = "Clear terminal screen" })
 end
 
@@ -176,8 +176,8 @@ local function quality_of_life()
 	-- if oil is active, it will quit at file path
 	vim.api.nvim_create_user_command( 'QA', function() vim.cmd('qa!') end, {})
 	vim.api.nvim_create_user_command( 'Qa', function() vim.cmd('qa!') end, {})
-	vim.api.nvim_create_user_command( 'QQ',  function() Exit_to_file_path() end , {})
-	vim.api.nvim_create_user_command( 'Qq',  function() Exit_to_file_path() end , {})
+	vim.api.nvim_create_user_command( 'QQ',  function() Tools.Global.exit_to_file_path() end , {})
+	vim.api.nvim_create_user_command( 'Qq',  function() Tools.Global.exit_to_file_path() end , {})
 end
 local function split_window_controls()
 	km("n", "<c-w>,", "<c-w>7<", { desc = "Decrease window width" })

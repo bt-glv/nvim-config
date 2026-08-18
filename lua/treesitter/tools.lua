@@ -4,6 +4,8 @@
 --- @warning TODO
 return {
 	init = function()
+		if Disable_treesitter == true then return end
+
 		vim.api.nvim_create_autocmd('FileType', {
 		  callback = function()
 			-- Enable native Treesitter highlighting (and fallback gracefully if parser is missing)

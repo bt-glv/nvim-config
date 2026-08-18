@@ -1,5 +1,6 @@
 
 return {
+	enabled = function() return not Disable_lsp end,
     "folke/trouble.nvim",
     opts = {},
     cmd = "Trouble",

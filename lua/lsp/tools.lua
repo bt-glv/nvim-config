@@ -1,35 +1,7 @@
 return {
-	-- :Mason
-	-- the name to the right of the lsp server name
-	mason_lsp_servers = {
-		-- "lua_ls", 	-- better if installed locally
-		-- "ts_ls", 	-- better if installed locallly
-		"angularls",
-		"pyright",
-		"html",
-		"gopls",
-		"bashls",
-		"cssls",
-		'kotlin_language_server',
-		"jdtls",         	-- Java
-		"vimls",
-		-- 'clangd',        -- c        // doesn't work on nixos w/ mason
-		-- 'markdown_oxide' -- markdown // doesn't work on nixos with mason
-	},
-
-
-	-- accepted lsp names:
-	-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
-	local_lsp_servers = {
-		"lua_ls",
-		"ts_ls", 	        -- Javascript & typescript
-		"nixd", 	        -- Nixos nix lsp
-		'markdown_oxide',   -- markdown
-		'clangd',			-- c
-	},
-
 
 	setup = function(self)
+		if Disable_lsp then return end
 
 		vim.diagnostic.enable()
 		vim.diagnostic.config({
@@ -49,8 +21,10 @@ return {
 		vim.api.nvim_create_user_command("RestartLspServers",  function() self.RestartLspServers() end,   {})
 	end,
 
-	local_lsp_init = function(self)
-		for _, server in ipairs(self.local_lsp_servers) do
+	local_lsp_init = function()
+		if Disable_lsp then return end
+
+		for _, server in ipairs(Lsp_servers.locally_installed) do
 			vim.lsp.enable(server)
 		end
 	end,

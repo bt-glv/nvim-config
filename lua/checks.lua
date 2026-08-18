@@ -74,7 +74,7 @@ local operating_system = {
 		end
 	},
 
-	Windows = {
+	Windows_NT = {
 		version = version_check,
         clipboard = function()
             vim.fn.system('where win32yank')
@@ -92,7 +92,7 @@ local operating_system = {
         end,
         dependencies = function()
             local deps = {
-                'gcc',
+                'cl',
                 'node',
                 'npm',
                 'fd',
@@ -120,12 +120,15 @@ local operating_system = {
             end
 
         end
-    }
+    },
+	Windows = {}
+
 }
+operating_system.Windows = operating_system.Windows_NT;
 
 
 local checks = operating_system[vim.loop.os_uname().sysname]
-if checks ~= nil then
+if ( checks ~= nil and Supress_check_warnings == false ) then
 	for _, func in pairs(checks) do
 		func()
 	end

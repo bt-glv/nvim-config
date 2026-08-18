@@ -14,8 +14,10 @@
 
 &nbsp;
 ### Windows 10/11
-* WLS: everything works after configuring the clipboard (win32yank).
-* Native: some Linux specific features might not work (shell commands, etc).
+* WLS 
+    * everything works after configuring the clipboard (win32yank).
+* Native 
+    * Visual Studio C compiler is a requirement.
 
 &nbsp;
 ### MacOS
@@ -33,7 +35,7 @@
 - Install GIT.
 - Install all other dependencies.
 - Clone this repository at the neovim config folder. 
-- Open the Lazy.nvim dashboard ```:Lazy``` and press ```S```.
+- Wait about 5-10min for the installation to finish (download mason lsp servers, treesitter parsers, etc).
 
 ## Install Scripts (w/ backup)
 ###  Linux/MacOS
@@ -85,6 +87,7 @@ Configured parsers in this config: `lua, vim, vimdoc, javascript, html, css, typ
 
 ## Dependencies
 
+### Linux
 <ul>
     <li><a href='https://www.nerdfonts.com/'>Pacthed Nerd Fonts Font</a> (Optional)</li>
     <li><a href='https://alacritty.org/'>Alacritty Terminal Emulator</a> (Optional) (Can be replaced)</li>
@@ -94,8 +97,11 @@ Configured parsers in this config: `lua, vim, vimdoc, javascript, html, css, typ
     <li>wget</li>
     <li>unzip</li>
     <li>treesitter-cli</li>
+    <li>glib (gio) (not installed by default on nixos)</li>
+    <li>gtk3 (gtk-launch) (not installed by default on nixos)</li>
+    <li>file (not installed by default on nixos)</li>
     <li><a href='https://github.com/sharkdp/fd'>fd</a></li>
-    <li>C compiler: gcc; clang</li>
+    <li>gcc</li>
 </ul>
 
 </br>

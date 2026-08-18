@@ -17,8 +17,8 @@ local up  = Parse_termc("<Up>")
 ---@param opts {title: string} Aditional parameters, such as Title
 Notify = function(string, priority, opts) vim.notify(string) end
 
--- The command line buffer does not have a name.
--- This is the best way I found to check if the buffer is the command line buffer
+--- The command line buffer does not have a name.
+--- This is the best way I found to check if the buffer is the command line buffer
 local function is_commandline_buf()
 
 	local bufname =	(function()
@@ -40,90 +40,144 @@ local function is_commandline_buf()
 
 end
 
-function ClearTerm(reset)
-	vim.opt_local.scrollback = 1
 
-	vim.api.nvim_command("startinsert")
-	if reset == 1 then
-		vim.api.nvim_feedkeys("reset", 't', false)
-	else
-		vim.api.nvim_feedkeys("clear", 't', false)
-	end
-	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<cr>', true, false, true), 't', true)
+return {
 
-	-- defines maximum amount of lines
-	-- neovim's terminal mode will store in its buffer
-	vim.opt_local.scrollback = 10000
-end
+	Global = {
 
-Exit_to_file_path = function() vim.cmd('qa!') end
+		pwc_relative = function()
+			local current_file_path = vim.fn.expand('%:p')
+			local cwd = vim.fn.getcwd()
+			current_file_path = vim.fn.substitute(current_file_path, "^"..cwd,"","g")
 
--- still not completely sure of why i created this
-local cmdline_toggle = false
-function CmdlineConditionalToggle()
-	local is_commandline 	= is_commandline_buf()
-	local mode 				= vim.api.nvim_get_mode().mode
+			vim.fn.setreg('+', current_file_path)
+			print("> <<Relative>> File Path Copied to the Clipboard")
+		end,
 
-	if mode == "n" and not is_commandline then
-		vim.api.nvim_feedkeys(":"..up,"t",false)
-		cmdline_toggle = false
-		return
-	end
-	if mode == "c" and not is_commandline then
-		if cmdline_toggle then
-			vim.api.nvim_feedkeys(esc,"t",false)
-			cmdline_toggle = false
-			return
+		pwc = function()
+			local current_file_path = vim.fn.expand('%:p')
+			vim.fn.setreg('+', current_file_path)
+			print("> File Path Copied to the Clipboard")
+		end,
+
+		leader_colon = function()
+			local is_commandline 	= is_commandline_buf()
+			local mode 				= vim.api.nvim_get_mode().mode
+
+			if(not is_commandline) then
+				if(mode == "n") then
+					vim.api.nvim_feedkeys("q:i","t",false)
+					return
+				end
+				return
+			end
+
+			if (mode == "i" or mode == "n") then
+				vim.api.nvim_feedkeys(cc..cc,"t",false)
+				return
+			end
+
+		end,
+
+		cmdline_toggle = false,
+		cmd_line_conditional_toggle = function(self)
+			local is_commandline 	= is_commandline_buf()
+			local mode 				= vim.api.nvim_get_mode().mode
+
+			if mode == "n" and not is_commandline then
+				vim.api.nvim_feedkeys(":"..up,"t",false)
+				self.cmdline_toggle = false
+				return
+			end
+			if mode == "c" and not is_commandline then
+				if self.cmdline_toggle then
+					vim.api.nvim_feedkeys(esc,"t",false)
+					self.cmdline_toggle = false
+					return
+				end
+				vim.api.nvim_feedkeys(esc.."q:k","t",false)
+				return
+			end
+			if mode == "n" and is_commandline then
+				vim.api.nvim_feedkeys(cc..cc..":"..up,"t",false)
+				self.cmdline_toggle = true
+				return
+			end
+			if mode == "i" and is_commandline then
+				vim.api.nvim_feedkeys(cc..cc,"t",false)
+				return
+			end
+		end,
+
+		exit_to_file_path = function()
+			vim.cmd('qa!')
+		end,
+
+		clear_term = function(reset)
+			vim.opt_local.scrollback = 1
+
+			vim.api.nvim_command("startinsert")
+			if reset == 1 then
+				vim.api.nvim_feedkeys("reset", 't', false)
+			else
+				vim.api.nvim_feedkeys("clear", 't', false)
+			end
+			vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<cr>', true, false, true), 't', true)
+
+			-- defines maximum amount of lines
+			-- neovim's terminal mode will store in its buffer
+			vim.opt_local.scrollback = 10000
+		end,
+	},
+
+	Linux = {
+
+		--- This function block the main UI thread.
+		--- This shouln't be a problem since "file" and "gio" run within a few miliseconds.
+		get_apps = function(file)
+			local apps = {
+				{ name = "System Default (xdg-open)", cmd = { "xdg-open", file } },
+			}
+
+			-- Get MIME type of the file
+			local mime_handle = io.popen(string.format("file --mime-type -b '%s' 2>/dev/null", file))
+			local mime        = mime_handle and mime_handle:read("*l")
+
+			if mime_handle then mime_handle:close() end
+
+			if not mime or mime == "" then return apps end
+
+			-- Query registered desktop applications for this MIME type
+			local gio_handle = io.popen(string.format("gio mime '%s' 2>/dev/null", mime))
+
+			if gio_handle then
+				local default_app = nil
+				for line in gio_handle:lines() do
+					-- Parse default application
+					local def = line:match("Default application for .+: (.+%.desktop)")
+					if def then
+						default_app = def
+						table.insert(apps, {
+							name = "[Default] " .. def:gsub("%.desktop$", ""),
+							desktop = def,
+						})
+					end
+
+					-- Parse registered & recommended alternatives
+					local desktop_file = line:match("^%s+([%w%-%._]+%.desktop)")
+					if desktop_file and desktop_file ~= default_app then
+						table.insert(apps, {
+							name = desktop_file:gsub("%.desktop$", ""),
+							desktop = desktop_file,
+						})
+					end
+				end
+				gio_handle:close()
+			end
+
+			return apps
 		end
-		vim.api.nvim_feedkeys(esc.."q:k","t",false)
-		return
-	end
-	if mode == "n" and is_commandline then
-		vim.api.nvim_feedkeys(cc..cc..":"..up,"t",false)
-		cmdline_toggle = true
-		return
-	end
-	if mode == "i" and is_commandline then
-		vim.api.nvim_feedkeys(cc..cc,"t",false)
-		return
-	end
-end
+	}
 
---- TODO: add vim lsp support and link it to the command line buffer
---- TODO: add support for selection mode
-function LeaderColon()
-	local is_commandline 	= is_commandline_buf()
-	local mode 				= vim.api.nvim_get_mode().mode
 
-	if(not is_commandline) then
-		if(mode == "n") then
-			vim.api.nvim_feedkeys("q:i","t",false)
-			return
-		end
-		return
-	end
-
-	if (mode == "i" or mode == "n") then
-		vim.api.nvim_feedkeys(cc..cc,"t",false)
-		return
-	end
-
-end
-
--- Oil implements its own version of this function
-function Pwc()
-	local current_file_path = vim.fn.expand('%:p')
-	vim.fn.setreg('+', current_file_path)
-	print("> File Path Copied to the Clipboard")
-end
-
---- TODO: re implement this on oil.nvim
-function Pwc_relative()
-	local current_file_path = vim.fn.expand('%:p')
-	local cwd = vim.fn.getcwd()
-	current_file_path = vim.fn.substitute(current_file_path, "^"..cwd,"","g")
-
-	vim.fn.setreg('+', current_file_path)
-	print("> <<Relative>> File Path Copied to the Clipboard")
-end
-
+}
