@@ -2,16 +2,16 @@
 # TODO
 > 9
 
-- Experiment:      Replace cmp.nvim with blink.cmp
+- feat:            make a toggleable shell buffer
 - feat:            Which key
 - feat:            QQ on terminal mode cds to that terminal's path
-- feat:            make a toggleable shell buffer
 - feat:            display **all** active lsp servers on current buffer
 - feat:            warn if local lsp servers are not installed
 - feat(statusbar): change the color of the bar depending on the context
     - mode
     - focused pane
 
+- Experiment:      Replace cmp.nvim with blink.cmp
 - feat(telescope):          support for lsp references
 - fix(treesitter-context):  not working in angular typescript projects for some reason
 - Experiment: lspkind.nvim
