@@ -16,10 +16,10 @@ return {
                 labels = "asdfghjklqwertyuiopzxcvbnm",
                 search = {
                     multi_window = true,
-                    forward = true,
-                    wrap = true,
-                    mode = "exact",
-                    incremental = false,
+                    forward      = true,
+                    wrap         = true,
+                    mode         = "exact",
+                    incremental  = false,
                     exclude = {
                         "notify",
                         "cmp_menu",
@@ -33,28 +33,28 @@ return {
                     max_length = false, ---@type number|false
                 },
                 jump = {
-                    jumplist = true,
-                    pos = "start", ---@type "start" | "end" | "range"
-                    history = false,
-                    register = false,
+                    jumplist   = true,
+                    pos        = "start", ---@type "start" | "end" | "range"
+                    history    = false,
+                    register   = false,
                     nohlsearch = false,
-                    autojump = false,
-                    inclusive = nil, ---@type boolean?
-                    offset = nil, ---@type number
+                    autojump   = false,
+                    inclusive  = nil, ---@type boolean?
+                    offset     = nil, ---@type number
                 },
                 label = {
-                    uppercase = true,
-                    exclude = "",
-                    current = true,
-                    after = true, ---@type boolean|number[]
-                    before = false, ---@type boolean|number[]
-                    style = "overlay", ---@type "eol" | "overlay" | "right_align" | "inline"
-                    reuse = "lowercase", ---@type "lowercase" | "all" | "none"
-                    distance = true,
+                    uppercase          = true,
+                    exclude            = "",
+                    current            = true,
+                    after              = true, ---@type boolean|number[]
+                    before             = false, ---@type boolean|number[]
+                    style              = "overlay", ---@type "eol" | "overlay" | "right_align" | "inline"
+                    reuse              = "lowercase", ---@type "lowercase" | "all" | "none"
+                    distance           = true,
                     min_pattern_length = 0,
                     rainbow = {
                         enabled = false,
-                        shade = 5,
+                        shade   = 5,
                     },
                     format = function(opts)
                         return { { opts.match.label, opts.hl_group } }
@@ -62,13 +62,13 @@ return {
                 },
                 highlight = {
                     backdrop = true,
-                    matches = true,
+                    matches  = true,
                     priority = 5000,
                     groups = {
-                        match = "FlashMatch",
-                        current = "FlashCurrent",
+                        match    = "FlashMatch",
+                        current  = "FlashCurrent",
                         backdrop = "FlashBackdrop",
-                        label = "FlashLabel",
+                        label    = "FlashLabel",
                     },
                 },
                 action = nil,
@@ -77,15 +77,15 @@ return {
                 config = nil, ---@type fun(opts:Flash.Config)|nil
                 modes = {
                     search = {
-                        enabled = false,
+                        enabled   = false,
                         highlight = { backdrop = false },
-                        jump = { history = true, register = true, nohlsearch = true },
-                        search = {
-                        },
+                        jump      = { history  = true, register = true, nohlsearch = true },
+                        search    = { },
                     },
                     char = {
                         char_actions = function() return { [";"] = "next", [","] = "prev" } end,
-                        search = { wrap = true },
+                        search       = { wrap = true },
+
                         highlight = {
                             backdrop = false,
                             groups = {
@@ -96,19 +96,19 @@ return {
                     },
                     treesitter = {
                         labels = "abcdefghijklmnopqrstuvwxyz",
-                        jump = { pos = "range" },
+                        jump   = { pos         = "range" },
                         search = { incremental = false },
-                        label = { before = true, after = true, style = "inline" },
+                        label  = { before      = true, after = true, style = "inline" },
                         highlight = {
                             backdrop = false,
-                            matches = false,
+                            matches  = false,
                         },
                     },
                     treesitter_search = {
-                        jump = { pos = "range" },
-                        search = { multi_window = true, wrap = true, incremental = false },
-                        remote_op = { restore = true },
-                        label = { before = true, after = true, style = "inline" },
+                        jump      = { pos = "range" },
+                        search    = { multi_window = true, wrap = true, incremental = false },
+                        remote_op = {restore = true },
+                        label     = { before = true, after = true, style = "inline" },
                     },
                     remote = {
                         remote_op = { restore = true, motion = true },
@@ -119,16 +119,16 @@ return {
                     prefix = { { "⚡", "FlashPromptIcon" } },
                     win_config = {
                     relative = "editor",
-                        width = 1, -- when <=1 it's a percentage of the editor width
+                        width  = 1, -- when <= 1 it's a percentage of the editor width
                         height = 1,
-                        row = -1, -- when negative it's an offset from the bottom
-                        col = 0, -- when negative it's an offset from the right
+                        row    = -1, -- when negative it's an offset from the bottom
+                        col    = 0, -- when negative it's an offset from the right
                         zindex = 1000,
                     },
                 },
                 remote_op = {
                     restore = false,
-                    motion = false,
+                    motion  = false,
                 },
             }
 
