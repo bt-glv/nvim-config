@@ -8,6 +8,7 @@ return {
 		"html",
 		"gopls",
 		"bashls",
+		"fish_lsp",
 		"cssls",
 		'kotlin_language_server',
 		"jdtls",         	-- Java

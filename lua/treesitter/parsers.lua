@@ -20,4 +20,5 @@ return {
 	'xml',
 	'yaml',
 	'nix',
+	'fish'
 }
