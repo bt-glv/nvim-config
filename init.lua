@@ -4,7 +4,9 @@ km            = vim.keymap.set
 cmd           = vim.cmd
 SystemOS      = vim.loop.os_uname().sysname
 
-Supress_check_warnings = false
+-- Dependency checks may slowdown startup times
+-- Set to false if neovim is taking too long to start
+No_Dependency_Checks = false
 
 Disable_treesitter     = false
 Treesitter_parsers     = require'treesitter.parsers'

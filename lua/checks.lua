@@ -5,7 +5,7 @@ local version_check = function()
 
 	if(not compatible) then
 
-			local message = "\n\n" ..
+		local message = "\n\n" ..
 						"Expected Neovim Version: 	12\n" ..
 						"What you got:				%d\n"
 
@@ -16,17 +16,14 @@ local version_check = function()
 
 	end
 end
-
 local operating_system = {
 	Linux = {
 
 		version   = version_check,
 		clipboard = function()
 
-			vim.fn.system('which xclip')
-			local xclip_found = (vim.v.shell_error == 0)
-			vim.fn.system('which wl-paste')
-			local wl_clipboard_found = (vim.v.shell_error == 0)
+			local xclip_found        = vim.fn.executable("xclip")    == 1
+			local wl_clipboard_found = vim.fn.executable("wl-paste") == 1
 
 			if (not xclip_found) and (not wl_clipboard_found) then
 
@@ -58,13 +55,13 @@ local operating_system = {
 			local show_error_message = false
 
 			for _, dep in ipairs(deps) do
-				vim.fn.system('which '..dep)
-				local exists = (vim.v.shell_error == 0)
 
+				local exists = (vim.fn.executable(dep)==1)
 				if(not exists) then
 					show_error_message = true
 					error_message = error_message .. dep .. "\n"
 				end
+
 			end
 
 			if(show_error_message) then
@@ -77,8 +74,9 @@ local operating_system = {
 	Windows_NT = {
 		version = version_check,
         clipboard = function()
-            vim.fn.system('where win32yank')
-            local win32yank_found = (vim.v.shell_error == 0)
+            -- vim.fn.system('where win32yank')
+            -- local win32yank_found = (vim.v.shell_error == 0)
+            local win32yank_found = vim.fn.executable("win32yank") == 1
 
             if (not win32yank_found) then
                 Notify(
@@ -106,9 +104,8 @@ local operating_system = {
             local show_error_message = false
 
             for _, dep in ipairs(deps) do
-                vim.fn.system('where '..dep)
-                local exists = (vim.v.shell_error == 0)
 
+                local exists = vim.fn.executable(dep) == 1 
                 if(not exists) then
                     show_error_message = true
                     error_message = error_message .. dep .. "\n"
@@ -121,16 +118,16 @@ local operating_system = {
 
         end
     },
-	Windows = {}
-
 }
 operating_system.Windows = operating_system.Windows_NT;
 
+if(not No_Dependency_Checks) then
 
-local checks = operating_system[vim.loop.os_uname().sysname]
-if ( checks ~= nil and Supress_check_warnings == false ) then
-	for _, func in pairs(checks) do
-		func()
+	local checks = operating_system[vim.loop.os_uname().sysname]
+	if (checks ~= nil) then
+		for _, func in pairs(checks) do func() end
 	end
+
 end
+
 
