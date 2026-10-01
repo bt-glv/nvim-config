@@ -35,7 +35,7 @@ return {
 		local function path_buffer()
 			local current_file_path = require'oil'.get_current_dir()
 			vim.fn.setreg('+', current_file_path)
-			print("[Oil] BUFFER path copied to the Clipboard")
+			Tools.Global.print_timeout("[Oil] BUFFER path copied to the Clipboard")
 		end
 
 		local function path_entry_under_cursor()
@@ -47,7 +47,7 @@ return {
 
 			local full_path = path .. entry.name
 			vim.fn.setreg("+", full_path)
-			print("[Oil] ENTRY path copied to the Clipboard")
+			Tools.Global.print_timeout("[Oil] ENTRY path copied to the Clipboard")
 		end
 
 		local function path_buffer_relative_to_project()
@@ -56,7 +56,7 @@ return {
 			current_file_path = vim.fn.substitute(current_file_path, "^oil:[/][/]"..cwd,"","g")
 
 			vim.fn.setreg('+', current_file_path)
-			print("[Oil] RELATIVE PATH copied to the Clipboard")
+			Tools.Global.print_timeout("[Oil] RELATIVE PATH copied to the Clipboard")
 		end
 
 		--- CDs to the clipboard path

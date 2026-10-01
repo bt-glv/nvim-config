@@ -22,8 +22,8 @@ local function terminal_and_fileEx()
 	-- Opens file explorer (dolphin) at project location
 	km("n","<leader>rex", ':!dolphin "'..vim.fn.getcwd()..'" & disown<cr><cr>')
 
-	km("n", "<leader>pwc", Tools.Global.pwc)
-	km("n", "<leader>rpwc", Tools.Global.pwc_relative)
+	km("n", "<leader>pwc",  function() Tools.Global:pwc()          end)
+	km("n", "<leader>rpwc", function() Tools.Global:pwc_relative() end)
 
 	km("n","<leader>ex", function()
 		local path = vim.fn.expand('%:p:h')

@@ -42,22 +42,38 @@ end
 
 
 return {
-
 	Global = {
 
-		pwc_relative = function()
+		print_timeout = function(message, timeout)
+			if timeout == nil or timeout == 0 or timeout == "" then
+				timeout = 2000
+			end
+
+			vim.api.nvim_echo({ { message, "Normal" } }, false, {})
+
+			vim.defer_fn(function()
+				vim.api.nvim_echo({ { "", "Normal" } }, false, {})
+			end, timeout)
+
+		end,
+
+		--- Uses 'self'
+		--- Call with `:` instead of `.`
+		pwc_relative = function(self)
 			local current_file_path = vim.fn.expand('%:p')
 			local cwd = vim.fn.getcwd()
 			current_file_path = vim.fn.substitute(current_file_path, "^"..cwd,"","g")
 
 			vim.fn.setreg('+', current_file_path)
-			print("> <<Relative>> File Path Copied to the Clipboard")
+			self.print_timeout("> RELATIVE FILE PATH Copied to the Clipboard")
 		end,
 
-		pwc = function()
+		--- Uses 'self'
+		--- Call with `:` instead of `.`
+		pwc = function(self)
 			local current_file_path = vim.fn.expand('%:p')
 			vim.fn.setreg('+', current_file_path)
-			print("> File Path Copied to the Clipboard")
+			self.print_timeout("> FILE PATH Copied to the Clipboard")
 		end,
 
 		leader_colon = function()
