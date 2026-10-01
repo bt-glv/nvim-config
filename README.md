@@ -30,56 +30,6 @@
 
 </br>
 
-# Installation
-
-- Install GIT.
-- Install all other dependencies.
-- Clone this repository at the neovim config folder. 
-- Wait about 5-10min for the installation to finish (download mason lsp servers, treesitter parsers, etc).
-
-## Install Scripts (w/ backup)
-###  Linux/MacOS
-```bash
-[ -d ~/.config/nvim ] && mv ~/.config/nvim ~/.config/nvim.backup.$(date +%F_%T);
-git clone https://github.com/bt-glv/nvim-config.git ~/.config/nvim;
-```
-
-### Windows
-```powershell
-$nvimPath = "$HOME\AppData\Local\nvim"
-if (Test-Path $nvimPath) {
-    $timestamp = Get-Date -Format "yyyy-MM-dd_HH-mm-ss"
-    Move-Item -Path $nvimPath -Destination "$nvimPath.backup.$timestamp"
-}
-git clone https://github.com/bt-glv/nvim-config.git $nvimPath
-```
-
-</br>
-
-# LSP support
-> (autocomplete)
-
-- By default, this config is configured to use local lsp servers for lua, typescript and nix.
-- That is due to problems installing those servers with <a href='https://github.com/mason-org/mason.nvim'>Mason</a> on NixOS systems.
-- To change this behaviour and manage them automatically with Mason, or add more local lsp servers, see `lsp/settings`.
-
-</br>
-
-# Treesitter
-> (Per language styling and textobjects)
-
-Parsers are installed with <a href="https://github.com/nvim-treesitter/nvim-treesitter">nvim-treesitter</a>.
-
-Configured parsers in this config: `lua, vim, vimdoc, javascript, html, css, typescript, markdown_inline, markdown, latex, java, python, go, c, bash, diff, query, json, xml, yaml, nix`
-
-
-</br>
-
-# Debuggers
-> Currenty a work in progress
-- So far, only delve (go) is set up and working
-
-</br>
 
 # Requirements
 ## Neovim
@@ -105,4 +55,56 @@ Configured parsers in this config: `lua, vim, vimdoc, javascript, html, css, typ
 </ul>
 
 </br>
+
+# LSP support
+> (autocomplete)
+
+- By default, this config is set to use local lsp servers for lua, typescript and nix.
+- That is due to problems installing those servers with <a href='https://github.com/mason-org/mason.nvim'>Mason</a> on NixOS systems.
+- To change this behaviour and manage them automatically with Mason, or add more local lsp servers, see `lsp/settings`.
+
+</br>
+
+# Treesitter
+> (Per language styling and textobjects)
+
+Parsers are installed with <a href="https://github.com/nvim-treesitter/nvim-treesitter">nvim-treesitter</a>.
+
+Configured parsers in this config: `lua, vim, vimdoc, javascript, html, css, typescript, markdown_inline, markdown, latex, java, python, go, c, bash, diff, query, json, xml, yaml, nix`
+
+
+</br>
+
+# Debuggers
+> Currenty a work in progress
+- So far, only delve (go) is set up and working
+
+</br>
+
+# Installation
+- Install GIT.
+- Install all other dependencies listed in this file.
+- Clone this repository at the neovim config folder. 
+- Open neovim and wait about 5-10min for lazy.nvim to finish downloading and installing all plugins.
+
+## Install Scripts (w/ backup)
+###  Linux/MacOS
+```bash
+[ -d ~/.config/nvim ] && mv ~/.config/nvim ~/.config/nvim.backup.$(date +%F_%T);
+git clone https://github.com/bt-glv/nvim-config.git ~/.config/nvim;
+```
+
+### Windows
+```powershell
+$nvimPath = "$HOME\AppData\Local\nvim"
+if (Test-Path $nvimPath) {
+    $timestamp = Get-Date -Format "yyyy-MM-dd_HH-mm-ss"
+    Move-Item -Path $nvimPath -Destination "$nvimPath.backup.$timestamp"
+}
+git clone https://github.com/bt-glv/nvim-config.git $nvimPath
+```
+
+</br>
+
+
 
