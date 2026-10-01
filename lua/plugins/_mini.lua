@@ -82,14 +82,27 @@ return {
 		ai.setup({
 			n_lines = 500,
 			custom_textobjects = {
-				-- Wire Tree-sitter AST queries into mini.ai text objects!
-				o = ai.gen_spec.treesitter({
-					a = { "@block.outer", "@conditional.outer", "@loop.outer" },
-					i = { "@block.inner", "@conditional.inner", "@loop.inner" },
-				}),
+
 				f = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }),
 				c = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }),
 				t = ai.gen_spec.treesitter({ a = "@comment.outer", i = "@comment.outer" }),
+
+				-- Not definitive.
+				-- May integrate this with indentation textobject as a fallback.
+				o = ai.gen_spec.treesitter({ -- Wire Tree-sitter AST queries into mini.ai text objects!
+					a = { "@block.outer", "@conditional.outer", "@loop.outer" },
+					i = { "@block.inner", "@conditional.inner", "@loop.inner" },
+				}),
+
+				-- Not definitive
+				g = function()
+					local from = { line = 1, col = 1 }
+					local to = {
+						line = vim.fn.line('$'),
+						col = math.max(vim.fn.getline('$'):len(), 1),
+					}
+					return { from = from, to = to }
+				end,
 			},
 		})
 
