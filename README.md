@@ -47,11 +47,11 @@
     <li>wget</li>
     <li>unzip</li>
     <li>treesitter-cli</li>
+    <li><a href='https://github.com/sharkdp/fd'>fd</a></li>
+    <li>gcc</li>
     <li>glib (gio) (not installed by default on nixos)</li>
     <li>gtk3 (gtk-launch) (not installed by default on nixos)</li>
     <li>file (not installed by default on nixos)</li>
-    <li><a href='https://github.com/sharkdp/fd'>fd</a></li>
-    <li>gcc</li>
 </ul>
 
 </br>
