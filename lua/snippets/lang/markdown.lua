@@ -17,11 +17,6 @@ return {
 
 
 	-------
-	# duvidas
-
-
-
-	-------
 	# rhs
 
 	>> <> <>
@@ -32,7 +27,14 @@ return {
 	-------
 	# res
 
-	>> TODO
+	>> TODO: escrever resumo
+
+
+
+	-------
+	-------
+	# questões
+
 
 
 	]],
