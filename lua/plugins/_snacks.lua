@@ -63,19 +63,9 @@ vim.api.nvim_create_autocmd(
                 notifier = {
                     enabled = true,
                 },
-                scroll = {
-                    enabled = false,
-                    animate = {
-                        duration = { step = 100, total = 200 },
-                        easing = "linear",
-                    },
-                    -- faster animation when repeating scroll after delay
-                    animate_repeat = {
-                        delay = 70, -- delay in ms before using the repeat animation
-                        duration = { step = 5, total = 50 },
-                        easing = "linear",
-                    },
-                },
+				image = {
+					enabled = true,
+				},
             })
 
 			---@param string string Notification Body
