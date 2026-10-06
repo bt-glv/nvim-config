@@ -12,25 +12,18 @@
 vim.g.mapleader = " "
 
 -- << Remaps by topic >> --
-
 local function terminal_and_fileEx()
-
 	-- Opens terminal emulator and opens neo vim at the current directory
 	km("n","<leader>new", function() OpenNeovim(vim.fn.getcwd()) end)
-
-
 	-- Opens file explorer (dolphin) at project location
 	km("n","<leader>rex", ':!dolphin "'..vim.fn.getcwd()..'" & disown<cr><cr>')
-
 	km("n", "<leader>pwc",  function() Tools.Global:pwc()          end)
 	km("n", "<leader>rpwc", function() Tools.Global:pwc_relative() end)
-
 	km("n","<leader>ex", function()
 		local path = vim.fn.expand('%:p:h')
 		path = vim.fn.substitute(path, "^oil:[/][/]","","g")
 		vim.cmd('silent! !dolphin "'..path..'" & disown')
 	end)
-
 	km("n","<leader>rtew", function() OpenTerminal(vim.fn.getcwd()) end)
 	km("n","<leader>tew", function()
 		local path = vim.fn.expand('%:p:h')
@@ -41,7 +34,6 @@ end
 local function tabs()
 	km("n", "<leader><Right>", ":tabnext<CR>",    { desc = "Next tab"     })
 	km("n", "<leader><Left>", ":tabprevious<CR>", { desc = "Previous tab" })
-
 	km("n", "<leader>tan", ":tabnew<CR>", 	{ desc = "New tab"     })
 	km("n", "<leader>tad", ":tabclose<CR>", { desc = "Close tab"   })
 	km("n", "<leader>1", "1gt",             { desc = "Go to tab 1" })
@@ -60,15 +52,9 @@ local function indent()
 	km("n", "<A-\\>", "i<tab><esc>l")
 	km("n", "<A-cr>", "o<Esc>k")
 end
-local function comments()
-	km({"v","n"},"<leader>cc",":s$^\\(\\s\\| \\)*\\zs\\(.\\)$\\2$g|noh<Left><Left><Left><Left><Left><Left><Left><Left>")
-	km({"v","n"},"<leader>cr",':s$^\\(\\s\\| \\)*\\zs$$g|noh<Left><Left><Left><Left><Left><Left><Left>')
-	-- wasted 20min of my life for this lmao
-end
 local function movement()
 	-- km("v", "J", ":m '>+1<CR>gv=gv")
 	-- km("v", "K", ":m '<-2<CR>gv=gv")
-
 	km("n","J", "mzJ`z")
 	km("n","<C-d>", "<C-d>zz")
 	km("n","<C-u>", "<C-u>zz")
@@ -78,7 +64,6 @@ local function cmd_mode_edit()
 	km({"n","c","i"}, "<c- >",  function() Tools.Global:cmd_line_conditional_toggle() end )
 	km("v","<c- >", ":")
 	-- km({"n","c"}, "<c-;>", "<c-c><c-c><c-c>q:k")
-	--
 	km({"n"}, "<leader>;",  Tools.Global.leader_colon)
 	km({"n", "i"}, "<c-;>", Tools.Global.leader_colon)
 end
@@ -92,20 +77,17 @@ local function terminal_mode_related()
 	km('t', '<C-l><C-l>', [[<C-\><C-N>:lua Tools.Global.clear_term(0)<CR>]],
 	{ desc = "Clear terminal screen" })
 end
-
-
 local function search_and_replace()
 	-- Search and replace last search
 	-- This "nests" search groups if used more than once; not sure if this will be a problem or not
-	km({'v'}, '<leader>/', [[q:is/\(<C-r>/\)//g<Esc>F/i]])
-	km({'n'}, '<leader>/', [[q:i%s/\(<C-r>/\)//g<Esc>F/i]])
+	km({'v'}, '<leader>/', [[q:As/\(<C-r>/\)//g<Esc>F/i]])
+	km({'n'}, '<leader>/', [[q:A%s/\(<C-r>/\)//g<Esc>F/i]])
 
 	-- Gets rid of "line with trailing spaces"
 	km("n","<leader>rr",[[:%s/\v(^[ \t]+$)|([ \t]+$)//g|noh]])
 	km("v","<leader>rr",[[<Esc>:'<,'>s/[ \t]\+$//g|noh]])
 
 end
-
 local function quality_of_life()
 
 	km("n", "i", function()
@@ -209,19 +191,10 @@ local function clipboard_utilities()
 	-- km("n", "<leader>yy", '"+yy',           { desc = "Yank line to system clipboard" })
 	-- km("n", "<leader>dd", '"+dd',           { desc = "Cut line to system clipboard" })
 
-
 	km('n', '<A-r>', '"', 			                { desc = '', noremap = true })
 	km({'i', 'c'}, '<A-r>', '<C-r>', 		        { desc = 'Alternate mapping for <C-r>', noremap = true })
 	km("i", "<A-p>", '<C-r>"', 		                { desc = 'Insert mode: paste " register'})
 	km("i", "<A-S-p>", "<C-r>+", 	                { desc = 'Insert mode: paste + register'})
-
-	-- deprecated - haven't used this for ages
-	-- km("n", "<leader>ayy", '"ayy', 			{ desc = "Yank line to register 'a'" })
-	-- km("n", "<leader>add", '"add', 			{ desc = "Cut line to register 'a'" })
-	-- km("v", "<leader>ay", '"ay', 			{ desc = "Yank selection to register 'a'" })
-	-- km("v", "<leader>ad", '"ad', 			{ desc = "Cut selection to register 'a'" })
-	-- km({"v", "n"}, "<leader>ap", '"ap', 	{ desc = "Paste from register 'a'" })
-
 end
 local function default_buffer_manipulation()
 	km("n", "<leader>bd", ":bd!<CR>")
@@ -241,8 +214,6 @@ local function spell_check()
 	km("n", "z<leader>", "z=", 	{ desc = "Suggest spelling correction" })
 end
 
-
-
 --
 -- << Enabled Remaps by Topic >>
 --
@@ -258,7 +229,6 @@ default_buffer_manipulation()
 cmd_mode_edit()
 tabs()
 terminal_mode_related()
-comments()
 terminal_and_fileEx()
 search_and_replace()
 
