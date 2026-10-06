@@ -3,16 +3,14 @@ return {
     dependencies = { 'nvim-lua/plenary.nvim' },
 
 	keys = {
-		{ "<leader>ff",nil, mode = "n"},
-		{ "<leader>fl",nil, mode = "n"},
-		{ "<leader>fm",nil, mode = "n"},
-		{ "<leader>fr",nil, mode = "n"},
-		{ "<leader>fb",nil, mode = "n"},
-		{ "<leader>fh",nil, mode = "n"},
+		-- { "<leader>ff",nil, mode = "n"},
+		-- { "<leader>fl",nil, mode = "n"},
+		-- { "<leader>fm",nil, mode = "n"},
+		-- { "<leader>fr",nil, mode = "n"},
+		-- { "<leader>fb",nil, mode = "n"},
+		-- { "<leader>fh",nil, mode = "n"},
 	},
-	cmd = {
-		"Telescope"
-	},
+	cmd = { "Telescope" },
 
     config = function()
 
@@ -43,13 +41,12 @@ return {
 
         }
 
-        km("n", "<leader>ff", 	":Telescope find_files<CR>") 	-- finds a file and opens it
-        km("n", "<leader>fl", 	":Telescope live_grep<CR>") 	-- finds files that contain the search
-        km("n", "<leader>fm", 	":Telescope marks<CR>") 		-- finds <<MARKS>>
-        km("n", "<leader>fr", 	":Telescope registers<CR>") 	-- lets you select a register
-        km("n", "<leader>fb", 	":Telescope buffers<CR>") 		-- finds and opens a buffer
-
-        km("n", "<leader>fh", 	":Telescope current_buffer_fuzzy_find<CR>") 		-- finds files that contain a ripgrep match
+        -- km("n", "<leader>ff", 	":Telescope find_files<CR>") 	-- finds a file and opens it
+        -- km("n", "<leader>fl", 	":Telescope live_grep<CR>") 	-- finds files that contain the search
+        -- km("n", "<leader>fm", 	":Telescope marks<CR>") 		-- finds <<MARKS>>
+        -- km("n", "<leader>fr", 	":Telescope registers<CR>") 	-- lets you select a register
+        -- km("n", "<leader>fb", 	":Telescope buffers<CR>") 		-- finds and opens a buffer
+        -- km("n", "<leader>fh", 	":Telescope current_buffer_fuzzy_find<CR>") 		-- finds files that contain a ripgrep match
 
     end
 }
