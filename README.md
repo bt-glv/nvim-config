@@ -40,9 +40,8 @@
 ### Linux
 <ul>
     <li><a href='https://www.nerdfonts.com/'>Pacthed Nerd Fonts Font</a> (Optional)</li>
-    <li><a href='https://alacritty.org/'>Alacritty Terminal Emulator</a> (Optional) (Can be replaced)</li>
-    <li>node.js</li>
-    <li>npm</li>
+    <li>A terminal emulator that supports the kitty graphics protocol</li>
+    <li>node</li>
     <li>ripgrep</li>
     <li>wget</li>
     <li>unzip</li>
@@ -52,8 +51,8 @@
     <li>glib (gio) (not installed by default on nixos)</li>
     <li>gtk3 (gtk-launch) (not installed by default on nixos)</li>
     <li>file (not installed by default on nixos)</li>
+    <li>ImageMagic (Optional. Only required for image rendering)</li>
 </ul>
-
 </br>
 
 # LSP support
