@@ -16,6 +16,10 @@ Disable_lsp = false
 Lsp_servers = require'lsp.servers'
 Lsp_tools   = require'lsp.tools'
 
+--- true: Telescope
+--- false: Snacks.piker
+TelescopeOrSnacks = false
+
 Tools = require('tools')
 
 require('terminal')

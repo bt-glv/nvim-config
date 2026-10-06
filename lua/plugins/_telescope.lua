@@ -1,26 +1,39 @@
+
+local autoload_keys = function() 
+	if not TelescopeOrSnacks then return {} end
+	return {
+		{ "<leader>ff", nil, mode = "n"},
+		{ "<leader>fl", nil, mode = "n"},
+		{ "<leader>fm", nil, mode = "n"},
+		{ "<leader>fr", nil, mode = "n"},
+		{ "<leader>fb", nil, mode = "n"},
+		{ "<leader>fh", nil, mode = "n"},
+	}
+end
+local set_keymaps = function() 
+	if not TelescopeOrSnacks then return  end
+	km("n", "<leader>ff", 	":Telescope find_files<CR>") 	-- finds a file and opens it
+	km("n", "<leader>fl", 	":Telescope live_grep<CR>" ) 	-- finds files that contain the search
+	km("n", "<leader>fm", 	":Telescope marks<CR>"     ) 		-- finds <<MARKS>>
+	km("n", "<leader>fr", 	":Telescope registers<CR>" ) 	-- lets you select a register
+	km("n", "<leader>fb", 	":Telescope buffers<CR>"   ) 		-- finds and opens a buffer
+	km("n", "<leader>fh", 	":Telescope current_buffer_fuzzy_find<CR>") 		-- finds files that contain a ripgrep match
+end
+
 return {
     'nvim-telescope/telescope.nvim',
     dependencies = { 'nvim-lua/plenary.nvim' },
-
-	keys = {
-		-- { "<leader>ff",nil, mode = "n"},
-		-- { "<leader>fl",nil, mode = "n"},
-		-- { "<leader>fm",nil, mode = "n"},
-		-- { "<leader>fr",nil, mode = "n"},
-		-- { "<leader>fb",nil, mode = "n"},
-		-- { "<leader>fh",nil, mode = "n"},
-	},
-	cmd = { "Telescope" },
+	keys         = autoload_keys(),
+	cmd          = { "Telescope" },
 
     config = function()
 
-        local actions = require('telescope.actions')
+        local actions      = require('telescope.actions')
         local action_state = require('telescope.actions.state')
         require('telescope').setup{
 
             defaults = {
                 mappings = {
-
                     i = {
                         ["<C-y>"] = function(prompt_bufnr)
                             local selection = action_state.get_selected_entry()
@@ -30,23 +43,15 @@ return {
                         ["<M-q>"] = 'send_selected_to_qflist',
                         ["<C-Q>"] = 'send_to_qflist',
                     },
-
                     n = {
                         ["<M-q>"] = 'send_selected_to_qflist',
                         ["<C-Q>"] = 'send_to_qflist',
                     }
-
                 },
-            } -- End
-
+            } 
         }
 
-        -- km("n", "<leader>ff", 	":Telescope find_files<CR>") 	-- finds a file and opens it
-        -- km("n", "<leader>fl", 	":Telescope live_grep<CR>") 	-- finds files that contain the search
-        -- km("n", "<leader>fm", 	":Telescope marks<CR>") 		-- finds <<MARKS>>
-        -- km("n", "<leader>fr", 	":Telescope registers<CR>") 	-- lets you select a register
-        -- km("n", "<leader>fb", 	":Telescope buffers<CR>") 		-- finds and opens a buffer
-        -- km("n", "<leader>fh", 	":Telescope current_buffer_fuzzy_find<CR>") 		-- finds files that contain a ripgrep match
+		set_keymaps()
 
     end
 }

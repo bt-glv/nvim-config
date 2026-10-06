@@ -1,34 +1,65 @@
 
+------
+-- Autocmds 
+------
 
+-- Disable indent guides from snacks.indent
 local snacks_autocmd_group = vim.api.nvim_create_augroup("snacks_custom", {clear = true})
 vim.api.nvim_create_autocmd(
 	{ "FileType", "BufFilePost"},
 	{
-		group = snacks_autocmd_group,
-		pattern = '*',
+		group    = snacks_autocmd_group,
+		pattern  = '*',
 		callback = function(args)
-
-			local ignore = {
-				markdown = true,
-			}
-
+			local ignore = { markdown = true, }
 			if(ignore[vim.bo[args.buf].filetype] == true) then
 				vim.b[args.buf].snacks_indent = false
 			end
-
-			-- vim.notify('callback: '..args.buf..'  -   '..vim.bo[args.buf].filetype)
 		end,
 	}
 )
 
-km('n', '<leader><CR>', function() require('snacks').notifier.show_history() end)
+
+-------
+-- Constants
+-------
+
+local Snacks = require('snacks')
+
+
+-------
+-- Keymap function definitions
+-------
+
+local picker_keymaps = function()
+	if TelescopeOrSnacks then return end
+
+	km("n", "<leader>ff", 	function() Snacks.picker.smart() 		    end)
+	-- km("n", "<leader>ff", 	function() Snacks.picker.files() 		end) 
+	km("n", "<leader>fb", 	function() Snacks.picker.buffers() 		    end)
+	km("n", "<leader>fl", 	function() Snacks.picker.grep() 		    end)
+	km("n", "<leader>fr", 	function() Snacks.picker.registers() 	    end)
+	km("n", "<leader>fu", 	function() Snacks.picker.undo()             end)
+	km("n", "<leader>fm", 	function() Snacks.picker.marks()            end)
+	-- km("n", "<leader>fh", 	function() end) -- WIP: current buffer fuzzy find
+end
+local notifyer_keymaps = function()
+	km('n', '<leader><CR>', function() Snacks.notifier.show_history() end)
+end
+
+
+------
+-- Plugin config object
+------
+
 return {
 	"folke/snacks.nvim",
 	priority = 1000,
 	lazy     = false,
 	config   = function()
-		local snacks = require('snacks')
-		snacks.setup({
+
+		Snacks.setup({
+
 			indent = {
 				priority     = 1,
 				enabled      = true,
@@ -37,6 +68,7 @@ return {
 				only_current = false, -- only show indent guides in the current window
 				hl           = "SnacksIndent", ---@type string|string[] hl groups for indent guides
 			},
+
 			animate = {
 				enabled  = false,
 				style    = "out",
@@ -46,6 +78,7 @@ return {
 					total = 500, -- maximum duration
 				},
 			},
+
 			chunk = {
 				enabled      = false,
 				only_current = false,
@@ -59,9 +92,11 @@ return {
 					arrow         = ">",
 				},
 			},
+
 			notifier = {
 				enabled = true,
 			},
+
 			image = {
 				enabled = true,
 				doc = {
@@ -69,21 +104,25 @@ return {
 					float      = true,
 					max_width  = 80,
 					max_height = 40,
-				}
+				},
+				-- Images must be placed in a folder with one of the following names at the root of the current working directory
+				img_dirs = {
+					"img",
+					"images",
+					"assets",
+					"static",
+					"public",
+					"media",
+					"attachments"
+				},
+				math = {
+					enabled = true,
+				},
 			},
-			-- Images must be placed in a folder with one of the following names at the root of the current working directory
-			img_dirs = {
-				"img",
-				"images",
-				"assets",
-				"static",
-				"public",
-				"media",
-				"attachments" 
-			},
-			math = {
-				enabled = true, 
-			},
+
+			picker = {
+				enabled = not TelescopeOrSnacks,
+			}
 		})
 
 		---@param string string Notification Body
@@ -96,10 +135,17 @@ return {
 			priority      = priority or 6
 			opts['title'] = opts['title'] or 'Notify'
 
-			--fun(msg: string, level?: snacks.notifier.level|number, opts?: snacks.notifier.Notif.opts): number|string
-			snacks.notifier(string, priority, opts)
+			--fun(msg: string, level?: Snacks.notifier.level|number, opts?: Snacks.notifier.Notif.opts): number|string
+			Snacks.notifier(string, priority, opts)
 		end
+		
 
+		-------
+		-- Keymap functions calls
+		-------
+
+		picker_keymaps()
+		notifyer_keymaps()
 	end
 
 }
