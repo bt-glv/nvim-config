@@ -1,3 +1,300 @@
+------
+-- Arbitrary functions
+------
+
+vim.g.oil_toggle = false
+local function oil_toggle_full_view()
+	local oil = require('oil')
+	if not vim.g.oil_toggle then
+		oil.set_columns({ "icon", "permissions", "size", "mtime" })
+		vim.g.oil_toggle=true
+		return
+	end
+	oil.set_columns({ "icon" })
+	vim.g.oil_toggle=false
+end
+
+local function working_directory_here()
+	if not vim.b.current_syntax == 'oil' then return end
+	local path = vim.fn.substitute(vim.fn.expand("%:h"), [[^oil:[/]\?[/]\?]],"","g")
+	vim.fn.chdir(path)
+	Notify("New Working Directory:\n"..path, 3, {Title = "[Oil]"})
+end
+
+--- Copies oil buffer's path to the clipboard
+local function path_buffer()
+	local current_file_path = require'oil'.get_current_dir()
+	vim.fn.setreg('+', current_file_path)
+	Tools.Global.print_timeout("[Oil] BUFFER path copied to the Clipboard")
+end
+
+local function path_entry_under_cursor()
+	local oil   = require("oil")
+	local entry = oil.get_cursor_entry()
+	local path  = oil.get_current_dir()
+
+	if not entry or not path then return end
+
+	local full_path = path .. entry.name
+	vim.fn.setreg("+", full_path)
+	Tools.Global.print_timeout("[Oil] ENTRY path copied to the Clipboard")
+end
+
+local function path_buffer_relative_to_project()
+	local current_file_path = vim.fn.expand('%:p:h')
+	local cwd = vim.fn.getcwd()
+	current_file_path = vim.fn.substitute(current_file_path, "^oil:[/][/]"..cwd,"","g")
+
+	vim.fn.setreg('+', current_file_path)
+	Tools.Global.print_timeout("[Oil] RELATIVE PATH copied to the Clipboard")
+end
+
+--- CDs to the clipboard path
+--- [!Attention] no input sanitization
+local function path_goto()
+	local clipboard = vim.fn.getreg('+')
+	clipboard = vim.fn.substitute(clipboard, [[\_s$]],"","g")
+	require("oil").open(clipboard)
+end
+
+
+
+-------
+-- Snacks pickers
+-------
+
+--- Searches for directories only and opens the selection in oil.nvim
+local function snacks_goto_folder()
+    Snacks.picker.files({
+        title = "Go to folder",
+        cmd = "fd",
+        args = { "-t", "d", "--hidden", "--exclude", ".git" },
+        confirm = function(picker, item)
+            picker:close()
+            if not item then return end
+
+            local dir = vim.fs.joinpath(vim.fn.getcwd(), item.file or item.text)
+            require("oil").open(dir)
+        end,
+    })
+end
+
+--- Searches for a file and opens its parent directory in oil.nvim
+local function snacks_goto_file_folder()
+    Snacks.picker.files({
+        title = "Go to file folder",
+        cmd = "fd",
+        args = { "--hidden", "--exclude", ".git" },
+        confirm = function(picker, item)
+            picker:close()
+            if not item then return end
+
+            local file_path = vim.fs.joinpath(vim.fn.getcwd(), item.file or item.text)
+            local target_dir = vim.fs.dirname(file_path)
+            require("oil").open(target_dir)
+        end,
+    })
+end
+
+--- Opens current Oil entry in an external Linux program
+local function snacks_open_in_external_program()
+    if (SystemOS ~= "Linux") then return end
+
+    local oil   = require("oil")
+    local entry = oil.get_cursor_entry()
+    local dir   = oil.get_current_dir()
+
+    if not entry or not dir then
+        Notify("No file selected", vim.log.levels.WARN)
+        return
+    end
+
+    local file_path = dir .. entry.name
+    local apps      = Tools.Linux.get_apps(file_path)
+
+    local items = {}
+    for _, app in ipairs(apps) do
+        table.insert(items, {
+            text  = app.name,
+            value = app,
+        })
+    end
+
+    Snacks.picker({
+        title = "Open With (Linux Apps)",
+        items = items,
+        format = "text",
+        confirm = function(picker, item)
+            picker:close()
+            if not item then return end
+
+            local app = item.value
+            local spawn_cmd
+
+            if app.desktop then
+                if vim.fn.executable("gtk-launch") == 1 then
+                    spawn_cmd = { "gtk-launch", app.desktop, file_path }
+                else
+                    spawn_cmd = { "gio", "launch", app.desktop, file_path }
+                end
+            else
+                spawn_cmd = app.cmd
+            end
+
+            -- non-blocking error message
+            vim.system(spawn_cmd, { detach = true }, function(obj)
+                if obj.code ~= 0 and obj.stderr and #obj.stderr > 0 then
+                    vim.schedule(function()
+                        vim.notify("Error: " .. obj.stderr, vim.log.levels.ERROR)
+                    end)
+                end
+            end)
+
+            vim.notify("Opening with " .. app.name .. "...")
+        end,
+    })
+end
+
+
+-------
+-- Telescope pickers
+-------
+
+local function telescope_goto_folder()
+	local cwd 			= vim.fn.getcwd()
+	local actions 		= require("telescope.actions"      )
+	local action_state 	= require("telescope.actions.state")
+	local pickers 		= require("telescope.pickers"      )
+	local finders 		= require("telescope.finders"      )
+	local config 		= require("telescope.config"       ).values
+
+
+	pickers.new({}, {
+		prompt_title = "Go to folder",
+		finder = finders.new_oneshot_job({ "fd", "-t", "d", "--hidden", "--exclude", ".git"}, { cwd = vim.fn.getcwd() }),
+		sorter = config.generic_sorter({}),
+
+		attach_mappings = function(prompt_bufnr, _)
+			actions.select_default:replace(function()
+				actions.close(prompt_bufnr)
+				local results = vim.fn.getcwd().."/"..action_state.get_selected_entry()[1]
+				require("oil").open(results)
+			end)
+			return true
+		end,
+	}):find()
+end
+
+
+--- Searches for a file and CDs into its folder
+local function telescope_goto_file_folder()
+	local cwd 			= vim.fn.getcwd()
+	local actions 		= require("telescope.actions")
+	local action_state 	= require("telescope.actions.state")
+	local pickers 		= require("telescope.pickers")
+	local finders 		= require("telescope.finders")
+	local config 		= require("telescope.config").values
+
+
+	pickers.new({}, {
+		prompt_title = "Go to file folder",
+		finder = finders.new_oneshot_job({ "fd", "--hidden", "--exclude", ".git" }, { cwd = vim.fn.getcwd() }),
+		sorter = config.generic_sorter({}),
+
+		attach_mappings = function(prompt_bufnr, _)
+			actions.select_default:replace(function()
+				actions.close(prompt_bufnr)
+
+				local pick = action_state.get_selected_entry()[1]
+				pick = vim.fn.substitute(pick, [[[/][^/]\+$]], "", "g" )
+
+				local results = vim.fn.getcwd().."/"..pick
+				require("oil").open(results)
+			end)
+			return true
+		end,
+	}):find()
+end
+
+-- TODO
+local function telescope_open_in_external_program()
+	if (SystemOS ~= "Linux") then return end
+
+	local oil   = require("oil")
+	local entry = oil.get_cursor_entry()
+	local dir   = oil.get_current_dir()
+
+	if not entry or not dir then
+		Notify("No file selected", vim.log.levels.WARN)
+		return
+	end
+
+	local file_path = dir .. entry.name
+	local apps      = Tools.Linux.get_apps(file_path)
+
+	local pickers      = require("telescope.pickers")
+	local finders      = require("telescope.finders")
+	local conf         = require("telescope.config").values
+	local actions      = require("telescope.actions")
+	local action_state = require("telescope.actions.state")
+
+	pickers.new({}, {
+		prompt_title = "Open With (Linux Apps)",
+
+		finder = finders.new_table({
+			results     = apps,
+			entry_maker = function(item)
+				return {
+					value   = item,
+					display = item.name,
+					ordinal = item.name,
+				}
+			end,
+		}),
+
+		sorter = conf.generic_sorter({}),
+
+		attach_mappings = function(prompt_bufnr, _)
+			actions.select_default:replace(function()
+
+				actions.close(prompt_bufnr)
+				local selection = action_state.get_selected_entry()
+				if not selection then return end
+
+				local item = selection.value
+				local spawn_cmd
+
+				if item.desktop then
+					if vim.fn.executable("gtk-launch") == 1 then
+						spawn_cmd = { "gtk-launch", item.desktop, file_path }
+					else
+						spawn_cmd = { "gio", "launch", item.desktop, file_path }
+					end
+				else
+					spawn_cmd = item.cmd
+				end
+
+				-- non blocking erro message
+				vim.system(spawn_cmd, { detach = true }, function(obj)
+					if obj.code ~= 0 and obj.stderr and #obj.stderr > 0 then
+						vim.schedule(function()
+							vim.notify("Error: " .. obj.stderr, vim.log.levels.ERROR)
+						end)
+					end
+				end)
+
+				vim.notify("Opening with " .. item.name .. "...")
+			end)
+			return true
+		end,
+	}):find()
+
+end
+
+
+--------
+-- Plugin config object
+--------
 
 return {
     'stevearc/oil.nvim',
@@ -24,199 +321,7 @@ return {
             vim.cmd('qa!')
         end
 
-		local function working_directory_here()
-			if not vim.b.current_syntax == 'oil' then return end
-			local path = vim.fn.substitute(vim.fn.expand("%:h"), [[^oil:[/]\?[/]\?]],"","g")
-			vim.fn.chdir(path)
-			Notify("New Working Directory:\n"..path, 3, {Title = "[Oil]"})
-		end
-
-		--- Copies oil buffer's path to the clipboard
-		local function path_buffer()
-			local current_file_path = require'oil'.get_current_dir()
-			vim.fn.setreg('+', current_file_path)
-			Tools.Global.print_timeout("[Oil] BUFFER path copied to the Clipboard")
-		end
-
-		local function path_entry_under_cursor()
-			local oil   = require("oil")
-			local entry = oil.get_cursor_entry()
-			local path  = oil.get_current_dir()
-
-			if not entry or not path then return end
-
-			local full_path = path .. entry.name
-			vim.fn.setreg("+", full_path)
-			Tools.Global.print_timeout("[Oil] ENTRY path copied to the Clipboard")
-		end
-
-		local function path_buffer_relative_to_project()
-			local current_file_path = vim.fn.expand('%:p:h')
-			local cwd = vim.fn.getcwd()
-			current_file_path = vim.fn.substitute(current_file_path, "^oil:[/][/]"..cwd,"","g")
-
-			vim.fn.setreg('+', current_file_path)
-			Tools.Global.print_timeout("[Oil] RELATIVE PATH copied to the Clipboard")
-		end
-
-		--- CDs to the clipboard path
-		--- [!Attention] no input sanitization
-		local function path_goto()
-			local clipboard = vim.fn.getreg('+')
-			clipboard = vim.fn.substitute(clipboard, [[\_s$]],"","g")
-			require("oil").open(clipboard)
-		end
-
-
-		--- Searches for a folder and CDs into it
-		local function telescope_goto_folder()
-			local cwd 			= vim.fn.getcwd()
-			local actions 		= require("telescope.actions"      )
-			local action_state 	= require("telescope.actions.state")
-			local pickers 		= require("telescope.pickers"      )
-			local finders 		= require("telescope.finders"      )
-			local config 		= require("telescope.config"       ).values
-
-
-			pickers.new({}, {
-				prompt_title = "Go to folder",
-				finder = finders.new_oneshot_job({ "fd", "-t", "d", "--hidden", "--exclude", ".git"}, { cwd = vim.fn.getcwd() }),
-				sorter = config.generic_sorter({}),
-
-				attach_mappings = function(prompt_bufnr, _)
-					actions.select_default:replace(function()
-						actions.close(prompt_bufnr)
-						local results = vim.fn.getcwd().."/"..action_state.get_selected_entry()[1]
-						require("oil").open(results)
-					end)
-					return true
-				end,
-			}):find()
-		end
-
-
-		--- Searches for a file and CDs into its folder
-		local function telescope_goto_file_folder()
-			local cwd 			= vim.fn.getcwd()
-			local actions 		= require("telescope.actions")
-			local action_state 	= require("telescope.actions.state")
-			local pickers 		= require("telescope.pickers")
-			local finders 		= require("telescope.finders")
-			local config 		= require("telescope.config").values
-
-
-			pickers.new({}, {
-				prompt_title = "Go to file folder",
-				finder = finders.new_oneshot_job({ "fd", "--hidden", "--exclude", ".git" }, { cwd = vim.fn.getcwd() }),
-				sorter = config.generic_sorter({}),
-
-				attach_mappings = function(prompt_bufnr, _)
-					actions.select_default:replace(function()
-						actions.close(prompt_bufnr)
-
-						local pick = action_state.get_selected_entry()[1]
-						pick = vim.fn.substitute(pick, [[[/][^/]\+$]], "", "g" )
-
-						local results = vim.fn.getcwd().."/"..pick
-						require("oil").open(results)
-					end)
-					return true
-				end,
-			}):find()
-		end
-
-		-- TODO
-		local function telescope_open_in_external_program()
-			if (SystemOS ~= "Linux") then return end
-
-			local oil   = require("oil")
-			local entry = oil.get_cursor_entry()
-			local dir   = oil.get_current_dir()
-
-			if not entry or not dir then
-				Notiy("No file selected", vim.log.levels.WARN)
-				return
-			end
-
-			local file_path = dir .. entry.name
-			local apps      = Tools.Linux.get_apps(file_path)
-
-			local pickers      = require("telescope.pickers")
-			local finders      = require("telescope.finders")
-			local conf         = require("telescope.config").values
-			local actions      = require("telescope.actions")
-			local action_state = require("telescope.actions.state")
-
-			pickers.new({}, {
-				prompt_title = "Open With (Linux Apps)",
-
-				finder = finders.new_table({
-					results     = apps,
-					entry_maker = function(item)
-						return {
-							value   = item,
-							display = item.name,
-							ordinal = item.name,
-						}
-					end,
-				}),
-
-				sorter = conf.generic_sorter({}),
-
-				attach_mappings = function(prompt_bufnr, _)
-					actions.select_default:replace(function()
-
-						actions.close(prompt_bufnr)
-						local selection = action_state.get_selected_entry()
-						if not selection then return end
-
-						local item = selection.value
-						local spawn_cmd
-
-						if item.desktop then
-							if vim.fn.executable("gtk-launch") == 1 then
-								spawn_cmd = { "gtk-launch", item.desktop, file_path }
-							else
-								spawn_cmd = { "gio", "launch", item.desktop, file_path }
-							end
-						else
-							spawn_cmd = item.cmd
-						end
-
-						-- non blocking erro message
-						vim.system(spawn_cmd, { detach = true }, function(obj)
-							if obj.code ~= 0 and obj.stderr and #obj.stderr > 0 then
-								vim.schedule(function()
-									vim.notify("Error: " .. obj.stderr, vim.log.levels.ERROR)
-								end)
-							end
-						end)
-
-						vim.notify("Opening with " .. item.name .. "...")
-					end)
-					return true
-				end,
-			}):find()
-
-		end
-
-		vim.g.oil_toggle = false
-		local function oil_toggle_full_view()
-
-			local oil = require('oil')
-			if not vim.g.oil_toggle then
-				oil.set_columns({ "icon", "permissions", "size", "mtime" })
-				vim.g.oil_toggle=true
-				return
-			end
-			oil.set_columns({ "icon" })
-			vim.g.oil_toggle=false
-		end
-
-		km('n', '<leader>-', telescope_goto_file_folder)
-		km('n', '<leader>=', telescope_goto_folder)
-
-
+		-- plugin setup
 		require("oil").setup({
 			default_file_explorer = true,
 
@@ -383,7 +488,11 @@ return {
 			},
 		})
 
+		-- keymaps
+		km('n', '<leader>-', telescope_goto_file_folder)
+		km('n', '<leader>=', telescope_goto_folder)
 		vim.keymap.set("n", "-", "<CMD>Oil<CR>",          { desc = "Open parent directory" })
 		vim.keymap.set("n", "<leader>vp", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+
 	end
 }

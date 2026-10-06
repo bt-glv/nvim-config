@@ -21,21 +21,16 @@ vim.api.nvim_create_autocmd(
 
 
 -------
--- Constants
--------
-
-local Snacks = require('snacks')
-
-
--------
 -- Keymap function definitions
 -------
 
 local picker_keymaps = function()
 	if TelescopeOrSnacks then return end
 
-	km("n", "<leader>ff", 	function() Snacks.picker.smart() 		    end)
-	-- km("n", "<leader>ff", 	function() Snacks.picker.files() 		end) 
+	local Snacks = require('snacks')
+
+	km("n", "<leader>fs", 	function() Snacks.picker.smart() 		    end)
+	km("n", "<leader>ff", 	function() Snacks.picker.files() 		    end) 
 	km("n", "<leader>fb", 	function() Snacks.picker.buffers() 		    end)
 	km("n", "<leader>fl", 	function() Snacks.picker.grep() 		    end)
 	km("n", "<leader>fr", 	function() Snacks.picker.registers() 	    end)
@@ -58,6 +53,7 @@ return {
 	lazy     = false,
 	config   = function()
 
+		local Snacks = require('snacks')
 		Snacks.setup({
 
 			indent = {
@@ -135,7 +131,7 @@ return {
 			priority      = priority or 6
 			opts['title'] = opts['title'] or 'Notify'
 
-			--fun(msg: string, level?: Snacks.notifier.level|number, opts?: Snacks.notifier.Notif.opts): number|string
+			-- fun(msg: string, level?: Snacks.notifier.level|number, opts?: Snacks.notifier.Notif.opts): number|string
 			Snacks.notifier(string, priority, opts)
 		end
 		
