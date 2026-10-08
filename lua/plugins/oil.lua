@@ -66,6 +66,7 @@ end
 --- Searches for directories only, streaming results live into the picker
 local function snacks_goto_folder()
     local cwd = vim.fn.getcwd() -- Evaluated on the main thread
+	local Snacks = require('snacks')
 
     Snacks.picker.files({
         title = "Go to folder",
@@ -91,6 +92,7 @@ end
 
 --- Searches for a file and opens its parent directory in oil.nvim, streams results live into the picker
 local function snacks_goto_file_folder()
+	local Snacks = require('snacks')
     Snacks.picker.files({
         title = "Go to file folder",
         cmd = "fd",
@@ -109,6 +111,7 @@ end
 --- Opens current Oil entry in an external Linux program
 local function snacks_open_in_external_program()
     if (SystemOS ~= "Linux") then return end
+	local Snacks = require('snacks')
 
     local oil   = require("oil")
     local entry = oil.get_cursor_entry()
