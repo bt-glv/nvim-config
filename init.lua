@@ -19,6 +19,8 @@ Lsp_tools   = require'lsp.tools'
 --- true: Telescope
 --- false: Snacks.piker
 TelescopeOrSnacks = false
+-- Snacks.picker depends on pre-compiled code.
+-- It might not work on non x86 systems.
 
 Tools = require('tools')
 
