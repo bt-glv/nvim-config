@@ -1,6 +1,6 @@
 
 ------
--- Autocmds 
+-- Autocmds
 ------
 
 -- Disable indent guides from snacks.indent
@@ -21,6 +21,56 @@ vim.api.nvim_create_autocmd(
 
 
 -------
+-- Custom pickers
+-------
+
+local function spellsuggest_picker()
+	local word = vim.fn.expand("<cword>")
+	if not word or word == "" then
+		vim.notify("No word under cursor", vim.log.levels.WARN)
+		return
+	end
+
+	local suggestions = vim.fn.spellsuggest(word, 25)
+	if #suggestions == 0 then
+		vim.notify("No spelling suggestions for: " .. word, vim.log.levels.INFO)
+		return
+	end
+
+	local items = {}
+	for idx, s in ipairs(suggestions) do
+		table.insert(items, {
+			idx = idx,
+			word = s,
+			-- snacks matches against `text`: include both index and word
+			text = string.format("%d %s", idx, s),
+		})
+	end
+
+	Snacks.picker({
+		title = 'Spelling: "' .. word .. '"',
+		items = items,
+		format = function(item)
+			return {
+				{ string.format("%2d. ", item.idx), "Comment" },
+				{ item.word, "Normal" },
+			}
+		end,
+		layout = {
+			preset = "select",
+		},
+		confirm = function(picker, item)
+			picker:close()
+			if item and item.word then
+				-- item.word is completely untouched and clean
+				vim.cmd('normal! "_ciw' .. item.word)
+			end
+		end,
+	})
+end
+
+
+-------
 -- Keymap function definitions
 -------
 
@@ -30,7 +80,7 @@ local picker_keymaps = function()
 	local Snacks = require('snacks')
 
 	km("n", "<leader>fs", 	function() Snacks.picker.smart() 		    end)
-	km("n", "<leader>ff", 	function() Snacks.picker.files() 		    end) 
+	km("n", "<leader>ff", 	function() Snacks.picker.files() 		    end)
 	km("n", "<leader>fb", 	function() Snacks.picker.buffers() 		    end)
 	km("n", "<leader>fl", 	function() Snacks.picker.grep() 		    end)
 	km("n", "<leader>fr", 	function() Snacks.picker.registers() 	    end)
@@ -134,15 +184,15 @@ return {
 			-- fun(msg: string, level?: Snacks.notifier.level|number, opts?: Snacks.notifier.Notif.opts): number|string
 			Snacks.notifier(string, priority, opts)
 		end
-		
+
 
 		-------
-		-- Keymap functions calls
+		-- Keymap functions calls / keymap definitions
 		-------
 
 		picker_keymaps()
 		notifyer_keymaps()
+		vim.keymap.set("n", "z<leader>", spellsuggest_picker, { desc = "Snacks Spell Suggest" })
 	end
-
 }
 
