@@ -63,23 +63,33 @@ end
 -- Snacks pickers
 -------
 
---- Searches for directories only and opens the selection in oil.nvim
+--- Searches for directories only, streaming results live into the picker
 local function snacks_goto_folder()
+    local cwd = vim.fn.getcwd() -- Evaluated on the main thread
+
     Snacks.picker.files({
         title = "Go to folder",
         cmd = "fd",
         args = { "-t", "d", "--hidden", "--exclude", ".git" },
+        transform = function(item)
+            local full_path = vim.fs.joinpath(cwd, item.file)
+            local stat = vim.uv.fs_stat(full_path)
+            if not stat or stat.type ~= "directory" then
+                return false -- Discards regular files on the fly
+            end
+            return item
+        end,
         confirm = function(picker, item)
             picker:close()
             if not item then return end
 
-            local dir = vim.fs.joinpath(vim.fn.getcwd(), item.file or item.text)
+            local dir = vim.fs.joinpath(cwd, item.file or item.text)
             require("oil").open(dir)
         end,
     })
 end
 
---- Searches for a file and opens its parent directory in oil.nvim
+--- Searches for a file and opens its parent directory in oil.nvim, streams results live into the picker
 local function snacks_goto_file_folder()
     Snacks.picker.files({
         title = "Go to file folder",
@@ -361,6 +371,36 @@ return {
 			-- attention: might cause problems
 			watch_for_changes = true,
 			keymaps = {
+
+				-- todo: change the callback dynamically
+				["<leader>="] = {
+					-- callback = telescope_goto_folder,
+					callback = (function() 
+						if TelescopeOrSnacks then
+							return telescope_goto_folder
+						end
+							return snacks_goto_folder
+					end)(),
+					desc = "Telescope: CDs into the selected folder.",
+				},
+				["<leader>-"] = {
+					callback = (function()
+						if TelescopeOrSnacks then
+							return telescope_goto_file_folder
+						end
+						return snacks_goto_file_folder
+					end)() ,
+					desc = "Telescope: CDs into the selected file's folder.",
+				},
+				["<A-CR>"] = {
+					callback = (function()
+						if TelescopeOrSnacks then
+							return telescope_open_in_external_program
+						end
+						return snacks_open_in_external_program
+					end)(),
+					desc = "Telescope: pick external program to open file.",
+				},
 				["<leader>pg"]   =  {
 					callback = path_goto ,
 					desc = "CDs do the path in clipbard.",
@@ -377,23 +417,11 @@ return {
 					callback = path_buffer_relative_to_project,
 					desc = "Copy the buffer's path relative to the project folder.",
 				},
-				["<leader>="]    =  {
-					callback = telescope_goto_folder ,
-					desc = "Telescope: CDs into the selected folder.",
-				},
-				["<leader>-"]    =  {
-					callback = telescope_goto_file_folder ,
-					desc = "Telescope: CDs into the selected file's folder.",
-				},
 				["<CR>"]         =  "actions.select",
 				["<leader>cd"]   =  working_directory_here,
 				["<C-s>"]        =  {
 					callback = oil_toggle_full_view ,
 					desc = "Toggle details.",
-				},
-				["<A-CR>"] = {
-					callback = telescope_open_in_external_program,
-					desc = "Telescope: pick external program to open file.",
 				},
 				["<C-CR>"] = "actions.open_external",
 
