@@ -26,7 +26,7 @@
 - fix(mini.surround):
     - not working as expected; maybe change back to surround.vim
 
-- feat: add a nix flake with a devshell to run this confing
+- feat: add a nix flake with a devshell to run this config
     - maybe even manage all files with home manager?
 
 - feat: <leader-/> make it a snippet
@@ -36,11 +36,15 @@
 
 - feat: add toggleterm.nvim
 
+- **investigate the unintended sudden appearance  of a snacks picker when using `gra` (lsp code actions)**.
+
+
 
 ------
 # DONE
 > 41
 
+-  feat(snacks): create a snacks picker for spell check suggestions
 - feat: add a way to toggle treesitter context
 - feat(lsp): change the hover window's background color or add borders
 - fix: <leader>Y for "+Y
