@@ -2,7 +2,6 @@
 
 </br>
 
-
 # Current state of things
 ### Linux
 #### Arch Debian Fedora OpenSUSE
@@ -52,11 +51,11 @@
     <li>gtk3 (gtk-launch) (not installed by default on nixos)</li>
     <li>file (not installed by default on nixos)</li>
     <li>ImageMagic (Optional. Only required for image rendering)</li>
+    <li>Ghostscript (Optional. Only required for pdf preview rendering)</li>
 </ul>
 </br>
 
-# LSP support
-> (autocomplete)
+# LSP support (autocomplete)
 
 - By default, this config is set to use local lsp servers for lua, typescript and nix.
 - That is due to problems installing those servers with <a href='https://github.com/mason-org/mason.nvim'>Mason</a> on NixOS systems.
@@ -104,6 +103,3 @@ git clone https://github.com/bt-glv/nvim-config.git $nvimPath
 ```
 
 </br>
-
-
-
